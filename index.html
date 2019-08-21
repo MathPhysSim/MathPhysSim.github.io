@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>Simon's stuff</title>
+  <title>NGE</title>
   <link href="css/main.css" media="screen" rel="stylesheet" type="text/css"/>
   <link href="css/index.css" media="screen" rel="stylesheet" type="text/css"/>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -15,13 +15,13 @@
       <tr>
         <td>
           <div class="logo">
-            <a href="javascript:void(0)">My test page</a>
+            <a href="javascript:void(0)">Neural Graph Evolution</a>
           </div>
         </td>
         <td>
           <div class="menu-items">
             <a href="index.html" class="menu-highlight">Overview</a>
-            <a target="_blank" href="https://github.com/MathPhysSim">GitHub</a>
+            <a target="_blank" href="https://github.com/WilsonWangTHU/neural_graph_evolution">GitHub</a>
           </div>
         </td>
       </tr>
@@ -29,41 +29,384 @@
   </div>
 </div>
 
+
+
 <div class="content-container">
   <div class="content">
     <table class="content-table">
+
       <tr>
         <td colspan="2">
           <center>
             <h2>
-              What I do: <br>
+              Neural Graph Evolution <br>
+              Towards Efficient Automatic Robot Design  
             </h2>
             
           </center>
         </td>
       </tr>
+      
       <tr>
         <td colspan="2">
-        <ul>
-          <li>Applied black box optimization</li>
-          <li>Reinforcement learning</li>
-          <li>Deep learning</li>
-          <li>Mathematical physics mainly potential theory</li>
-          <li>Some software developement</li>
-        </ul>
-      </td>
+          <p class="text text-center text-large">
+            <a target="_blank" href="http://www.cs.toronto.edu/~tingwuwang/">Tingwu Wang*</a>
+            <a target="_blank" href="https://henryzhou7.github.io/">Yuhao Zhou*</a>, 
+            <a target="_blank" href="http://www.cs.utoronto.ca/~fidler/index.html">Sanja Fidler</a>,
+            <a target="_blank" href="https://jimmylba.github.io/">Jimmy Ba</a> <br>
+            {tingwuwang, henryzhou, fidler, jba} @ cs.toronto.edu <br>
+            <a target="_blank" href="https://www.utoronto.ca/">University of Toronto, Canada</a> <br>
+            <a target='_blank' href='https://vectorinstitute.ai/'>Vector Institute</a> <br>
+
+
+          </p>
+          <p class="text text-justify">
+            Despite the recent successes in robotic locomotion control, the design of robot relies heavily on human engineering. 
+            Automatic robot design has been a long studied subject, but the recent progress has been slowed due to the large combinatorial search space and the difficulty in evaluating the found candidates. 
+            To address the two challenges, we formulate automatic robot design as a graph search problem and perform evolution search in graph space. 
+            We propose Neural Graph Evolution (NGE), which performs selection on current candidates and evolves new ones iteratively. 
+            Different from previous approaches, NGE uses graph neural networks to parameterize the control policies, which reduces evaluation cost on new candidates with the help of skill transfer from previously evaluated designs. 
+            In addition, NGE applies Graph Mutation with Uncertainty (GM-UC) by incorporating model uncertainty, which reduces the search space by balancing exploration and exploitation. 
+            We show that NGE significantly outperforms previous methods by an order of magnitude. 
+            As shown in experiments, NGE is the first algorithm that can automatically discover kinematically preferred robotic graph structures, such as a fish with two symmetrical flat side-fins and a tail, or a cheetah with athletic front and back legs. 
+            Instead of using thousands of cores for weeks, NGE efficiently solves searching problem within a day on a single 64 CPU-core Amazon EC2 machine.
+
+          </p>
+        </td>
+      </tr>
+      
+      <tr>
+        
+
+        <td>
+          <img src="img/nge/nge_genealogy_fish.png"  height="240">
+        </td>
+        <td>
+          <img src="img/nge/nge_learning_curve_fish.png" height="240">
+        </td>
+      </tr>
+
+        
+
+      <tr style='width: 100%'>
+        <td>
+          <p>
+            <br>
+          </p>
+        </td>
+      </tr>
+
+      
+      <tr class='bordered'>
+        <td colspan="2">
+          <hr>
+          <h2>Paper</h2>
+        </td>
+      </tr>
+      
+      <tr>
+        
+        <td colspan='1'>
+          <p align='left'>
+            <b>Citation:</b> <br>
+            Tingwu Wang*, Yuhao Zhou*, Sanja Fidler, and Jimmy Ba <br>
+            <b>Neural Graph Evolution: Towards Efficient Automatic Robot Design</b>
+            <br>
+            
+          </p>
+          <p>
+            <a href="">Paper PDF [9.5 MB]</a> | 
+            <a href="https://openreview.net/forum?id=BkgWHnR5tm">OpenReview</a> |
+            <a href="https://github.com/WilsonWangTHU/neural_graph_evolution">Codes</a>
+          </p>
+          <br>
+          <p>
+            (* denotes equal contribution)
+          </p>
+          
+        </td>
+
+        <td colspan='1'>
+          <a href="http://www.cs.toronto.edu/~henryzhou/NGE/nge.pdf">
+            <img class='bordered' src="./img/nge/nge_paper_two_page.png" height="200" align='center' border='2' border-color='black'>
+          </a>
+
+          
+        </td>
+
+      </tr>
+      <tr>
+        <td colspan="2">
+          <p align='left'>
+            <a id='cvpr_bib' onclick='bib_switch(this.id)'>Bib format</a> <br>
+            <div id='cvpr_bib_content' style='display:none;'>
+<pre xml:space="preserve">
+
+@inproceedings{
+wang2018neural,
+title={Neural Graph Evolution: Automatic Robot Design},
+author={Tingwu Wang and Yuhao Zhou and Sanja Fidler and Jimmy Ba},
+booktitle={International Conference on Learning Representations},
+year={2019},
+url={https://openreview.net/forum?id=BkgWHnR5tm},
+}
+
+</pre>          
+            </div>
+          </p>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <hr>
+          <h2>Neural Graph Evolution</h2>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          
+
+           <p align='center'>
+We highlight the novelty of the algorithm in the following points. <br>
+Toggle each part to learn more. <br>
+An overview of the algorithm is shown combining all the points. <br>
+For a more detailed explanation, please refer to the paper. <br>
+           </p>
+
+
+           <p align='center'>
+            <a id='nge_evolutionary' onclick='bib_switch(this.id)'>Evolutionary Algorithm</a> <br>
+            <div id='nge_evolutionary_content' style='display:none;'>
+Designing a robot structure is not a differentiable problem.
+We used an evolutionary algorithm to optimize the most fitted structure of an agent in a given environment based on the reward.
+            </div>
+           </p>
+          
+           <p align='center'>
+            <a id='nge_graph_mutation' onclick='bib_switch(this.id)'>Graph Mutation on Species</a> <br>
+            <div id='nge_graph_mutation_content' style='display:none;'>
+Following the convention of robot design, we model the structure of agents using a graph.
+To make the problem suitable in the context of evolutionary algorithm, we designed various mutation methods subject to graphs.
+            </div>
+           </p>
+
+          <p align='center'>
+            <a id='nge_policy_share' onclick='bib_switch(this.id)'>Policy Sharing across Generations</a> <br>
+            <div id='nge_policy_share_content' style='display:none;'>
+In order to speed up the training process, we aimed to re-use policy trained on old species.
+Herein, we utilized the transferability of Graph Neural Network (GNN) by sharing the weights trained on previous speciesâ€™ structure.
+            </div>
+          </p>
+
+          <p align='center'>
+            <a id='nge_amortized_fit' onclick='bib_switch(this.id)'>Amortized Fitness</a> <br>
+            <div id='nge_amortized_fit_content' style='display:none;'>
+Previous work on neural architecture search separated the process of training and evaluation and thus required large computational resources.
+We introduced Amortized fitness to combine the two processes so that the algorithm is less computationally demanding.
+            </div>
+          </p>
+
+          <p align='center'>
+            <a id='nge_bayes_prune' onclick='bib_switch(this.id)'>Bayesian Pruning for Species Selection</a> <br>
+            <div id='nge_bayes_prune_content' style='display:none;'>
+We introduced a pruning method using Thompson sampling to eliminate structures that are less-promising.
+In this way, computational resources are allocated to those structures that are potentially more fit in the environment.
+            </div>
+          </p>
+
+        </td>
+      </tr>
+
+      <tr align='center'>
+        <td colspan="2">
+          <img src="./img/nge/nge_algorithm.png" width='800'>
+          <br>
+          <br>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td colspan="2">
+          <hr>
+          <h2>Quantitative Result</h2>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <p>
+We created two customized environment to benchmark our algorithm.
+The first is an environment without gravity to simulate the environment of water.
+The other is an environment with gravity to simulate land.
+Both of the environments have the reward that encourages the agent to move faster in a fixed direction.
+          </p>
+          <p>
+The topic studying the design of structures of Reinforcement Learning is under-explored.
+We provided a total of 5 baselines to benchmark our algorithm.
+The baselines range from naive evolutionary structure search to modern variants of relevant works.
+From the curves (Left - Environment without gravity and Right - Environment with gravity), we can see that our algorithm performs significantly better comparing to other methods.
+          </p>
+          <br>
+          <p>
+            
+          </p>
+        </td>
+      </tr>
+
+      
+      <tr style="width: 100%">
+        <td colspan='2' align='center'>
+          <img src="./img/nge/nge_learning_curve_fish.png" align='center' height="300">
+          
+          <img src="./img/nge/nge_learning_curve_cheetah.png" align='center' height='300'>
+        </td>
+        
+        <br>
+      </tr>
+
+      
+
+
+      <tr>
+        <td colspan="2">
+          <br>
+          <hr>
+          <h2>Qualitative Result Demo</h2>
+        </td>
+      </tr>
+
+      
+
+      <tr style="width: 100%">
+        <td style="width: 50%">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/IRpAO839r6w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </td>
+        <td style="width: 50%; padding-left: 20px">
+          <p class="text text-justify">
+We here present the qualitative result of our algorithm running in the first environment.
+The texts at the bottom-left corner has the following meaning:
+&#34;Generation&#34; is the generation (outer-loop) of the evolutionary algorithm;
+&#34;Reward&#34; is the amortized fitness. 
+In this case, it is the speed of the fish in a fixed direction.
+The sideview of the agents' animation is presented.
+          </p>
+          <br>
+        </td>
+        
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <br>
+          <p>
+We highlight some representative species occurred in the genealogy tree. 
+In the early generation, the agent started with randomly generated body parts.
+It was not making much progress due to the unbalanced body parts.
+It quickly learnt to get rid of side fins and instead used the back-fin to paddle in order to swim faster.
+As the agent was being trained, it gradually learnt that symmetric side fins, which originally was a small body part, performed better.
+Eventually, the agent learnt its corresponding controller given by structure it evolved, which matched with the kinematic phenomenon found in nature.<br><br>
+
+An additional study of finetuning the body parts in the environment of 'cheetah' is also presented.
+In this experiment, the topological structure of the agents is fixed, whereas the attributes of each body part is allowed to change.
+Notice that the front leg of the cheetah is evolved into a craw-like structure to strike the ground.
+          </p>
+          <br>
+        </td>
+      </tr>
+
+      <tr style="width: 100%">
+        <td colspan="2" align="center">
+          <img src="./img/nge/nge_genealogy_fish.png" width="800" align='center' border='2' border-color='black'>
+          <br>
+          <br>
+          <p align='left'>
+We study how symmetric structures were generated by visualizing the genealogy tree of the species.
+For visualization purposes, we pruned the genealogy tree to highlight the significant development for one species.
+Most notably, the entire species were eventually dominated by those kinematically-fit individuals.
+Those that donâ€™t possess a good structure (lopsided and minimal structure) will cease to exist due to the competitiveness from fitted structure.
+The genealogy tree of species trained in the second environment is attached below.
+          </p>
+          <br>
+          <img src="./img/nge/nge_genealogy_cheetah.png" width="800" align="center" border='2' border-color='black'>
+        </td>
+      </tr>
+
+
+      
+
+      
+
+
+      
+
+
+
+
+      
+
+      <tr style='width: 100%'>
+        <td>
+          <p>
+            <br>
+          </p>
+        </td>
+      </tr>
+      
+      <tr>
+        <td colspan="2">
+          <hr>
+          <h2>Acknowledgement</h2>
+        </td>
+      </tr>
+      <tr>
+        <td colspan='2'>
+          <p>
+            The research is supported by NSERC. 
+            We thank NVIDIA for GPU donation. 
+            We thank Relu Patrascu for infrastructure support.
+          </p>
+        </td>
+      </tr>
+
+      
+      
+      <tr>
+        <td colspan="2">
+          <p class="text text-justify text-small text-italic">
+            Credits: 
+            <span class="highlight-text">University of Toronto</span>, 
+            <span class="highlight-text">Vector Institute</span>: 
+            Yuhao Zhou, Tingwu Wang, Sanja Fidler, Jimmy Ba 
+          </p>
+        </td>
       </tr>
     </table>
   </div>
 </div>
-      
+
+<script>
+function bib_switch(click_id) {
+    click_intro = click_id + '_content'
+    var x = document.getElementById(click_intro);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+
+
 </body>
 </html>
 
 <footer>
     <small>
     <center>
-        2019 | Simon Hirlaender. Template: Yen-Chia Hsu 
+        2018 | Yuhao Zhou. Template: Yen-Chia Hsu 
         <a href="https://github.com/yenchiah/project-website-template">[GitHub]</a>
     </center>
     </small>
