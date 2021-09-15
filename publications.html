@@ -20,8 +20,10 @@
 <!--  <script src="js/custom.js"></script>-->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/stylebiblio.css">
+  <script type="text/javascript" src="js/bibtextohtml.js"></script>
   <style>
-    .menu-phd{
+    .menu-publications{
       color: rgb(255, 255, 255) !important;
       opacity: 1 !important;
       font-weight: 700 !important;
@@ -39,7 +41,36 @@
             <h1 class="add-top-margin">Publications</h1>
             <hr>
             <p class="text add-top-margin">
-              A description of the subject follows soon. The thesis can be downloaded here: <a href="https://cds.cern.ch/record/2711614?ln=en">CERN Document Server</a>. </br> This is just a placeholder...
+
+                <label for="bibtex_input"></label><textarea hidden name="bibtex_input" id="bibtex_input" cols=50 rows=20>
+<!--                <?php echo file_get_contents("../MyBib.bib");?>-->
+                <?php echo "Hello" ?>
+                </textarea>
+<!--                <div id="bibtex_errors"></div>-->
+<!--                <div class="bibtex_template">-->
+<!--                    <li>-->
+<!--                    <a class="url"><span class="title"></span></a></br>-->
+<!--                    <span class="author"></span></br>-->
+<!--                    <span class="booktitle"></span>-->
+<!--                    <span class="if publisher">-->
+<!--                    <span class="publisher"></span>.-->
+<!--                    </span>-->
+<!--                    <span class="if pages">-->
+<!--                      p. <span class="pages"></span>.-->
+<!--                    </span>-->
+<!--                    <span class="if year">-->
+<!--                    <span class="year"></span></span>-->
+<!--                    </br>-->
+<!--                    <a class="bibtexCodeLink">-->
+<!--                        [bibtex]-->
+<!--                    </a>-->
+<!--                    </br></br>-->
+<!--                  </li>-->
+<!--                 </div>-->
+<!--                 <ol id="bibtex_display">-->
+<!--                </ol>-->
+
+
             </p>
           </div>
         </div>
