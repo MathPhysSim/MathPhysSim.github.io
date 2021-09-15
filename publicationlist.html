@@ -1,0 +1,1259 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>JabRef references</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+<!--
+// QuickSearch script for JabRef HTML export 
+// Version: 3.0
+//
+// Copyright (c) 2006-2011, Mark Schenk
+//
+// This software is distributed under a Creative Commons Attribution 3.0 License
+// http://creativecommons.org/licenses/by/3.0/
+//
+// Features:
+// - intuitive find-as-you-type searching
+//    ~ case insensitive
+//    ~ ignore diacritics (optional)
+//
+// - search with/without Regular Expressions
+// - match BibTeX key
+//
+
+// Search settings
+var searchAbstract = true;	// search in abstract
+var searchComment = true;	// search in comment
+
+var noSquiggles = true; 	// ignore diacritics when searching
+var searchRegExp = false; 	// enable RegExp searches
+
+
+if (window.addEventListener) {
+	window.addEventListener("load",initSearch,false); }
+else if (window.attachEvent) {
+	window.attachEvent("onload", initSearch); }
+
+function initSearch() {
+	// check for quick search table and searchfield
+	if (!document.getElementById('qs_table')||!document.getElementById('quicksearch')) { return; }
+
+	// load all the rows and sort into arrays
+	loadTableData();
+	
+	//find the query field
+	qsfield = document.getElementById('qs_field');
+
+	// previous search term; used for speed optimisation
+	prevSearch = '';
+
+	//find statistics location
+	stats = document.getElementById('stat');
+	setStatistics(-1);
+	
+	// set up preferences
+	initPreferences();
+
+	// shows the searchfield
+	document.getElementById('quicksearch').style.display = 'block';
+	document.getElementById('qs_field').onkeyup = quickSearch;
+}
+
+function loadTableData() {
+	// find table and appropriate rows
+	searchTable = document.getElementById('qs_table');
+	var allRows = searchTable.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+	// split all rows into entryRows and infoRows (e.g. abstract, comment, bibtex)
+	entryRows = new Array(); infoRows = new Array(); absRows = new Array(); revRows = new Array();
+
+	// get data from each row
+	entryRowsData = new Array(); absRowsData = new Array(); revRowsData = new Array(); 
+	
+	BibTeXKeys = new Array();
+	
+	for (var i=0, k=0, j=0; i<allRows.length;i++) {
+		if (allRows[i].className.match(/entry/)) {
+			entryRows[j] = allRows[i];
+			entryRowsData[j] = stripDiacritics(getTextContent(allRows[i]));
+			allRows[i].id ? BibTeXKeys[j] = allRows[i].id : allRows[i].id = 'autokey_'+j;
+			j ++;
+		} else {
+			infoRows[k++] = allRows[i];
+			// check for abstract/comment
+			if (allRows[i].className.match(/abstract/)) {
+				absRows.push(allRows[i]);
+				absRowsData[j-1] = stripDiacritics(getTextContent(allRows[i]));
+			} else if (allRows[i].className.match(/comment/)) {
+				revRows.push(allRows[i]);
+				revRowsData[j-1] = stripDiacritics(getTextContent(allRows[i]));
+			}
+		}
+	}
+	//number of entries and rows
+	numEntries = entryRows.length;
+	numInfo = infoRows.length;
+	numAbs = absRows.length;
+	numRev = revRows.length;
+}
+
+function quickSearch(){
+	
+	tInput = qsfield;
+
+	if (tInput.value.length == 0) {
+		showAll();
+		setStatistics(-1);
+		qsfield.className = '';
+		return;
+	} else {
+		t = stripDiacritics(tInput.value);
+
+		if(!searchRegExp) { t = escapeRegExp(t); }
+			
+		// only search for valid RegExp
+		try {
+			textRegExp = new RegExp(t,"i");
+			closeAllInfo();
+			qsfield.className = '';
+		}
+			catch(err) {
+			prevSearch = tInput.value;
+			qsfield.className = 'invalidsearch';
+			return;
+		}
+	}
+	
+	// count number of hits
+	var hits = 0;
+
+	// start looping through all entry rows
+	for (var i = 0; cRow = entryRows[i]; i++){
+
+		// only show search the cells if it isn't already hidden OR if the search term is getting shorter, then search all
+		if(cRow.className.indexOf('noshow')==-1 || tInput.value.length <= prevSearch.length){
+			var found = false; 
+
+			if (entryRowsData[i].search(textRegExp) != -1 || BibTeXKeys[i].search(textRegExp) != -1){ 
+				found = true;
+			} else {
+				if(searchAbstract && absRowsData[i]!=undefined) {
+					if (absRowsData[i].search(textRegExp) != -1){ found=true; } 
+				}
+				if(searchComment && revRowsData[i]!=undefined) {
+					if (revRowsData[i].search(textRegExp) != -1){ found=true; } 
+				}
+			}
+			
+			if (found){
+				cRow.className = 'entry show';
+				hits++;
+			} else {
+				cRow.className = 'entry noshow';
+			}
+		}
+	}
+
+	// update statistics
+	setStatistics(hits)
+	
+	// set previous search value
+	prevSearch = tInput.value;
+}
+
+
+// Strip Diacritics from text
+// http://stackoverflow.com/questions/990904/javascript-remove-accents-in-strings
+
+// String containing replacement characters for stripping accents 
+var stripstring = 
+    'AAAAAAACEEEEIIII'+
+    'DNOOOOO.OUUUUY..'+
+    'aaaaaaaceeeeiiii'+
+    'dnooooo.ouuuuy.y'+
+    'AaAaAaCcCcCcCcDd'+
+    'DdEeEeEeEeEeGgGg'+
+    'GgGgHhHhIiIiIiIi'+
+    'IiIiJjKkkLlLlLlL'+
+    'lJlNnNnNnnNnOoOo'+
+    'OoOoRrRrRrSsSsSs'+
+    'SsTtTtTtUuUuUuUu'+
+    'UuUuWwYyYZzZzZz.';
+
+function stripDiacritics(str){
+
+    if(noSquiggles==false){
+        return str;
+    }
+
+    var answer='';
+    for(var i=0;i<str.length;i++){
+        var ch=str[i];
+        var chindex=ch.charCodeAt(0)-192;   // Index of character code in the strip string
+        if(chindex>=0 && chindex<stripstring.length){
+            // Character is within our table, so we can strip the accent...
+            var outch=stripstring.charAt(chindex);
+            // ...unless it was shown as a '.'
+            if(outch!='.')ch=outch;
+        }
+        answer+=ch;
+    }
+    return answer;
+}
+
+// http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
+// NOTE: must escape every \ in the export code because of the JabRef Export...
+function escapeRegExp(str) {
+  return str.replace(/[-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
+function toggleInfo(articleid,info) {
+
+	var entry = document.getElementById(articleid);
+	var abs = document.getElementById('abs_'+articleid);
+	var rev = document.getElementById('rev_'+articleid);
+	var bib = document.getElementById('bib_'+articleid);
+	
+	if (abs && info == 'abstract') {
+		abs.className.indexOf('noshow') == -1?abs.className = 'abstract noshow':abs.className = 'abstract show';
+	} else if (rev && info == 'comment') {
+		rev.className.indexOf('noshow') == -1?rev.className = 'comment noshow':rev.className = 'comment show';
+	} else if (bib && info == 'bibtex') {
+		bib.className.indexOf('noshow') == -1?bib.className = 'bibtex noshow':bib.className = 'bibtex show';
+	} else { 
+		return;
+	}
+
+	// check if one or the other is available
+	var revshow; var absshow; var bibshow;
+	(abs && abs.className.indexOf('noshow') == -1)? absshow = true: absshow = false;
+	(rev && rev.className.indexOf('noshow') == -1)? revshow = true: revshow = false;	
+	(bib && bib.className.indexOf('noshow') == -1)? bibshow = true: bibshow = false;
+	
+	// highlight original entry
+	if(entry) {
+		if (revshow || absshow || bibshow) {
+		entry.className = 'entry highlight show';
+		} else {
+		entry.className = 'entry show';
+		}
+	}
+	
+	// When there's a combination of abstract/comment/bibtex showing, need to add class for correct styling
+	if(absshow) {
+		(revshow||bibshow)?abs.className = 'abstract nextshow':abs.className = 'abstract';
+	} 
+	if (revshow) {
+		bibshow?rev.className = 'comment nextshow': rev.className = 'comment';
+	}	
+	
+}
+
+function setStatistics (hits) {
+	if(hits < 0) { hits=numEntries; }
+	if(stats) { stats.firstChild.data = hits + '/' + numEntries}
+}
+
+function getTextContent(node) {
+	// Function written by Arve Bersvendsen
+	// http://www.virtuelvis.com
+	
+	if (node.nodeType == 3) {
+	return node.nodeValue;
+	} // text node
+	if (node.nodeType == 1 && node.className != "infolinks") { // element node
+	var text = [];
+	for (var chld = node.firstChild;chld;chld=chld.nextSibling) {
+		text.push(getTextContent(chld));
+	}
+	return text.join("");
+	} return ""; // some other node, won't contain text nodes.
+}
+
+function showAll(){
+	closeAllInfo();
+	for (var i = 0; i < numEntries; i++){ entryRows[i].className = 'entry show'; }
+}
+
+function closeAllInfo(){
+	for (var i=0; i < numInfo; i++){
+		if (infoRows[i].className.indexOf('noshow') ==-1) {
+			infoRows[i].className = infoRows[i].className + ' noshow';
+		}
+	}
+}
+
+function clearQS() {
+	qsfield.value = '';
+	showAll();
+}
+
+function redoQS(){
+	showAll();
+	quickSearch(qsfield);
+}
+
+function updateSetting(obj){
+	var option = obj.id;
+	var checked = obj.value;
+
+	switch(option)
+	 {
+	 case "opt_searchAbs":
+	   searchAbstract=!searchAbstract;
+	   redoQS();
+	   break;
+	 case "opt_searchComment":
+	   searchComment=!searchComment;
+	   redoQS();
+	   break;
+	 case "opt_useRegExp":
+	   searchRegExp=!searchRegExp;
+	   redoQS();
+	   break;
+	 case "opt_noAccents":
+	   noSquiggles=!noSquiggles;
+	   loadTableData();
+	   redoQS();
+	   break;
+	 }
+}
+
+function initPreferences(){
+	if(searchAbstract){document.getElementById("opt_searchAbs").checked = true;}
+	if(searchComment){document.getElementById("opt_searchComment").checked = true;}
+	if(noSquiggles){document.getElementById("opt_noAccents").checked = true;}
+	if(searchRegExp){document.getElementById("opt_useRegExp").checked = true;}
+	
+	if(numAbs==0) {document.getElementById("opt_searchAbs").parentNode.style.display = 'none';}
+	if(numRev==0) {document.getElementById("opt_searchComment").parentNode.style.display = 'none';}	
+}
+
+function toggleSettings(){
+	var togglebutton = document.getElementById('showsettings');
+	var settings = document.getElementById('settings');
+	
+	if(settings.className == "hidden"){
+		settings.className = "show";
+		togglebutton.innerText = "close settings";
+		togglebutton.textContent = "close settings";
+	}else{
+		settings.className = "hidden";
+		togglebutton.innerText = "settings...";		
+		togglebutton.textContent = "settings...";
+	}
+}
+
+-->
+</script>
+<style type="text/css">
+body { background-color: white; font-family: Arial, sans-serif; font-size: 13px; line-height: 1.2; padding: 1em; color: #2E2E2E; width: 50em; margin: auto auto; }
+
+form#quicksearch { width: auto; border-style: solid; border-color: gray; border-width: 1px 0px; padding: 0.7em 0.5em; display:none; position:relative; }
+span#searchstat {padding-left: 1em;}
+
+div#settings { margin-top:0.7em; /* border-bottom: 1px transparent solid; background-color: #efefef; border: 1px grey solid; */ }
+div#settings ul {margin: 0; padding: 0; }
+div#settings li {margin: 0; padding: 0 1em 0 0; display: inline; list-style: none; }
+div#settings li + li { border-left: 2px #efefef solid; padding-left: 0.5em;}
+div#settings input { margin-bottom: 0px;}
+
+div#settings.hidden {display:none;}
+
+#showsettings { border: 1px grey solid; padding: 0 0.5em; float:right; line-height: 1.6em; text-align: right; }
+#showsettings:hover { cursor: pointer; }
+
+.invalidsearch { background-color: red; }
+input[type="button"] { background-color: #efefef; border: 1px #2E2E2E solid;}
+
+table { border: 1px gray none; width: 100%; empty-cells: show; border-spacing: 0em 0.1em; margin: 1em 0em; }
+th, td { border: none; padding: 0.5em; vertical-align: top; text-align: justify; }
+
+td a { color: navy; text-decoration: none; }
+td a:hover  { text-decoration: underline; }
+
+tr.noshow { display: none;}
+tr.highlight td { background-color: #EFEFEF; border-top: 2px #2E2E2E solid; font-weight: bold; }
+tr.abstract td, tr.comment td, tr.bibtex td { background-color: #EFEFEF; text-align: justify; border-bottom: 2px #2E2E2E solid; }
+tr.nextshow td { border-bottom-style: none; }
+
+tr.bibtex pre { width: 100%; overflow: auto; white-space: pre-wrap;}
+p.infolinks { margin: 0.3em 0em 0em 0em; padding: 0px; }
+
+@media print {
+	p.infolinks, #qs_settings, #quicksearch, t.bibtex { display: none !important; }
+	tr { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<form action="" id="quicksearch">
+<input type="text" id="qs_field" autocomplete="off" placeholder="Type to search..." /> <input type="button" onclick="clearQS()" value="clear" />
+<span id="searchstat">Matching entries: <span id="stat">0</span></span>
+<div id="showsettings" onclick="toggleSettings()">settings...</div>
+<div id="settings" class="hidden">
+<ul>
+<li><input type="checkbox" class="search_setting" id="opt_searchAbs" onchange="updateSetting(this)"><label for="opt_searchAbs"> include abstract</label></li>
+<li><input type="checkbox" class="search_setting" id="opt_searchComment" onchange="updateSetting(this)"><label for="opt_searchComment"> include comment</label></li>
+<li><input type="checkbox" class="search_setting" id="opt_useRegExp" onchange="updateSetting(this)"><label for="opt_useRegExp"> use RegExp</label></li>
+<li><input type="checkbox" class="search_setting" id="opt_noAccents" onchange="updateSetting(this)"><label for="opt_noAccents"> ignore accents</label></li>
+</ul>
+</div>
+</form>
+<table id="qs_table" border="1">
+<tbody>
+<tr id="Alemany2018PERFORMANCEOT" class="entry">
+	<td>Alemany R, Albright S, Andujar O, Angoletta M, Axensalva J, Bartosik H, Baud G, Biancacci N, Bozzolan M, Cave SC, Cornelis K, Costa JD, Delrieux M, Dworak A, Findlay A, Follin F, Frassier A, Gabriel M, Guerrero-Ollacarizqueta A, Haase M, Hirlander S, Jensen S, Kain V, Kolbeck L, Borgne Y, Manglunki D, Marqversen O, Massot S, Moreno D, Nicosia D, Pasinelli S, Pereira L, Perez D, Rey A, Ridewood J, Roncarolo F, Hernandez AS, Scrivens R, Sveen O, Tranquille G and Veyrunes E (2018), <i>"PERFORMANCE OF THE CERN LOW ENERGY ION RING ( LEIR ) WITH XENON BEAMS"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Alemany2018PERFORMANCEOT','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Alemany2018PERFORMANCEOT" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Alemany2018PERFORMANCEOT,
+  author = {R. Alemany and S. Albright and O. Andujar and M. Angoletta and J. Axensalva and H. Bartosik and G. Baud and N. Biancacci and M. Bozzolan and S. C. Cave and K. Cornelis and J. D. Costa and M. Delrieux and A. Dworak and A. Findlay and F. Follin and A. Frassier and M. Gabriel and A. Guerrero-Ollacarizqueta and M. Haase and S. Hirlander and S. Jensen and V. Kain and L. Kolbeck and Y. Borgne and D. Manglunki and O. Marqversen and S. Massot and D. Moreno and D. Nicosia and S. Pasinelli and L. Pereira and D. Perez and A. Rey and J. Ridewood and F. Roncarolo and A. S. Hernandez and R. Scrivens and O. Sveen and G. Tranquille and E. Veyrunes},
+  title = {PERFORMANCE OF THE CERN LOW ENERGY ION RING ( LEIR ) WITH XENON BEAMS},
+  year = {2018}
+}
+</pre></td>
+</tr>
+<tr id="Alemany-Fernandez:2018cqt" class="entry">
+	<td>Alemany-Fern&aacute;ndez R and others (2018), <i>"Performance of the CERN Low Energy Ion Ring (LEIR) with Xenon beams"</i>, In 9th International Particle Accelerator Conference., 6, 2018. 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Alemany-Fernandez:2018cqt','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-IPAC2018-TUPAF020" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Alemany-Fernandez:2018cqt" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Alemany-Fernandez:2018cqt,
+  author = {Alemany-Fern&aacute;ndez, Reyes and others},
+  title = {Performance of the CERN Low Energy Ion Ring (LEIR) with Xenon beams},
+  booktitle = {9th International Particle Accelerator Conference},
+  year = {2018},
+  doi = {10.18429/JACoW-IPAC2018-TUPAF020}
+}
+</pre></td>
+</tr>
+<tr id="Balhan2019ImprovementsTT" class="entry">
+	<td>Balhan B, Galluccio F, Bestmann P, Mirarchi D, Fraser M, G&aacute;lvez P, Masi A, Borburgh J, Pari M, Redaelli S, Gavrikov Y, Jacobsson R, Rossi R, Kain V, Butcher M, Scandale W, Hirlander S, Garcia IL, Castro MD, Stoel L, Donze M, Seidenbinder R, Bj&ouml;rkman D, Zamantzas C, Velotti F, Prieto J, Lendaro J, Esposito L, Goddard B, Harrison A, Jorat L, Calviani M and Gilardoni S (2019), <i>"Improvements to the SPS Slow Extraction for High Intensity Operation"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Balhan2019ImprovementsTT','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Balhan2019ImprovementsTT" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Balhan2019ImprovementsTT,
+  author = {B. Balhan and F. Galluccio and P. Bestmann and D. Mirarchi and M. Fraser and P. G&aacute;lvez and A. Masi and J. Borburgh and M. Pari and S. Redaelli and Y. Gavrikov and R. Jacobsson and R. Rossi and V. Kain and M. Butcher and W. Scandale and S. Hirlander and I. L. Garcia and M. D. Castro and L. Stoel and M. Donze and R. Seidenbinder and D. Bj&ouml;rkman and C. Zamantzas and F. Velotti and J. Prieto and J. Lendaro and L. Esposito and B. Goddard and A. Harrison and L. Jorat and M. Calviani and S. Gilardoni},
+  title = {Improvements to the SPS Slow Extraction for High Intensity Operation},
+  year = {2019}
+}
+</pre></td>
+</tr>
+<tr id="Bartosik:2019xug" class="entry">
+	<td>Bartosik H and others (2019), <i>"Injectors Beam Performance Evolution during Run 2"</i>, In 9th LHC Operations Evian Workshop. , pp. 51-58.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Bartosik:2019xug','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Bartosik:2019xug" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Bartosik:2019xug,
+  author = {Bartosik, H. and others},
+  title = {Injectors Beam Performance Evolution during Run 2},
+  booktitle = {9th LHC Operations Evian Workshop},
+  year = {2019},
+  pages = {51--58}
+}
+</pre></td>
+</tr>
+<tr id="Bartosik2019INJECTORSBP" class="entry">
+	<td>Bartosik H, Albright S, Alemany R, Antoniou F, Asvesta F, Benedetto E, Bellodi G, Biancacci N, Bohl T, Cornelis K, Damerau H, Giovanni G, Findlay A, Forte V, Fraser M, Goddard B, Hancock S, Hanke K, Hirlander S, H&ouml;fle W, Huschauer A, Iadarola G, Jowett J, Kain V, Karastathis N, Kotzian G, K&uuml;chler D, Lasheen A, Li K, Mahner E, Meddahi M, Mikulec B, Papaphilippou Y, Papotti G, Repond J, Rumolo G, Hernandez AS, Schwarz M, Scrivens R, Shaposhnikova E, Sterbini G, Tecker F, Timko H, Trad G and Velotti F (2019), <i>"INJECTORS BEAM PERFORMANCE EVOLUTION DURING RUN 2"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Bartosik2019INJECTORSBP','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Bartosik2019INJECTORSBP" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Bartosik2019INJECTORSBP,
+  author = {H. Bartosik and S. Albright and R. Alemany and F. Antoniou and F. Asvesta and E. Benedetto and G. Bellodi and N. Biancacci and T. Bohl and K. Cornelis and H. Damerau and G. Giovanni and A. Findlay and V. Forte and M. Fraser and B. Goddard and S. Hancock and K. Hanke and S. Hirlander and W. H&ouml;fle and A. Huschauer and G. Iadarola and J. Jowett and V. Kain and N. Karastathis and G. Kotzian and D. K&uuml;chler and A. Lasheen and K. Li and E. Mahner and M. Meddahi and B. Mikulec and Y. Papaphilippou and G. Papotti and J. Repond and G. Rumolo and A. S. Hernandez and M. Schwarz and R. Scrivens and E. Shaposhnikova and G. Sterbini and F. Tecker and H. Timko and G. Trad and F. Velotti},
+  title = {INJECTORS BEAM PERFORMANCE EVOLUTION DURING RUN 2},
+  year = {2019}
+}
+</pre></td>
+</tr>
+<tr id="Biancacci:2018bze" class="entry">
+	<td>Biancacci N, Bartosik H, G&aogon;sior M, Hirlaender S, Latina A, Levens T, Migliorati M and M&eacute;tral E (2018), <i>"Impedance and Instability Studies in LEIR with Xenon"</i>, In 9th International Particle Accelerator Conference., 6, 2018. 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Biancacci:2018bze','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-IPAC2018-TUPAF024" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Biancacci:2018bze" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Biancacci:2018bze,
+  author = {Biancacci, Nicolo and Bartosik, Hannes and G&aogon;sior, Marek and Hirlaender, Simon and Latina, A. and Levens, Thomas and Migliorati, Mauro and M&eacute;tral, Elias},
+  title = {Impedance and Instability Studies in LEIR with Xenon},
+  booktitle = {9th International Particle Accelerator Conference},
+  year = {2018},
+  doi = {10.18429/JACoW-IPAC2018-TUPAF024}
+}
+</pre></td>
+</tr>
+<tr id="Biancacci2018IMPEDANCEAI" class="entry">
+	<td>Biancacci N, Bartosik H, Gasior M, Hirlander S, Latina A, Levens T, M&eacute;tral E and Migliorati M (2018), <i>"IMPEDANCE AND INSTABILITY STUDIES IN LEIR WITH XENON"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Biancacci2018IMPEDANCEAI','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Biancacci2018IMPEDANCEAI" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Biancacci2018IMPEDANCEAI,
+  author = {N. Biancacci and H. Bartosik and M. Gasior and S. Hirlander and A. Latina and T. Levens and E. M&eacute;tral and M. Migliorati},
+  title = {IMPEDANCE AND INSTABILITY STUDIES IN LEIR WITH XENON},
+  year = {2018}
+}
+</pre></td>
+</tr>
+<tr id="Bruchon:2021xah" class="entry">
+	<td>Bruchon N, Fenu G, Gaio G, Hirlander S, Lonza M, Pellegrino FA and Salvato E (2021), <i>"An Online Iterative Linear Quadratic Approach for a Satisfactory Working Point Attainment at FERMI"</i>, Information.  Vol. 12(7), pp. 262.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Bruchon:2021xah','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.3390/info12070262" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Bruchon:2021xah" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{Bruchon:2021xah,
+  author = {Bruchon, Niky and Fenu, Gianfranco and Gaio, Giulio and Hirlander, Simon and Lonza, Marco and Pellegrino, Felice Andrea and Salvato, Erica},
+  title = {An Online Iterative Linear Quadratic Approach for a Satisfactory Working Point Attainment at FERMI},
+  journal = {Information},
+  year = {2021},
+  volume = {12},
+  number = {7},
+  pages = {262},
+  doi = {10.3390/info12070262}
+}
+</pre></td>
+</tr>
+<tr id="Dutheil:2019rqo" class="entry">
+	<td>Dutheil Y and others (2019), <i>"Gamma Factory at CERN: Design of a proof-of-principle experiment"</i>, In 10th International Particle Accelerator Conference. , pp. MOPRB052.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Dutheil:2019rqo','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-IPAC2019-MOPRB052" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Dutheil:2019rqo" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Dutheil:2019rqo,
+  author = {Dutheil, Yann and others},
+  title = {Gamma Factory at CERN: Design of a proof-of-principle experiment},
+  booktitle = {10th International Particle Accelerator Conference},
+  year = {2019},
+  pages = {MOPRB052},
+  doi = {10.18429/JACoW-IPAC2019-MOPRB052}
+}
+</pre></td>
+</tr>
+<tr id="Dutheil2019GammaFA" class="entry">
+	<td>Dutheil Y, Alden S, Alemany–Fern&aacute;ndez R, Apyan A, Bartosik H, Bessonov E, Biancacci N, Bosco A, Bruce R, Castelli F, Curatolo C, Czodrowski P, Fedosseev V, Gibson S, Goddard B, Hirlaender S, Jowett J, Kersevan R, Kowalska M, Kroeger F, Lamont M, Manglunki D, Martens A, Molson J, Nevay L, Petrenko A, Petrillo V, Sapinski M, Schaumann M, Serafini L, St&ouml;hlker T, Weber G, Wu Y-t, Zimmermann F, Krasny M, Bogacz A, Budker D, Derevianko A, Cassou K, Chaikovska I, Dupraz K, Zomer F, Zolotorev M, Shevelko V, Bieron J, Dzierżęga K, Placzek W and Pustelny S (2019), <i>"Gamma Factory at CERN: Design of a proof-of-principle experiment"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Dutheil2019GammaFA','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Dutheil2019GammaFA" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Dutheil2019GammaFA,
+  author = {Y. Dutheil and S. Alden and R. Alemany–Fern&aacute;ndez and A. Apyan and H. Bartosik and E. Bessonov and N. Biancacci and A. Bosco and R. Bruce and F. Castelli and C. Curatolo and P. Czodrowski and V. Fedosseev and S. Gibson and B. Goddard and Simon Hirlaender and J. Jowett and R. Kersevan and M. Kowalska and F. Kroeger and M. Lamont and D. Manglunki and A. Martens and J. Molson and L. Nevay and A. Petrenko and V. Petrillo and M. Sapinski and M. Schaumann and L. Serafini and T. St&ouml;hlker and G. Weber and Yu-ting Wu and F. Zimmermann and M. Krasny and A. Bogacz and D. Budker and A. Derevianko and K. Cassou and I. Chaikovska and K. Dupraz and F. Zomer and M. Zolotorev and V. Shevelko and J. Bieron and K. Dzierżęga and W. Placzek and S. Pustelny},
+  title = {Gamma Factory at CERN: Design of a proof-of-principle experiment},
+  year = {2019}
+}
+</pre></td>
+</tr>
+<tr id="Dutheil2020GammaFF" class="entry">
+	<td>Dutheil Y, Abramov A, Alden S, Fernandez RA, Antsiferov P, Apyan A, Bartosik H, Bessonov E, Biancacci N, Bieron J, Bogacz A, Bosco A, Bruce R, Budker D, Cassou K, Castelli F, Chaikovska I, Curatolo C, Czodrowski P, Derevianko A, Dupraz K, Dzierżęga K, Fedosseev V, Martinez NF, Gibson S, Goddard B, Gorzawski A, Hirlander S, Jowett J, Kersevan R, Kowalska M, Krasny M, Kroeger F, Kuchler D, Lamont M, Lefevre T, Manglunki D, Marsh B, Martens A, Molson J, Naturelli D, Nevay L, Peinaud Y, Petrenko A, Petrillo V, Placzek W, Putelny S, Redaelli S, Rochester S, Sapinski M, Schaumann M, Scrivens R, Serafini L, Shevelko V, Stoehlker T, Surzhykov A, Tolstikhina I, Velotti F, Weber G, Wu Y, Vallgren CY, Zanetti M, Zimmermann F, Zolotorev M and Zomer F (2020), <i>"Gamma Factory for CERN initiative - progress report"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Dutheil2020GammaFF','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Dutheil2020GammaFF" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Dutheil2020GammaFF,
+  author = {Y. Dutheil and A. Abramov and S. Alden and R. Alemany Fernandez and P. Antsiferov and A. Apyan and H. Bartosik and E. Bessonov and N. Biancacci and J. Bieron and A. Bogacz and A. Bosco and R. Bruce and D. Budker and K. Cassou and F. Castelli and I. Chaikovska and C. Curatolo and P. Czodrowski and A. Derevianko and K. Dupraz and K. Dzierżęga and V. Fedosseev and Nuria Fuster Martinez and S. Gibson and B. Goddard and A. Gorzawski and S. Hirlander and J. Jowett and R. Kersevan and M. Kowalska and M. Krasny and F. Kroeger and D. Kuchler and M. Lamont and T. Lefevre and D. Manglunki and B. Marsh and A. Martens and J. Molson and Daniele Naturelli and L. Nevay and Y. Peinaud and A. Petrenko and V. Petrillo and W. Placzek and Szymon Putelny and S. Redaelli and S. Rochester and M. Sapinski and M. Schaumann and R. Scrivens and L. Serafini and V. Shevelko and T. Stoehlker and A. Surzhykov and I. Tolstikhina and F. Velotti and G. Weber and Ying Wu and Christina Yin Vallgren and M. Zanetti and F. Zimmermann and M. Zolotorev and F. Zomer},
+  title = {Gamma Factory for CERN initiative - progress report},
+  year = {2020}
+}
+</pre></td>
+</tr>
+<tr id="GammaFactoryWorkingGroup:2020ely" class="entry">
+	<td>P&lstrok;aczek W and others (2020), <i>"The Gamma Factory Project at CERN: a New Generation of Research Tools Made of Light"</i>, Acta Phys. Polon. Supp..  Vol. 13(4), pp. 645-652.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('GammaFactoryWorkingGroup:2020ely','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.5506/APhysPolBSupp.13.645" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_GammaFactoryWorkingGroup:2020ely" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{GammaFactoryWorkingGroup:2020ely,
+  author = {P&lstrok;aczek, W. and others},
+  editor = {Spa&lstrok;ek, Jozef and Skibinski, Roman and Goc-Jag&lstrok;o, Danuta and Zielinski, Marcin},
+  title = {The Gamma Factory Project at CERN: a New Generation of Research Tools Made of Light},
+  journal = {Acta Phys. Polon. Supp.},
+  year = {2020},
+  volume = {13},
+  number = {4},
+  pages = {645--652},
+  doi = {10.5506/APhysPolBSupp.13.645}
+}
+</pre></td>
+</tr>
+<tr id="Giovannozzi:2017vff" class="entry">
+	<td>Giovannozzi M, Prior C, Gilardoni S, Huschauer A, Hirlander S and Machida S (2017), <i>"Numerical investigation of space charge effects on the positions of beamlets for transversely split beams"</i>, Phys. Rev. Accel. Beams.  Vol. 20(12), pp. 121001.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Giovannozzi:2017vff','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.1103/PhysRevAccelBeams.20.121001" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Giovannozzi:2017vff" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{Giovannozzi:2017vff,
+  author = {Giovannozzi, M. and Prior, C. and Gilardoni, S. and Huschauer, A. and Hirlander, S. and Machida, S.},
+  title = {Numerical investigation of space charge effects on the positions of beamlets for transversely split beams},
+  journal = {Phys. Rev. Accel. Beams},
+  year = {2017},
+  volume = {20},
+  number = {12},
+  pages = {121001},
+  doi = {10.1103/PhysRevAccelBeams.20.121001}
+}
+</pre></td>
+</tr>
+<tr id="Giovannozzi2017APSN" class="entry">
+	<td>Giovannozzi M, Gilardoni S, Hirlander S, Prior C, Machida S and Huschauer A (2017), <i>"APS : Numerical investigation of space charge effects on the positions of beamlets for transversely split beams"</i>, Physical review accelerators and beams.  Vol. 20, pp. 121001.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Giovannozzi2017APSN','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Giovannozzi2017APSN" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{Giovannozzi2017APSN,
+  author = {M. Giovannozzi and S. Gilardoni and S. Hirlander and C. Prior and S. Machida and A. Huschauer},
+  title = {APS : Numerical investigation of space charge effects on the positions of beamlets for transversely split beams},
+  journal = {Physical review accelerators and beams},
+  year = {2017},
+  volume = {20},
+  pages = {121001}
+}
+</pre></td>
+</tr>
+<tr id="Hernandez2018SpaceCS" class="entry">
+	<td>Hernandez AS, Moreno D, Bartosik H, Biancacci N, Hirlander S and Huschauer A (2018), <i>"Space Charge studies on LEIR"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Hernandez2018SpaceCS','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Hernandez2018SpaceCS" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Hernandez2018SpaceCS,
+  author = {A. S. Hernandez and D. Moreno and H. Bartosik and N. Biancacci and S. Hirlander and A. Huschauer},
+  title = {Space Charge studies on LEIR},
+  year = {2018}
+}
+</pre></td>
+</tr>
+<tr id="Hernandez2019DetailedCO" class="entry">
+	<td>Hernandez AS, Bartosik H, Biancacci N, Hirlander S, Moreno D and Zampetakis M (2019), <i>"Detailed characterisation of the LEIR intensity limitations for a Pb ion beam"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Hernandez2019DetailedCO','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Hernandez2019DetailedCO" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Hernandez2019DetailedCO,
+  author = {A. S. Hernandez and H. Bartosik and N. Biancacci and S. Hirlander and D. Moreno and M. Zampetakis},
+  title = {Detailed characterisation of the LEIR intensity limitations for a Pb ion beam},
+  year = {2019}
+}
+</pre></td>
+</tr>
+<tr id="Hirlaender:2018hzl" class="entry">
+	<td>Hirlaender S, Alemany-Fern&aacute;ndez R, Bartosik H, Bellodi G, Biancacci N, Kain V and Scrivens R (2018), <i>"LEIR Injection Efficiency Studies as a Function of the Beam Energy Distribution from Linac3"</i>, In 9th International Particle Accelerator Conference., 6, 2018. 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Hirlaender:2018hzl','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-IPAC2018-TUPAF034" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Hirlaender:2018hzl" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Hirlaender:2018hzl,
+  author = {Hirlaender, Simon and Alemany-Fern&aacute;ndez, Reyes and Bartosik, Hannes and Bellodi, Giulia and Biancacci, Nicolo and Kain, Verena and Scrivens, Richard},
+  title = {LEIR Injection Efficiency Studies as a Function of the Beam Energy Distribution from Linac3},
+  booktitle = {9th International Particle Accelerator Conference},
+  year = {2018},
+  doi = {10.18429/JACoW-IPAC2018-TUPAF034}
+}
+</pre></td>
+</tr>
+<tr id="Hirlaender:2018rvt" class="entry">
+	<td>Hirlaender S and others (2018), <i>"Lifetime and Beam Losses Studies of Partially Strip Ions in the SPS (^129Xe^39+)"</i>, In 9th International Particle Accelerator Conference., 6, 2018. 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Hirlaender:2018rvt','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-IPAC2018-THPMF015" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Hirlaender:2018rvt" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Hirlaender:2018rvt,
+  author = {Hirlaender, Simon and others},
+  title = {Lifetime and Beam Losses Studies of Partially Strip Ions in the SPS (^129Xe^39+)},
+  booktitle = {9th International Particle Accelerator Conference},
+  year = {2018},
+  doi = {10.18429/JACoW-IPAC2018-THPMF015}
+}
+</pre></td>
+</tr>
+<tr id="Hirlaender:2018svi" class="entry">
+	<td>Hirlaender S, Alemany-Fern&aacute;ndez R, Bartosik H, Biancacci N and Kain V (2018), <i>"Studies of the Injection and Cooling Efficiency in LEIR Using the Longitudinal Schottky Spectrum"</i>, In 9th International Particle Accelerator Conference., 6, 2018. 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Hirlaender:2018svi','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-IPAC2018-TUPAF036" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Hirlaender:2018svi" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Hirlaender:2018svi,
+  author = {Hirlaender, Simon and Alemany-Fern&aacute;ndez, Reyes and Bartosik, Hannes and Biancacci, Nicolo and Kain, Verena},
+  title = {Studies of the Injection and Cooling Efficiency in LEIR Using the Longitudinal Schottky Spectrum},
+  booktitle = {9th International Particle Accelerator Conference},
+  year = {2018},
+  doi = {10.18429/JACoW-IPAC2018-TUPAF036}
+}
+</pre></td>
+</tr>
+<tr id="Hirlaender:2019iye" class="entry">
+	<td>Hirlaender S, Fraser M, Goddard B, Kain V, Prieto J, Stoel L, Szakaly M and Velotti F (2019), <i>"Automatisation of the SPS electrostatic septa alignment"</i>, In 10th International Particle Accelerator Conference. , pp. THPRB080.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Hirlaender:2019iye','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-IPAC2019-THPRB080" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Hirlaender:2019iye" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Hirlaender:2019iye,
+  author = {Hirlaender, Simon and Fraser, Matthew and Goddard, Brennan and Kain, Verena and Prieto, Javier and Stoel, Linda and Szakaly, Marcel and Velotti, Francesco},
+  title = {Automatisation of the SPS electrostatic septa alignment},
+  booktitle = {10th International Particle Accelerator Conference},
+  year = {2019},
+  pages = {THPRB080},
+  doi = {10.18429/JACoW-IPAC2019-THPRB080}
+}
+</pre></td>
+</tr>
+<tr id="Hirlaender:2019lmv" class="entry">
+	<td>Hirlaender S, Bartosik H, Bellodi G, Biancacci N, Kain V, Sa&aacute; Hern&aacute;ndez A and Scrivens R (2019), <i>"Energy dependence of the reproducibility and injection efficiency of the LINAC3-LEIR complex"</i>, In 10th International Particle Accelerator Conference. , pp. WEPTS040.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Hirlaender:2019lmv','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-IPAC2019-WEPTS040" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Hirlaender:2019lmv" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Hirlaender:2019lmv,
+  author = {Hirlaender, Simon and Bartosik, Hannes and Bellodi, Giulia and Biancacci, Nicolo and Kain, Verena and Sa&aacute; Hern&aacute;ndez, Angela and Scrivens, Richard},
+  title = {Energy dependence of the reproducibility and injection efficiency of the LINAC3-LEIR complex},
+  booktitle = {10th International Particle Accelerator Conference},
+  year = {2019},
+  pages = {WEPTS040},
+  doi = {10.18429/JACoW-IPAC2019-WEPTS040}
+}
+</pre></td>
+</tr>
+<tr id="Hirlaender:2020eky" class="entry">
+	<td>Hirlaender S and Bruchon N (2020), <i>"Model-free and Bayesian Ensembling Model-based Deep Reinforcement Learning for Particle Accelerator Control Demonstrated on the FERMI FEL"</i>, 12, 2020. 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Hirlaender:2020eky','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Hirlaender:2020eky" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{Hirlaender:2020eky,
+  author = {Hirlaender, Simon and Bruchon, Niky},
+  title = {Model-free and Bayesian Ensembling Model-based Deep Reinforcement Learning for Particle Accelerator Control Demonstrated on the FERMI FEL},
+  year = {2020}
+}
+</pre></td>
+</tr>
+<tr id="Hirlaender2018LEIRIE" class="entry">
+	<td>Hirlaender S, Alemany–Fern&aacute;ndez R, Kain V, Bellodi G, Biancacci N, Bartosik H and Scrivens R (2018), <i>"LEIR Injection Efficiency Studies as a Function of the Beam Energy Distribution from Linac3"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Hirlaender2018LEIRIE','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Hirlaender2018LEIRIE" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Hirlaender2018LEIRIE,
+  author = {Simon Hirlaender and R. Alemany–Fern&aacute;ndez and V. Kain and G. Bellodi and N. Biancacci and H. Bartosik and R. Scrivens},
+  title = {LEIR Injection Efficiency Studies as a Function of the Beam Energy Distribution from Linac3},
+  year = {2018}
+}
+</pre></td>
+</tr>
+<tr id="Hirlaender2018LIFETIMEAB" class="entry">
+	<td>Hirlaender S, Fern&aacute;ndez RA, Bartosik H, Biancacci N, Bohl T, Cave SC, Cornellis K, Goddard B, Kain V, Lamont M, Manglunki D, Papotti G, Schaumann M, Zimmermann F, Krasny M, Kr&ouml;ger F, St&ouml;hlker T, Weber G, Jena H, Shevelko V and Lebedev PN (2018), <i>"LIFETIME AND BEAM LOSSES STUDIES OF PARTIALLY STRIP IONS IN THE SPS ( 129 Xe 39 + )"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Hirlaender2018LIFETIMEAB','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Hirlaender2018LIFETIMEAB" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Hirlaender2018LIFETIMEAB,
+  author = {Simon Hirlaender and R. A. Fern&aacute;ndez and H. Bartosik and N. Biancacci and T. Bohl and S. C. Cave and K. Cornellis and B. Goddard and V. Kain and M. Lamont and D. Manglunki and G. Papotti and M. Schaumann and F. Zimmermann and M. Krasny and F. Kr&ouml;ger and T. St&ouml;hlker and G. Weber and H. Jena and V. Shevelko and P. N. Lebedev},
+  title = {LIFETIME AND BEAM LOSSES STUDIES OF PARTIALLY STRIP IONS IN THE SPS ( 129 Xe 39 + )},
+  year = {2018}
+}
+</pre></td>
+</tr>
+<tr id="Hirlaender2019ENERGYDO" class="entry">
+	<td>Hirlaender S, Bartosik H, Bellodi G, Biancacci N, Kain V, Hernandez AS and Scrivens R (2019), <i>"ENERGY DEPENDENCE OF THE REPRODUCIBILITY AND INJECTION EFFICIENCY OF THE LINAC3-LEIR COMPLEX"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Hirlaender2019ENERGYDO','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Hirlaender2019ENERGYDO" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Hirlaender2019ENERGYDO,
+  author = {Simon Hirlaender and H. Bartosik and G. Bellodi and N. Biancacci and V. Kain and A. S. Hernandez and R. Scrivens},
+  title = {ENERGY DEPENDENCE OF THE REPRODUCIBILITY AND INJECTION EFFICIENCY OF THE LINAC3-LEIR COMPLEX},
+  year = {2019}
+}
+</pre></td>
+</tr>
+<tr id="Hirlaender2020ModelfreeAB" class="entry">
+	<td>Hirlaender S and Bruchon N (2020), <i>"Model-free and Bayesian Ensembling Model-based Deep Reinforcement Learning for Particle Accelerator Control Demonstrated on the FERMI FEL"</i>, ArXiv.  Vol. abs/2012.09737
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Hirlaender2020ModelfreeAB','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Hirlaender2020ModelfreeAB" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{Hirlaender2020ModelfreeAB,
+  author = {Simon Hirlaender and N. Bruchon},
+  title = {Model-free and Bayesian Ensembling Model-based Deep Reinforcement Learning for Particle Accelerator Control Demonstrated on the FERMI FEL},
+  journal = {ArXiv},
+  year = {2020},
+  volume = {abs/2012.09737}
+}
+</pre></td>
+</tr>
+<tr id="Hirlander:2020nju" class="entry">
+	<td>Hirl&auml;nder S (2020), <i>"Exact solutions of indirect transverse field effects in elongated structures with applications to CERN LHC and PS"</i>. Thesis at: Vienna, Tech. U.. 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Hirlander:2020nju','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Hirlander:2020nju" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@phdthesis{Hirlander:2020nju,
+  author = {Hirl&auml;nder, Simon},
+  title = {Exact solutions of indirect transverse field effects in elongated structures with applications to CERN LHC and PS},
+  school = {Vienna, Tech. U.},
+  year = {2020}
+}
+</pre></td>
+</tr>
+<tr id="Hirlander2020ExactSO" class="entry">
+	<td>Hirlander S (2020), <i>"Exact Solutions of Indirect Transverse Field Effects in Elongated Structures with Applications to CERN LHC and PS"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Hirlander2020ExactSO','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Hirlander2020ExactSO" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Hirlander2020ExactSO,
+  author = {S. Hirlander},
+  title = {Exact Solutions of Indirect Transverse Field Effects in Elongated Structures with Applications to CERN LHC and PS},
+  year = {2020}
+}
+</pre></td>
+</tr>
+<tr id="Kain2020SampleefficientRL" class="entry">
+	<td>Kain V, Hirlaender S, Goddard B, Velotti F, Porta GZ, Bruchon N and Valentino G (2020), <i>"Sample-efficient reinforcement learning for CERN accelerator control"</i>, Physical review accelerators and beams.  Vol. 23
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Kain2020SampleefficientRL','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Kain2020SampleefficientRL" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{Kain2020SampleefficientRL,
+  author = {V. Kain and Simon Hirlaender and B. Goddard and F. Velotti and G. Z. Porta and N. Bruchon and G. Valentino},
+  title = {Sample-efficient reinforcement learning for CERN accelerator control},
+  journal = {Physical review accelerators and beams},
+  year = {2020},
+  volume = {23}
+}
+</pre></td>
+</tr>
+<tr id="Krasny:2018alc" class="entry">
+	<td>Krasny M and others (2018), <i>"The CERN Gamma Factory Initiative: An Ultra-High Intensity Gamma Source"</i>, In 9th International Particle Accelerator Conference., 6, 2018. 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Krasny:2018alc','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-IPAC2018-WEYGBD3" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Krasny:2018alc" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Krasny:2018alc,
+  author = {Krasny, Mieczyslaw and others},
+  title = {The CERN Gamma Factory Initiative: An Ultra-High Intensity Gamma Source},
+  booktitle = {9th International Particle Accelerator Conference},
+  year = {2018},
+  doi = {10.18429/JACoW-IPAC2018-WEYGBD3}
+}
+</pre></td>
+</tr>
+<tr id="Krasny2018JACoWT" class="entry">
+	<td>Krasny M, Bessonov E, Chehab R, Curatolo C, Chaikovska I, Lamont M, Placzek W, Zomer F, Kowalska M, Petrillo V, Budker D, Kersevan R, Martens A, Wu Y, Cassou K, Vallgren C, Biancacci N, Kroeger F, Bartosik H, Castelli F, Petrenko A, Antsifarov P, Zolotorev M, Alemany–Fern&aacute;ndez R, Dzierżȩga K, Shevelko V, Dupraz K, Weber G, Czodrowski P, Apyan A, Manglunki D, St&ouml;hlker T, Jowett J, Zimmermann F, Goddard B, Bieron J, Hirlaender S, Schaumann M, Serafini L and Pustelny S (2018), <i>"JACoW : The CERN Gamma Factory Initiative: An Ultra-High Intensity Gamma Source"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Krasny2018JACoWT','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Krasny2018JACoWT" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Krasny2018JACoWT,
+  author = {M. Krasny and E. Bessonov and R. Chehab and C. Curatolo and I. Chaikovska and M. Lamont and W. Placzek and F. Zomer and M. Kowalska and V. Petrillo and D. Budker and R. Kersevan and A. Martens and Y. Wu and K. Cassou and C. Vallgren and N. Biancacci and F. Kroeger and H. Bartosik and F. Castelli and A. Petrenko and P. Antsifarov and M. Zolotorev and R. Alemany–Fern&aacute;ndez and K. Dzierżȩga and V. Shevelko and K. Dupraz and G. Weber and P. Czodrowski and A. Apyan and D. Manglunki and T. St&ouml;hlker and J. Jowett and F. Zimmermann and B. Goddard and J. Bieron and Simon Hirlaender and M. Schaumann and L. Serafini and S. Pustelny},
+  title = {JACoW : The CERN Gamma Factory Initiative: An Ultra-High Intensity Gamma Source},
+  year = {2018}
+}
+</pre></td>
+</tr>
+<tr id="Krasny2019GammaFP" class="entry">
+	<td>Krasny M, Kuchler D, Kowalska M, Antsiferov P, Scrivens R, Bartosik H, Dutheil Y, Czodrowski P, Bosco A, Bieron J, Stoehlker T, Placzek W, Zomer F, Dzierżęga K, Jowett J, Rochester S, Petrillo, Zolotorev M, Abramov A, Cassou K, Surzhykov A, Apyan A, Manglunki D, Sapinski M, Gibson S, Molson J, Chaikovska I, Nutarelli D, Lefevre T, Castelli F, Weber G, Kersevan R, Hirlander S, Petrenko A, Yin-Vallgren C, Schaumann M, Biancacci N, Marsh B, Tolstikhina I, Lamont M, Fedosseev, Curatolo C, Goddard B, Bessonov E, Kroeger F, Nevay L, Fern&aacute;ndez RA, Zimmermann F, Shevelko V, Redaelli S, Wu Y-w, Martens A, Derevianko D, Martinez N, Bogacz A, Budker D, Peinaud Y, Pustelny P, Alden S, Serafini L, Dupraz D, Bruce R, Zanetti M, Gorzawski A and Velotti F (2019), <i>"Gamma Factory Proof-of-Principle Experiment"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Krasny2019GammaFP','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Krasny2019GammaFP" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Krasny2019GammaFP,
+  author = {M. Krasny and D. Kuchler and M. Kowalska and P. Antsiferov and R. Scrivens and H. Bartosik and Y. Dutheil and P. Czodrowski and A. Bosco and J. Bieron and T. Stoehlker and W. Placzek and F. Zomer and K. Dzierżęga and J. Jowett and S. Rochester and Petrillo and M. Zolotorev and A. Abramov and K. Cassou and A. Surzhykov and A. Apyan and D. Manglunki and M. Sapinski and S. Gibson and J. Molson and I. Chaikovska and D. Nutarelli and T. Lefevre and F. Castelli and G. Weber and R. Kersevan and S. Hirlander and A. Petrenko and C. Yin-Vallgren and M. Schaumann and N. Biancacci and B. Marsh and I. Tolstikhina and M. Lamont and Fedosseev and C. Curatolo and B. Goddard and E. Bessonov and F. Kroeger and L. Nevay and R. A. Fern&aacute;ndez and F. Zimmermann and V. Shevelko and S. Redaelli and Yan-wang Wu and A. Martens and D. Derevianko and N. Martinez and A. Bogacz and D. Budker and Y. Peinaud and P. Pustelny and S. Alden and L. Serafini and D. Dupraz and R. Bruce and M. Zanetti and A. Gorzawski and F. Velotti},
+  title = {Gamma Factory Proof-of-Principle Experiment},
+  year = {2019}
+}
+</pre></td>
+</tr>
+<tr id="Krger2020ChargeST" class="entry">
+	<td>Kr&ouml;ger F, Weber G, Shevelko VP, Hirlaender S, Krasny M and St&ouml;hlker T (2020), <i>"Charge state tailoring of relativistic heavy ion beams for the Gamma Factory project at CERN"</i>, X-Ray Spectrometry.  Vol. 49, pp. 25-28.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Krger2020ChargeST','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Krger2020ChargeST" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{Krger2020ChargeST,
+  author = {F. Kr&ouml;ger and G. Weber and V. P. Shevelko and Simon Hirlaender and M. Krasny and T. St&ouml;hlker},
+  title = {Charge state tailoring of relativistic heavy ion beams for the Gamma Factory project at CERN},
+  journal = {X-Ray Spectrometry},
+  year = {2020},
+  volume = {49},
+  pages = {25-28}
+}
+</pre></td>
+</tr>
+<tr id="kröger2021chargestate" class="entry">
+	<td>Kröger FM, Weber G, Hirlaender S, Alemany-Fernandez R, Krasny MW, Stöhlker T, Tolstikhina IY and Shevelko VP (2021), <i>"Charge-state distributions of highly charged lead ions at relativistic collision energies"</i>. 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('kröger2021chargestate','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_kröger2021chargestate" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@misc{kröger2021chargestate,
+  author = {F. M. Kröger and G. Weber and S. Hirlaender and R. Alemany-Fernandez and M. W. Krasny and Th. Stöhlker and I. Yu. Tolstikhina and V. P. Shevelko},
+  title = {Charge-state distributions of highly charged lead ions at relativistic collision energies},
+  year = {2021}
+}
+</pre></td>
+</tr>
+<tr id="Kroger2021ChargestateDO" class="entry">
+	<td>Kroger F, Weber G, Hirlaender S, Alemany–Fern&aacute;ndez R, Krasny MW, Stohlker T, Tolstikhina I and Shevelko V (2021), <i>"Charge-state distributions of highly charged lead ions at relativistic collision energies"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Kroger2021ChargestateDO','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Kroger2021ChargestateDO" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Kroger2021ChargestateDO,
+  author = {F. Kroger and G. Weber and Simon Hirlaender and R. Alemany–Fern&aacute;ndez and M. W. Krasny and T. Stohlker and I. Tolstikhina and V. Shevelko},
+  title = {Charge-state distributions of highly charged lead ions at relativistic collision energies},
+  year = {2021}
+}
+</pre></td>
+</tr>
+<tr id="Latina:2018vrp" class="entry">
+	<td>Latina A, Bartosik H, Biancacci N, Corsini R, Gamba D, Hirlaender S and Huschauer A (2018), <i>"Electron Cooling Simulation and Experimental Benchmarks at LEIR"</i>, In 9th International Particle Accelerator Conference., 6, 2018. 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Latina:2018vrp','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-IPAC2018-TUPAF039" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Latina:2018vrp" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Latina:2018vrp,
+  author = {Latina, Andrea and Bartosik, Hannes and Biancacci, Nicolo and Corsini, Roberto and Gamba, Davide and Hirlaender, Simon and Huschauer, Alexander},
+  title = {Electron Cooling Simulation and Experimental Benchmarks at LEIR},
+  booktitle = {9th International Particle Accelerator Conference},
+  year = {2018},
+  doi = {10.18429/JACoW-IPAC2018-TUPAF039}
+}
+</pre></td>
+</tr>
+<tr id="Latina2018JACoWE" class="entry">
+	<td>Latina A, Gamba D, Corsini R, Hirlaender S, Biancacci N, Huschauer A and Bartosik H (2018), <i>"JACoW : Electron Cooling Simulation and Experimental Benchmarks at LEIR"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Latina2018JACoWE','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Latina2018JACoWE" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Latina2018JACoWE,
+  author = {A. Latina and D. Gamba and R. Corsini and Simon Hirlaender and N. Biancacci and A. Huschauer and H. Bartosik},
+  title = {JACoW : Electron Cooling Simulation and Experimental Benchmarks at LEIR},
+  year = {2018}
+}
+</pre></td>
+</tr>
+<tr id="Machida:2016cwe" class="entry">
+	<td>Machida S, Gilardoni S, Giovannozzi M, Hirlaender S, Huschauer A and Prior C (2016), <i>"Intensity effects in the formation of stable islands in phase space during the multi-turn extraction process at the CERN PS"</i>, In 57th ICFA Advanced Beam Dynamics Workshop on High-Intensity and High-Brightness Hadron Beams. , pp. TUAM7X01.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Machida:2016cwe','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-HB2016-TUAM7X01" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Machida:2016cwe" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Machida:2016cwe,
+  author = {Machida, Shinji and Gilardoni, Simone and Giovannozzi, Massimo and Hirlaender, Simon and Huschauer, Alexander and Prior, Christopher},
+  title = {Intensity effects in the formation of stable islands in phase space during the multi-turn extraction process at the CERN PS},
+  booktitle = {57th ICFA Advanced Beam Dynamics Workshop on High-Intensity and High-Brightness Hadron Beams},
+  year = {2016},
+  pages = {TUAM7X01},
+  doi = {10.18429/JACoW-HB2016-TUAM7X01}
+}
+</pre></td>
+</tr>
+<tr id="Machida2016IntensityEI" class="entry">
+	<td>Machida S, Prior C, Gilardoni S, Huschauer A, Hirlander S and Giovannozzi M (2016), <i>"Intensity Effects in the Formation of Stable Islands in Phase Space During the Multi-Turn Extraction Process at the CERN PS"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Machida2016IntensityEI','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Machida2016IntensityEI" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Machida2016IntensityEI,
+  author = {S. Machida and C. Prior and S. Gilardoni and A. Huschauer and S. Hirlander and M. Giovannozzi},
+  title = {Intensity Effects in the Formation of Stable Islands in Phase Space During the Multi-Turn Extraction Process at the CERN PS},
+  year = {2016}
+}
+</pre></td>
+</tr>
+<tr id="Placzek:2019xpw" class="entry">
+	<td>Placzek W and others (2019), <i>"Gamma Factory at CERN - Novel Research Tools Made of Light"</i>, Acta Phys. Polon. B.  Vol. 50(6), pp. 1191-1203.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Placzek:2019xpw','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.5506/APhysPolB.50.1191" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Placzek:2019xpw" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{Placzek:2019xpw,
+  author = {Placzek, W. and others},
+  title = {Gamma Factory at CERN - Novel Research Tools Made of Light},
+  journal = {Acta Phys. Polon. B},
+  year = {2019},
+  volume = {50},
+  number = {6},
+  pages = {1191--1203},
+  doi = {10.5506/APhysPolB.50.1191}
+}
+</pre></td>
+</tr>
+<tr id="Placzek2019GammaFA" class="entry">
+	<td>Placzek W, Abramov A, Alden S, Fern&aacute;ndez RA, Antsiferov P, Apyan A, Bartosik H, Bessonov E, Biancacci N, Bieron J, Bogacz A, Bosco A, Bruce R, Budker D, Cassou K, Castelli F, Chaikovska I, Curatolo C, Czodrowski P, Derevianko A, Dupraz K, Dutheil Y, Dzierżęga K, Fedosseev V, Martinez N, Gibson S, Goddard B, Gorzawski A, Hirlander S, Jowett J, Kersevan R, Kowalska M, Krasny M, Kroeger F, Lamont M, Lefevre T, Manglunki D, Marsh B, Martens A, Molson J, Nutarelli D, Nevay L, Petrenko A, Petrillo V, Radaelli S, Pustelny S, Rochester S, Sapinski M, Schaumann M, Serafini L, Shevelko V, Stoehlker T, Surzhikov A, Tolstikhina I, Velotti F, Weber G, Wu Y, Yin-Vallgren C, Zanetti M, Zimmermann F, Zolotorev M and Zomer F (2019), <i>"Gamma Factory at CERN -- novel research tools made of light."</i>, arXiv: Accelerator Physics. 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Placzek2019GammaFA','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Placzek2019GammaFA" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{Placzek2019GammaFA,
+  author = {W. Placzek and A. Abramov and S. Alden and R. A. Fern&aacute;ndez and P. Antsiferov and A. Apyan and H. Bartosik and E. Bessonov and N. Biancacci and J. Bieron and A. Bogacz and A. Bosco and R. Bruce and D. Budker and K. Cassou and F. Castelli and I. Chaikovska and C. Curatolo and P. Czodrowski and A. Derevianko and K. Dupraz and Y. Dutheil and K. Dzierżęga and V. Fedosseev and N. Martinez and S. Gibson and B. Goddard and A. Gorzawski and S. Hirlander and J. Jowett and R. Kersevan and M. Kowalska and M. Krasny and F. Kroeger and M. Lamont and T. Lefevre and D. Manglunki and B. Marsh and A. Martens and J. Molson and D. Nutarelli and L. Nevay and A. Petrenko and V. Petrillo and S. Radaelli and S. Pustelny and S. Rochester and M. Sapinski and M. Schaumann and L. Serafini and V. Shevelko and T. Stoehlker and A. Surzhikov and I. Tolstikhina and F. Velotti and G. Weber and Y. Wu and C. Yin-Vallgren and M. Zanetti and F. Zimmermann and M. Zolotorev and F. Zomer},
+  title = {Gamma Factory at CERN -- novel research tools made of light.},
+  journal = {arXiv: Accelerator Physics},
+  year = {2019}
+}
+</pre></td>
+</tr>
+<tr id="Placzek2020TheGF" class="entry">
+	<td>Placzek W, Abramov A, Alden S, Fern&aacute;ndez RA, Antsiferov P, Apyan A, Bartosik H, Bessonov E, Biancacci N, Bieron J, Bogacz A, Bosco A, Bruce R, Budker D, Cassou K, Castelli F, Chaikovska I, Curatolo C, Czodrowski P, Derevianko A, Dupraz K, Dutheil Y, Dzierżęga K, Fedosseev V, Martinez N, Gibson S, Goddard B, Gorzawski A, Hirlander S, Jowett J, Kersevan R, Kowalska M, Krasny M, Kroeger F, Kuchler D, Lamont M, Lefevre T, Manglunki D, Marsh B, Martens A, Molson J, Nutarelli D, Nevay L, Petrenko A, Petrillo V, Redaelli S, Peinaud Y, Pustelny S, Rochester S, Sapinski M, Schaumann M, Scrivens R, Serafini L, Shevelko V, Stoehlker T, Surzhykov A, Tolstikhina I, Velotti F, Weber G, Wu Y, Yin-Vallgren C, Zanetti M, Zimmermann F, Zolotorev M and Zomer F (2020), <i>"The Gamma Factory Project at CERN: a New Generation of Research Tools Made of Light"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Placzek2020TheGF','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Placzek2020TheGF" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Placzek2020TheGF,
+  author = {W. Placzek and A. Abramov and S. Alden and R. A. Fern&aacute;ndez and P. Antsiferov and A. Apyan and H. Bartosik and E. Bessonov and N. Biancacci and J. Bieron and A. Bogacz and A. Bosco and R. Bruce and D. Budker and K. Cassou and F. Castelli and I. Chaikovska and C. Curatolo and P. Czodrowski and A. Derevianko and K. Dupraz and Y. Dutheil and K. Dzierżęga and V. Fedosseev and N. Martinez and S. Gibson and B. Goddard and A. Gorzawski and S. Hirlander and J. Jowett and R. Kersevan and M. Kowalska and M. Krasny and F. Kroeger and D. Kuchler and M. Lamont and T. Lefevre and D. Manglunki and B. Marsh and A. Martens and J. Molson and D. Nutarelli and L. Nevay and A. Petrenko and V. Petrillo and S. Redaelli and Y. Peinaud and S. Pustelny and S. Rochester and M. Sapinski and M. Schaumann and R. Scrivens and L. Serafini and V. Shevelko and T. Stoehlker and A. Surzhykov and I. Tolstikhina and F. Velotti and G. Weber and Yuyuan Wu and C. Yin-Vallgren and M. Zanetti and F. Zimmermann and M. Zolotorev and F. Zomer},
+  title = {The Gamma Factory Project at CERN: a New Generation of Research Tools Made of Light},
+  year = {2020}
+}
+</pre></td>
+</tr>
+<tr id="SaaHernandez:2018zqv" class="entry">
+	<td>Sa&aacute; Hern&aacute;ndez A, Bartosik H, Biancacci N, Hirlaender S, Huschauer A and Moreno Garcia D (2018), <i>"Space Charge Studies on LEIR"</i>, J. Phys. Conf. Ser..  Vol. 1067(6), pp. 062020.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('SaaHernandez:2018zqv','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-IPAC2018-THPAF055" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_SaaHernandez:2018zqv" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{SaaHernandez:2018zqv,
+  author = {Sa&aacute; Hern&aacute;ndez, Angela and Bartosik, Hannes and Biancacci, Nicolo and Hirlaender, Simon and Huschauer, Alexander and Moreno Garcia, Daniel},
+  title = {Space Charge Studies on LEIR},
+  journal = {J. Phys. Conf. Ser.},
+  year = {2018},
+  volume = {1067},
+  number = {6},
+  pages = {062020},
+  doi = {10.18429/JACoW-IPAC2018-THPAF055}
+}
+</pre></td>
+</tr>
+<tr id="SaaHernandez:2019ftv" class="entry">
+	<td>Sa&aacute; Hern&aacute;ndez A, Bartosik H, Biancacci N, Hirlaender S, Moreno D and Zampetakis M (2019), <i>"Detailed characterisation of the LEIR intensity limitations for a Pb ion beam"</i> , pp. WEPTS042.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('SaaHernandez:2019ftv','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-IPAC2019-WEPTS042" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_SaaHernandez:2019ftv" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{SaaHernandez:2019ftv,
+  author = {Sa&aacute; Hern&aacute;ndez, Angela and Bartosik, Hannes and Biancacci, Nicolo and Hirlaender, Simon and Moreno, Daniel and Zampetakis, Michail},
+  editor = {Boland, Mark and Tanaka, Hitoshi and Button, David and Dowd, Rohan},
+  title = {Detailed characterisation of the LEIR intensity limitations for a Pb ion beam},
+  year = {2019},
+  pages = {WEPTS042},
+  doi = {10.18429/JACoW-IPAC2019-WEPTS042}
+}
+</pre></td>
+</tr>
+<tr id="Schaumann:2019evk" class="entry">
+	<td>Schaumann M and others (2019), <i>"First partially stripped ions in the LHC (^208Pb^81+)"</i> , pp. MOPRB055.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Schaumann:2019evk','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-IPAC2019-MOPRB055" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Schaumann:2019evk" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{Schaumann:2019evk,
+  author = {Schaumann, Michaela and others},
+  editor = {Boland, Mark and Tanaka, Hitoshi and Button, David and Dowd, Rohan},
+  title = {First partially stripped ions in the LHC (^208Pb^81+)},
+  year = {2019},
+  pages = {MOPRB055},
+  doi = {10.18429/JACoW-IPAC2019-MOPRB055}
+}
+</pre></td>
+</tr>
+<tr id="Schaumann2019FirstPS" class="entry">
+	<td>Schaumann M, Alemany–Fern&aacute;ndez R, Bartosik H, Bohl T, Bruce R, Hemelsoet G, Hirlaender S, Jowett J, Kain V, Krasny M, Molson J, Papotti G, Camillocci MS, Timko H and Wenninger J (2019), <i>"First partially stripped ions in the LHC (208Pb81"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Schaumann2019FirstPS','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Schaumann2019FirstPS" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Schaumann2019FirstPS,
+  author = {M. Schaumann and R. Alemany–Fern&aacute;ndez and H. Bartosik and T. Bohl and R. Bruce and G. Hemelsoet and Simon Hirlaender and J. Jowett and V. Kain and M. Krasny and J. Molson and G. Papotti and M. S. Camillocci and H. Timko and J. Wenninger},
+  title = {First partially stripped ions in the LHC (208Pb81},
+  year = {2019}
+}
+</pre></td>
+</tr>
+<tr id="Schaumann2019MD3284PS" class="entry">
+	<td>Schaumann M, Giachino R, Cornelis K, Bruce R, Martinez N, Abramov A, Timko H, Gorzawski A, Argyropoulos T, Burger S, Bracco C, Kain V, Biancacci N, Bartosik H, Hirlander S, Bohl T, Papotti G, Camillocci MS, Fern&aacute;ndez RA, Jebramcik M, Hemelsoet G, Molson J, Krasny M, Valuch D, Jowett J, Goddard B, Velotti F and Wenninger J (2019), <i>"MD3284: Partially Stripped Ions in the LHC"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Schaumann2019MD3284PS','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Schaumann2019MD3284PS" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Schaumann2019MD3284PS,
+  author = {M. Schaumann and R. Giachino and K. Cornelis and R. Bruce and N. Martinez and A. Abramov and H. Timko and A. Gorzawski and T. Argyropoulos and S. Burger and C. Bracco and V. Kain and N. Biancacci and H. Bartosik and S. Hirlander and T. Bohl and G. Papotti and M. S. Camillocci and R. A. Fern&aacute;ndez and M. Jebramcik and G. Hemelsoet and J. Molson and M. Krasny and D. Valuch and J. Jowett and B. Goddard and F. Velotti and J. Wenninger},
+  title = {MD3284: Partially Stripped Ions in the LHC},
+  year = {2019}
+}
+</pre></td>
+</tr>
+<tr id="Scheinker:2020ryz" class="entry">
+	<td>Scheinker A, Hirlaender S, Velotti FM, Gessner S, Zevi Della Porta G, Kain V and Ramjiawan R (2020), <i>"Online multi-objective particle accelerator optimization of the AWAKE electron beam line for simultaneous emittance and orbit control"</i>, AIP Adv..  Vol. 10(5), pp. 055320.
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Scheinker:2020ryz','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.1063/5.0003423" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Scheinker:2020ryz" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{Scheinker:2020ryz,
+  author = {Scheinker, Alexander and Hirlaender, Simon and Velotti, Francesco Maria and Gessner, Spencer and Zevi Della Porta, Giovanni and Kain, Verena and Ramjiawan, Rebecca},
+  title = {Online multi-objective particle accelerator optimization of the AWAKE electron beam line for simultaneous emittance and orbit control},
+  journal = {AIP Adv.},
+  year = {2020},
+  volume = {10},
+  number = {5},
+  pages = {055320},
+  doi = {10.1063/5.0003423}
+}
+</pre></td>
+</tr>
+<tr id="Scheinker2020OnlineMP" class="entry">
+	<td>Scheinker A, Hirlaender S, Velotti F, Gessner S, Porta GZD, Kain V, Goddard B and Ramjiawan R (2020), <i>"Online multi-objective particle accelerator optimization of the AWAKE electron beam line for simultaneous emittance and orbit control"</i>, arXiv: Accelerator Physics. 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Scheinker2020OnlineMP','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Scheinker2020OnlineMP" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@article{Scheinker2020OnlineMP,
+  author = {A. Scheinker and Simon Hirlaender and F. Velotti and S. Gessner and Giovanni Zevi Della Porta and V. Kain and Brennan Goddard and R. Ramjiawan},
+  title = {Online multi-objective particle accelerator optimization of the AWAKE electron beam line for simultaneous emittance and orbit control},
+  journal = {arXiv: Accelerator Physics},
+  year = {2020}
+}
+</pre></td>
+</tr>
+<tr id="Velotti:2018dky" class="entry">
+	<td>Velotti F, Bartosik H, Cornelis K, Fraser M, Goddard B, Hirlaender S, Kain V, Michels O and Pari M (2018), <i>"Observations of SPS Slow-Extracted Spill Quality Degradation and Possible Improvements"</i>, In 9th International Particle Accelerator Conference., 6, 2018. 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Velotti:2018dky','bibtex')">BibTeX</a>] [<a href="https://doi.org/10.18429/JACoW-IPAC2018-TUPAF035" target="_blank">DOI</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Velotti:2018dky" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Velotti:2018dky,
+  author = {Velotti, Francesco and Bartosik, Hannes and Cornelis, Karel and Fraser, Matthew and Goddard, Brennan and Hirlaender, Simon and Kain, Verena and Michels, Olivier and Pari, Michelangelo},
+  title = {Observations of SPS Slow-Extracted Spill Quality Degradation and Possible Improvements},
+  booktitle = {9th International Particle Accelerator Conference},
+  year = {2018},
+  doi = {10.18429/JACoW-IPAC2018-TUPAF035}
+}
+</pre></td>
+</tr>
+<tr id="Velotti2018JACoWO" class="entry">
+	<td>Velotti F, Fraser M, Pari M, Cornelis K, Goddard B, Hirlaender S, Kain V, Michels O and Bartosik H (2018), <i>"JACoW : Observations of SPS Slow-Extracted Spill Quality Degradation and Possible Improvements"</i> 
+	<p class="infolinks"> [<a href="javascript:toggleInfo('Velotti2018JACoWO','bibtex')">BibTeX</a>]</p>
+	</td>
+</tr>
+<tr id="bib_Velotti2018JACoWO" class="bibtex noshow">
+<td><b>BibTeX</b>:
+<pre>
+@inproceedings{Velotti2018JACoWO,
+  author = {F. Velotti and M. Fraser and M. Pari and K. Cornelis and B. Goddard and Simon Hirlaender and V. Kain and O. Michels and H. Bartosik},
+  title = {JACoW : Observations of SPS Slow-Extracted Spill Quality Degradation and Possible Improvements},
+  year = {2018}
+}
+</pre></td>
+</tr>
+</tbody>
+</table>
+<footer>
+ <small>Created by <a href="http://jabref.sourceforge.net">JabRef</a> on 15/09/2021.</small>
+</footer>
+<!-- file generated by JabRef -->
+</body>
+</html>
