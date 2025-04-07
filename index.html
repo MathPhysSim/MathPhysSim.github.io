@@ -4,19 +4,17 @@
 
 <head>
   <title>Current activities</title>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6" async></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="css/frame.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="css/controls.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="css/custom.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="js/menu.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/stylebiblio.css">
-  <script type="text/javascript" src="js/bibtextohtml.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&display=swap" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap" rel="stylesheet">
   <style>
     .menu-index {
       color: rgb(255, 255, 255) !important;
@@ -27,37 +25,37 @@
 </head>
 
 <body>
-  <div class="menu-container"></div>
-  <div class="content-container">
+  <a class="skip-link" href="#maincontent">Skip to main content</a>
+  <main id="maincontent" class="content-container">
+    <header>
+      <div class="header-container">
+        <div class="logo-container">
+          <img class="logo" src="img/RLogo.png" width="200" alt="MathPhysSim Logo">
+        </div>
+        <nav class="menu-container">
+          <!-- Navigation links can be added here -->
+        </nav>
+      </div>
+    </header>
+    <div class="flex-row">
+      <div class="flex-item flex-column">
+        <p class="text text-large">
+          <a target="_blank" href="javascript:void(0)">Simon Hirlaender</a> (at) plus.ac.at<br>
+          <a target="_blank" href="https://www.plus.ac.at/aihi/der-fachbereich/ida-lab/">IDA Lab</a><br>
+          <a target="_blank" href="https://www.plus.ac.at/?lang=en&page_id=298879">Department of Artificial Intelligence and Human Interfaces</a><br>
+          <a target="_blank" href="https://www.plus.ac.at/digital-and-analytical-sciences/the-faculty/?lang=en">Faculty of Digital and Analytical Sciences</a><br>
+          <a target="_blank" href="https://www.plus.ac.at">PLUS University Salzburg, Austria</a><br>
+        </p>
+      </div>
+    </div>
     <div class="content">
       <div class="content-table flex-column">
         <!-------------------------------------------------------------------------------------------->
         <!--Start Intro-->
         <div class="flex-row">
           <div class="flex-item flex-column">
-              <div style="text-align: center;">
-            <img class="logo"  src="img/RLogo.png" width="200">
-                </div>
-          </div><br>
-          <div class="flex-item flex-column">
-<!--            <center>
-            <img class="logo"  src="img/RLogo.png" width="120">
-              </center> -->
-            <p class="text text-large">
-              <a target="_blank" href="javascript:void(0)">Simon Hirlaender</a> (at) plus.ac.at<br>
-              <a target="_blank" href="https://www.plus.ac.at/aihi/der-fachbereich/ida-lab/">IDA Lab</a><br>
-              <a target="_blank" href="https://www.plus.ac.at/?lang=en&page_id=298879">Department of Artificial Intelligence and Human Interfaces</a><br>
-              <a target="_blank" href="https://www.plus.ac.at/digital-and-analytical-sciences/the-faculty/?lang=en">Faculty of Digital and Analytical Sciences</a><br>
-              <a target="_blank" href="https://www.plus.ac.at">PLUS University Salzburg, Austria</a><br>
-<!--              <a target="_blank" href="javascript:void(0)">Street Address</a><br>-->
-
-            </p>
-          </div>
-        </div>
-        <div class="flex-row">
-          <div class="flex-item flex-column">
             <p class="text add-top-margin">
-             I am currently leading a <a target="_blank" href="https://www.plus.ac.at/aihi/der-fachbereich/ida-lab/teams/sarl/">Reinforcement Learning Team</a> at PLUS University in Salzburg. Applications range from theoretical aspects - basic research - to real-world applications in local industry. If you have interest to collaborate please reach out to me.<br>
+              I am currently leading a <a target="_blank" href="https://www.plus.ac.at/aihi/der-fachbereich/ida-lab/teams/sarl/">Reinforcement Learning Team</a> at PLUS University in Salzburg. Applications range from theoretical aspects - basic research - to real-world applications in local industry. If you have interest to collaborate please reach out to me.<br>
               In general, I am interested in the development and application of robust, modern AI systems that make good decisions under uncertainty.<br>
               I believe that human and artificial intelligence are complementary and that the combination of the two is of great benefit in finding solutions to our current global problems.
             </p>
@@ -83,43 +81,38 @@
               <span class="highlight-text">The study of artificial intelligence is currently one of the most interesting topics in the world...</span>
             </p>
           </div>
-                    <div class="flex-row">
+          <div class="flex-row">
             <div class="flex-item flex-column">
-                    <p class="text">
-            Recent activities:
-            </p>
-            <ul>
+              <p class="text">
+                Recent activities:
+              </p>
+              <ul>
                 <li>I organise a <a target="_blank" href="https://sarl-plus.github.io/RL-Bootcamp/">RL Bootcamp</a>: 25-27.September.</li>
-<!--                <li>I gave a tutorial on advanced concepts in RL <a target="_blank" href="https://sarl-plus.github.io/RL-Bootcamp/">RL Bootcamp</a>: 25-27.September.</li>-->
-              <li>I gave a <a target="_blank" href="https://www.tedxsalzburg.com">TEDx talk</a>: AI is what we make it.</li>
-
-
-              <li>I organised the <a href="https://rl4aa.github.io/posts/announcements/rl4aa24_announcement/"> RL4 Autonomoous Accelerators workshop in Salzburg 2024</a>, 05 - 07 February 2024</li>
-              <li>I am and have been involved in multiple contract research projects with local industry partners such as Palfinger, Copa Data, and W&H, both in the past and ongoing.</li>
-              <li>In the realm of fundamental research focusing on control systems and reinforcement learning, I am engaged in collaborative efforts with several esteemed institutions, including CERN, DESY, KIT, SLAC, and GSI, among others.</li>
-            </ul>
-                </p>
+                <li>I gave a <a target="_blank" href="https://www.tedxsalzburg.com">TEDx talk</a>: AI is what we make it.</li>
+                <li>I organised the <a href="https://rl4aa.github.io/posts/announcements/rl4aa24_announcement/"> RL4 Autonomoous Accelerators workshop in Salzburg 2024</a>, 05 - 07 February 2024</li>
+                <li>I am and have been involved in multiple contract research projects with local industry partners such as Palfinger, Copa Data, and W&H, both in the past and ongoing.</li>
+                <li>In the realm of fundamental research focusing on control systems and reinforcement learning, I am engaged in collaborative efforts with several esteemed institutions, including CERN, DESY, KIT, SLAC, and GSI, among others.</li>
+              </ul>
+            </p>
           </div>
-
         </div>
-          <div class="flex-item flex-column">
-                    <p class="text">
+        <div class="flex-item flex-column">
+          <p class="text">
             Teachings at the University of Salzburg (PLUS):
-            </p>
-            <ul>
-              <li>Special topics in Data Science.</li>
-              <li>Introduction into Deep Reinforcement Learning.</li>
-              <li>Introduction to Reinforcement Learning.</li>
-              <li>Advanced topics in Reinforcement Learning.</li>
-              <li>Foundations in Precision Medicine.</li>
-            </ul>
-            </p>
-          </div>
+          </p>
+          <ul>
+            <li>Special topics in Data Science.</li>
+            <li>Introduction into Deep Reinforcement Learning.</li>
+            <li>Introduction to Reinforcement Learning.</li>
+            <li>Advanced topics in Reinforcement Learning.</li>
+            <li>Foundations in Precision Medicine.</li>
+          </ul>
+          </p>
         </div>
         <div class="flex-row">
-            <div class="flex-item flex-column">
-                    <p class="text">
-            Current students:
+          <div class="flex-item flex-column">
+            <p class="text">
+              Current students:
             </p>
             <ul>
               <li>Sabrina Pochaba - Data Science PhD: Multi-agent reinforcement learning in D2D communication</li>
@@ -128,26 +121,25 @@
               <li>Reuf Kozlica -  Data Science PhD: Hierarchical reinforcement learning in assembly line optimization</li>
               <li>Lukas Lamminger (finished May 2023) - Data Science Master: Model based and Meta reinforcement learning in accelerator physics</li>
               <li>Sascha Schuster (finished March 2023) - Data Science Master: Reinforcement learning in medicine (DTR of insulin dosing)</li>
-
             </ul>
-                <ul>
-                    Secondary supervision:
-                    <li>Raoul Kutil - Data Science PhD: Knowledge Graphs in medicine</li>
-                    <li>Juan Manuel Montoya Bayardo - Data Science PhD: Reinforcement learning in nautical robotics</li>
-                    <li>Georg Schaefer-  Reinforcement learning in cyber-physical systems</li>
-                    <li>Olivia Zechner: Towards AI-Driven Adaptive Virtual Environments, based on Biosignals: XR training to improve decision-making and acting in stressful situations</li>
-                    <li>Jakob Uhl: Tangible XR for Training of Challenging Occupations: Increasing Presence and Sensory</li>
+            <ul>
+              Secondary supervision:
+              <li>Raoul Kutil - Data Science PhD: Knowledge Graphs in medicine</li>
+              <li>Juan Manuel Montoya Bayardo - Data Science PhD: Reinforcement learning in nautical robotics</li>
+              <li>Georg Schaefer-  Reinforcement learning in cyber-physical systems</li>
+              <li>Olivia Zechner: Towards AI-Driven Adaptive Virtual Environments, based on Biosignals: XR training to improve decision-making and acting in stressful situations</li>
+              <li>Jakob Uhl: Tangible XR for Training of Challenging Occupations: Increasing Presence and Sensory</li>
             </ul>
-                    </p>
+            </p>
           </div>
-
         </div>
 
         <!--End Intro-->
-        </div>
       </div>
-    </div>
-
+  </main>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
+  <script src="js/menu.js" defer></script>
+  <script type="text/javascript" src="js/bibtextohtml.js" defer></script>
 </body>
 
 </html>
