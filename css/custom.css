@@ -1,34 +1,130 @@
-/*************************************************************************
- * Your custom CSS file
- *************************************************************************/
-
-.custom-dropdown {
-  width: 240px;
+/* General body styling for better visual comfort */
+body {
+  background-color: #f4f7f6; /* A soft, light gray background */
+  color: #333; /* Darker text for better contrast against the light background */
+  line-height: 1.6; /* Improved line spacing for readability */
+  font-family: 'Open Sans', sans-serif; /* Ensuring consistent font usage */
 }
 
-.custom-textbox {
-  width: 240px;
+/* Styling for the main content area */
+.content {
+  background-color: #ffffff; /* White background for the content itself */
+  padding: 30px; /* More generous padding around the content */
+  border-radius: 8px; /* Softly rounded corners for a modern look */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* A more subtle shadow for depth */
+  margin-top: 30px; /* More space between the menu and the content */
+  margin-bottom: 30px; /* Space at the bottom of the content */
 }
 
-#dialog-1,
-#dialog-2,
-#dialog-3,
-#dialog-4,
-#share-dialog {
-  display: none;
+/* Standardize heading styling across pages */
+h1, h2, h3, h4, h5, h6 {
+  color: #2c3e50; /* A deep, professional blue/gray for headings */
+  margin-bottom: 15px;
+  font-family: 'Source Sans Pro', sans-serif; /* Consistent font for headings */
 }
 
-#share-url {
-  width: 100%;
-  -webkit-touch-callout: default !important;
-  -webkit-user-select: text !important;
-  -khtml-user-select: text !important;
-  -moz-user-select: text !important;
-  -ms-user-select: text !important;
-  user-select: text !important;
+h1.add-top-margin, h2.add-top-margin {
+  font-size: 2.2em; /* Impactful H1/H2 */
+  font-weight: 700;
+  border-bottom: 2px solid #e0e0e0; /* A subtle line under H1/H2 for separation */
+  padding-bottom: 10px; /* Space between text and the underline */
 }
 
-#share-url-copy-prompt {
-  display: none;
-  color: #007bff;
+h3 {
+  font-size: 1.6em; /* Clearer H3 size */
+  margin-top: 30px; /* More top margin to separate sections */
+  color: #34495e; /* Slightly lighter than H1/H2 but still strong */
+}
+
+/* Improve paragraph readability */
+p.text {
+  margin-bottom: 20px;
+  font-size: 1.05em; /* Slightly increased font size for body text */
+  color: #555; /* Slightly softer text color than pure black for paragraphs */
+}
+
+/* Styling for links to make them clear and accessible */
+a {
+  color: #2980b9;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  text-decoration: underline;
+  color: #1c6087;
+}
+
+/* Styling for lists to improve clarity */
+ul {
+  padding-left: 25px; /* Indentation for lists */
+  margin-bottom: 20px;
+}
+
+ul li {
+  margin-bottom: 10px; /* More space between list items */
+  color: #555;
+}
+
+/* Active menu items styling - used by all pages consistently */
+.menu-index, .menu-rl, .menu-phd, .menu-publications, .menu-embedding {
+  color: rgb(255, 255, 255) !important;
+  opacity: 1 !important;
+  font-weight: 700 !important;
+}
+
+.menu-items li {
+  margin: 0 15px;
+}
+
+ul ul {
+  margin-top: 8px; /* Space above nested lists */
+  margin-bottom: 8px; /* Space below nested lists */
+}
+
+/* Enhanced styling for the highlighted text */
+.highlight-text {
+  background-color: #eaf2f8; /* A very light, subtle blue highlight */
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #2980b9; /* A clear blue color for the highlighted text */
+}
+
+/* Styling for the credits text (example from rl.html) */
+.text.text-small.text-italic {
+  margin-top: 30px; /* More space above the credits */
+  color: #7f8c8d; /* A muted color for less emphasis */
+  font-size: 0.9em;
+}
+
+/* Optional: If .big-name is a site-wide style, keep it here */
+.big-name {
+  font-size: 1em;
+  font-weight: bold;
+  color: #2ea887;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  padding: 5px;
+  background: linear-gradient(135deg, rgba(46, 168, 135, 0.4), rgba(44, 14, 135, 0.37));
+  border-radius: 2px;
+  margin: 5px auto;
+  width: fit-content;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #e0e0e0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Style for the profile image */
+.profile-image {
+  width: 150px; /* Adjust size as preferred */
+  height: 150px; /* For a circular image, width and height should be equal */
+  border-radius: 50%; /* Makes the image circular */
+  object-fit: cover; /* Ensures the image covers the area, cropping if necessary, without distortion */
+  display: block;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* A nice shadow effect */
 }
