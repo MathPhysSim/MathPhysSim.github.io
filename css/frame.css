@@ -511,6 +511,22 @@ ol.nested>li:before {
 
 .text-center {
   text-align: center;
+  z-index: 100;
+}
+
+@media screen and (max-width: 900px) {
+  .flex-item {
+    width: 100% !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+  
+  .profile-image {
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto 20px;
+    display: block;
+  }
 }
 
 .iframe-container {
@@ -727,6 +743,36 @@ ol.nested>li:before {
 
 .add-bottom-margin-large {
   margin-bottom: 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .menu-items {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .menu-items-visible {
+    display: flex;
+  }
+  
+  .menu-items li {
+    margin: 10px 0;
+  }
+  
+  .menu-button {
+    display: block;
+  }
+  
+  .flex-row {
+    flex-direction: column;
+  }
+  
+  .content-container {
+    padding: 15px;
+  }
 }
 
 @media screen and (min-width: 900px) {

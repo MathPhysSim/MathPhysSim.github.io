@@ -9,6 +9,21 @@ $(document).ready(function () {
       menuButton.addEventListener('click', function () {
         menuItems.classList.toggle('menu-items-visible');
       });
+      
+      // Close menu when an item is clicked
+      const menuLinks = menuItems.querySelectorAll('a');
+      menuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          menuItems.classList.remove('menu-items-visible');
+        });
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!menuButton.contains(event.target) && !menuItems.contains(event.target)) {
+          menuItems.classList.remove('menu-items-visible');
+        }
+      });
     }
     
     // Ensure active menu item is highlighted based on current page
