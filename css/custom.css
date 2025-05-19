@@ -116,20 +116,38 @@ ul li {
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: calc(0.3rem + 0.2vw);
+  padding: calc(0.5rem + 0.3vw);
   display: none;
   z-index: 1002;
+  touch-action: manipulation; /* Improves touch handling on mobile */
+  -webkit-appearance: none; /* Prevents default iOS styling */
+  -webkit-tap-highlight-color: transparent; /* Removes tap highlight on iOS */
+  user-select: none; /* Prevents text selection */
 }
 
 .menu-button img {
   width: 30px;
   height: 30px;
+  display: block; /* Ensures proper rendering */
 }
 
 /* Vertical menu layout for small screens */
 @media screen and (max-width: 768px) {
   .menu-button {
     display: block;
+    position: relative; /* Establish positioning context */
+    margin-right: 10px; /* Add some space for tap area */
+  }
+  
+  /* Create larger tap target area for iOS */
+  .menu-button::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -1;
   }
   
   .menu-items {
@@ -140,21 +158,21 @@ ul li {
     right: 0;
     width: 100%;
     flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.95); /* Darker background for better visibility */
     z-index: 1001;
-    padding: 10px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px 0; /* Increased padding for better tap targets */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   }
   
   .menu-items li {
-    margin: 8px 0;
+    margin: 10px 0; /* Increased margin for better spacing */
     width: 100%;
     text-align: center;
   }
   
   .menu-items a {
     display: block;
-    padding: 10px 0;
+    padding: 12px 0; /* Larger padding for better tap targets */
     font-size: 16px;
     width: 100%;
   }
@@ -166,6 +184,21 @@ ul li {
   /* Make logo text smaller on mobile */
   .logo a {
     font-size: 18px;
+  }
+}
+
+/* iOS-specific adjustments */
+@supports (-webkit-touch-callout: none) {
+  .menu-button {
+    padding: 15px; /* Larger padding for iOS devices */
+  }
+  
+  .menu-items li {
+    padding: 5px 0; /* Additional padding on iOS */
+  }
+  
+  .menu-items a {
+    font-weight: 600; /* Make text slightly bolder for iOS */
   }
 }
 

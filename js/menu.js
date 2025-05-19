@@ -1,6 +1,9 @@
 (function () {
   "use strict";
 
+  // Check if device is iOS to apply special handling
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  
   $(function () {
     // Load the menu content
     $(".menu-container").load("menu.html", function() {
@@ -14,31 +17,67 @@
           return window.innerWidth <= 768;
         }
 
-        // Initially hide menu on mobile
-        if (isMobileSize()) {
-          menuItems.style.display = 'none';
-        }
-
-        // Toggle menu visibility when button is clicked
-        menuButton.addEventListener('click', function(e) {
-          e.stopPropagation();
-          if (menuItems.style.display === 'none' || menuItems.style.display === '') {
-            menuItems.style.display = 'flex';
-            menuItems.classList.add('menu-items-visible');
-          } else {
+        // Set initial display state for mobile
+        function setInitialMenuState() {
+          if (isMobileSize()) {
             menuItems.style.display = 'none';
             menuItems.classList.remove('menu-items-visible');
+          } else {
+            menuItems.style.display = 'flex';
+            menuItems.classList.remove('menu-items-visible');
+          }
+        }
+
+        // Set initial state
+        setInitialMenuState();
+
+        // iOS-specific fix to ensure the menu button is tappable
+        if (isIOS) {
+          menuButton.style.cursor = 'pointer';
+          menuButton.style.touchAction = 'manipulation';
+          menuButton.addEventListener('touchstart', function(e) {
+            e.preventDefault(); // Prevent double-tap zoom on iOS
+          });
+        }
+
+        // Toggle menu visibility with improved iOS handling
+        menuButton.addEventListener('click', function(e) {
+          e.stopPropagation();
+          e.preventDefault();
+          
+          if (menuItems.classList.contains('menu-items-visible')) {
+            menuItems.classList.remove('menu-items-visible');
+            menuItems.style.display = 'none';
+          } else {
+            menuItems.classList.add('menu-items-visible');
+            menuItems.style.display = 'flex';
           }
         });
+
+        // For iOS specifically, add touchend event
+        if (isIOS) {
+          menuButton.addEventListener('touchend', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            
+            if (menuItems.classList.contains('menu-items-visible')) {
+              menuItems.classList.remove('menu-items-visible');
+              menuItems.style.display = 'none';
+            } else {
+              menuItems.classList.add('menu-items-visible');
+              menuItems.style.display = 'flex';
+            }
+          });
+        }
 
         // Close menu when clicking elsewhere
         document.addEventListener('click', function(e) {
           if (isMobileSize() && 
-              menuItems.style.display !== 'none' &&
+              menuItems.classList.contains('menu-items-visible') &&
               !menuButton.contains(e.target) &&
               !menuItems.contains(e.target)) {
-            menuItems.style.display = 'none';
             menuItems.classList.remove('menu-items-visible');
+            menuItems.style.display = 'none';
           }
         });
 
@@ -47,22 +86,15 @@
         menuLinks.forEach(link => {
           link.addEventListener('click', function() {
             if (isMobileSize()) {
-              menuItems.style.display = 'none';
               menuItems.classList.remove('menu-items-visible');
+              menuItems.style.display = 'none';
             }
           });
         });
 
         // Handle window resize
         window.addEventListener('resize', function() {
-          if (isMobileSize()) {
-            if (!menuItems.classList.contains('menu-items-visible')) {
-              menuItems.style.display = 'none';
-            }
-          } else {
-            menuItems.style.display = 'flex';
-            menuItems.classList.remove('menu-items-visible');
-          }
+          setInitialMenuState();
         });
       }
 
@@ -79,16 +111,6 @@
           }
           return false;
         }
-      });
-      
-      // Handle window resize events
-      $(window).resize(function() {
-        // Close mobile menu if open during resize to desktop
-        if ($(window).width() > 768 && $('.menu-items').hasClass('menu-items-visible')) {
-          $('.menu-items').removeClass('menu-items-visible');
-        }
-        
-        // Add any other resize-specific functionality here
       });
     });
   });
