@@ -2,45 +2,70 @@
 body {
   background-color: #f4f7f6; /* A soft, light gray background */
   color: #333; /* Darker text for better contrast against the light background */
-  line-height: 1.6; /* Improved line spacing for readability */
+  line-height: 1.5; /* Slightly tighter line spacing */
   font-family: 'Open Sans', sans-serif; /* Ensuring consistent font usage */
+  font-size: calc(10px + 0.15vw); /* Reduced responsive base font size */
+  transition: font-size 0.3s ease; /* Smooth transition for font size changes */
 }
 
-/* Styling for the main content area */
+/* Set responsive root font size for rem units to work properly */
+:root {
+  font-size: calc(10px + 0.15vw); /* Reduced responsive root font size */
+  transition: font-size 0.3s ease; /* Smooth transition for font size changes */
+}
+
+/* Styling for the main content area with responsive padding */
 .content {
   background-color: #ffffff; /* White background for the content itself */
-  padding: 30px; /* More generous padding around the content */
+  padding: calc(1rem + 2vw); /* Responsive padding that grows with viewport width */
   border-radius: 8px; /* Softly rounded corners for a modern look */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* A more subtle shadow for depth */
-  margin-top: 30px; /* More space between the menu and the content */
-  margin-bottom: 30px; /* Space at the bottom of the content */
+  margin-top: calc(1.5rem + 0.5vw); /* Responsive space between the menu and the content */
+  margin-bottom: calc(1.5rem + 0.5vw); /* Responsive space at the bottom of the content */
+  width: 100%;
+  max-width: 1200px; /* Limit maximum width for very large screens */
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Standardize heading styling across pages */
+/* Make content more responsive to browser size */
+.content-container {
+  padding: calc(0.5rem + 1vw);
+  width: 100%;
+}
+
+/* Standardize heading styling across pages with responsive sizing */
 h1, h2, h3, h4, h5, h6 {
   color: #2c3e50; /* A deep, professional blue/gray for headings */
-  margin-bottom: 15px;
+  margin-bottom: calc(0.4rem + 0.3vw);
   font-family: 'Source Sans Pro', sans-serif; /* Consistent font for headings */
+  line-height: 1.2;
 }
 
 h1.add-top-margin, h2.add-top-margin {
-  font-size: 2.2em; /* Impactful H1/H2 */
+  font-size: clamp(1.2rem, 1rem + 1vw, 1.7rem); /* Reduced responsive font size with min/max limits */
   font-weight: 700;
-  border-bottom: 2px solid #e0e0e0; /* A subtle line under H1/H2 for separation */
-  padding-bottom: 10px; /* Space between text and the underline */
+  border-bottom: 1px solid #e0e0e0; /* A subtle line under H1/H2 for separation */
+  padding-bottom: calc(0.4rem + 0.2vw); /* Space between text and the underline */
 }
 
 h3 {
-  font-size: 1.6em; /* Clearer H3 size */
-  margin-top: 30px; /* More top margin to separate sections */
+  font-size: clamp(1rem, 0.9rem + 0.6vw, 1.4rem); /* Reduced responsive font size with min/max limits */
+  margin-top: calc(1.2rem + 0.3vw); /* More top margin to separate sections */
   color: #34495e; /* Slightly lighter than H1/H2 but still strong */
 }
 
-/* Improve paragraph readability */
+h4 {
+  font-size: clamp(0.9rem, 0.8rem + 0.4vw, 1.1rem); /* Reduced responsive font size */
+  margin-top: calc(0.8rem + 0.2vw);
+}
+
+/* Improve paragraph readability with responsive sizing */
 p.text {
-  margin-bottom: 20px;
-  font-size: 1.05em; /* Slightly increased font size for body text */
+  margin-bottom: calc(0.8rem + 0.5vw);
+  font-size: clamp(0.85rem, 0.8rem + 0.4vw, 1.05rem); /* Reduced responsive font size with min/max limits */
   color: #555; /* Slightly softer text color than pure black for paragraphs */
+  max-width: 70ch; /* Limit line length for improved readability */
 }
 
 /* Styling for links to make them clear and accessible */
@@ -54,15 +79,16 @@ a:hover, a:focus {
   color: #1c6087;
 }
 
-/* Styling for lists to improve clarity */
+/* Styling for lists to improve clarity with responsive spacing */
 ul {
-  padding-left: 25px; /* Indentation for lists */
-  margin-bottom: 20px;
+  padding-left: calc(1rem + 1vw); /* Responsive indentation for lists */
+  margin-bottom: calc(0.8rem + 0.5vw);
 }
 
 ul li {
-  margin-bottom: 10px; /* More space between list items */
+  margin-bottom: calc(0.4rem + 0.3vw); /* Responsive space between list items */
   color: #555;
+  font-size: clamp(0.8rem, 0.75rem + 0.35vw, 0.95rem); /* Reduced responsive font size */
 }
 
 /* Active menu items styling - used by all pages consistently */
@@ -73,7 +99,85 @@ ul li {
 }
 
 .menu-items li {
-  margin: 0 15px;
+  margin: 0 calc(0.5rem + 0.5vw); /* Responsive margin between menu items */
+}
+
+/* Make menu text size responsive */
+.menu-items a {
+  font-size: clamp(0.85rem, 0.8rem + 0.3vw, 1rem); /* Smaller responsive menu text */
+}
+
+.logo a {
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.4rem); /* Smaller responsive logo text */
+}
+
+/* Responsive menu button styling */
+.menu-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: calc(0.3rem + 0.2vw);
+  display: none;
+  z-index: 1002;
+}
+
+.menu-button img {
+  width: 30px;
+  height: 30px;
+}
+
+/* Vertical menu layout for small screens */
+@media screen and (max-width: 768px) {
+  .menu-button {
+    display: block;
+  }
+  
+  .menu-items {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1001;
+    padding: 10px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .menu-items li {
+    margin: 8px 0;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .menu-items a {
+    display: block;
+    padding: 10px 0;
+    font-size: 16px;
+    width: 100%;
+  }
+  
+  .menu-items.menu-items-visible {
+    display: flex !important;
+  }
+  
+  /* Make logo text smaller on mobile */
+  .logo a {
+    font-size: 18px;
+  }
+}
+
+/* Ensure menu text is not too large on smaller screens */
+@media screen and (max-width: 480px) {
+  .menu-items a {
+    font-size: 14px;
+  }
+  
+  .logo a {
+    font-size: 16px;
+  }
 }
 
 ul ul {
@@ -81,33 +185,33 @@ ul ul {
   margin-bottom: 8px; /* Space below nested lists */
 }
 
-/* Enhanced styling for the highlighted text */
+/* Enhanced styling for the highlighted text with responsive sizing */
 .highlight-text {
   background-color: #eaf2f8; /* A very light, subtle blue highlight */
-  padding: 3px 6px;
+  padding: calc(0.15rem + 0.15vw) calc(0.3rem + 0.3vw);
   border-radius: 4px;
   font-weight: bold;
   color: #2980b9; /* A clear blue color for the highlighted text */
 }
 
-/* Styling for the credits text (example from rl.html) */
+/* Styling for the credits text with responsive sizing */
 .text.text-small.text-italic {
-  margin-top: 30px; /* More space above the credits */
+  margin-top: calc(1.5rem + 0.5vw); /* Responsive space above the credits */
   color: #7f8c8d; /* A muted color for less emphasis */
-  font-size: 0.9em;
+  font-size: clamp(0.8rem, 0.75rem + 0.2vw, 0.95rem);
 }
 
-/* Optional: If .big-name is a site-wide style, keep it here */
+/* Responsive styling for .big-name */
 .big-name {
-  font-size: 1em;
+  font-size: clamp(0.9rem, 0.8rem + 0.4vw, 1.1rem); /* Reduced font size */
   font-weight: bold;
   color: #2ea887;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   text-align: left;
-  padding: 5px;
+  padding: calc(0.3rem + 0.2vw);
   background: linear-gradient(135deg, rgba(46, 168, 135, 0.4), rgba(44, 14, 135, 0.37));
   border-radius: 2px;
-  margin: 5px auto;
+  margin: calc(0.3rem + 0.2vw) auto;
   width: fit-content;
 }
 
@@ -115,16 +219,72 @@ hr {
   border: 0;
   height: 1px;
   background: #e0e0e0;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: calc(1rem + 0.5vw);
+  margin-bottom: calc(1rem + 0.5vw);
 }
 
-/* Style for the profile image */
+/* Style for the profile image with responsive sizing */
 .profile-image {
-  width: 150px; /* Adjust size as preferred */
-  height: 150px; /* For a circular image, width and height should be equal */
+  width: clamp(100px, 15vw, 180px); /* Responsive width that scales with viewport */
+  height: clamp(100px, 15vw, 180px); /* Match width for circular shape */
   border-radius: 50%; /* Makes the image circular */
   object-fit: cover; /* Ensures the image covers the area, cropping if necessary, without distortion */
   display: block;
   box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* A nice shadow effect */
+  transition: width 0.3s ease, height 0.3s ease; /* Smooth transition when resizing */
+}
+
+/* Ensure all images are responsive by default */
+img {
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.3s ease; /* Smooth transition when resizing */
+}
+
+/* Responsive treatment for specific image types */
+.content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Comprehensive responsive breakpoints */
+@media screen and (max-width: 1200px) {
+  .content {
+    max-width: 90%; /* Allow more width on medium-large screens */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    font-size: calc(9px + 0.15vw); /* Smaller base font on medium screens */
+  }
+  
+  .content {
+    padding: calc(0.8rem + 1.2vw); /* Less padding on smaller screens */
+  }
+  
+  /* Adjust spacing for better mobile reading */
+  .flex-item {
+    margin-bottom: calc(0.8rem + 0.8vw);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  body {
+    font-size: calc(9px + 0.1vw); /* Even smaller base font on very small screens */
+  }
+  
+  h1.add-top-margin, h2.add-top-margin {
+    font-size: clamp(1.1rem, 1rem + 0.8vw, 1.4rem); /* Smaller headings on mobile */
+  }
+  
+  .content {
+    padding: calc(0.6rem + 0.8vw); /* Minimal padding on very small screens */
+  }
+  
+  ul {
+    padding-left: calc(0.6rem + 0.4vw); /* Less list indentation on mobile */
+  }
 }
