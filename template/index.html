@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Page Title - Your Name</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Description of your page">
+  
+  <!-- Resource hints for faster loading -->
+  <link rel="preconnect" href="https://use.fontawesome.com">
+  <link rel="preconnect" href="https://ajax.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Critical CSS first -->
+  <link href="../css/frame.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="../css/custom.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="css/template.css" media="screen" rel="stylesheet" type="text/css" />
+  
+  <!-- Fonts with display=swap for better performance -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet" type="text/css">
+  <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" media="screen" rel="stylesheet" type="text/css" />
+  
+  <!-- JavaScript with defer to not block rendering -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
+  <script src="js/template-menu.js" defer></script>
+</head>
+
+<body>
+  <div class="menu-container"></div>
+  <div class="content-container">
+    <div class="content">
+      <div class="content-table flex-column">
+        <!-- Page Header -->
+        <div class="flex-row">
+          <div class="flex-item flex-column">
+            <h1 class="add-top-margin">Page Title</h1>
+            <hr>
+          </div>
+        </div>
+        
+        <!-- Main Content Section -->
+        <div class="flex-row">
+          <div class="flex-item flex-column">
+            <h2>Section Title</h2>
+            <p class="text">
+              This is a template paragraph. Replace this text with your own content. This template
+              includes mobile-friendly features and works well on iPhone and other mobile devices.
+            </p>
+            
+            <!-- Example List -->
+            <p class="text">
+              Example list:
+            </p>
+            <ul>
+              <li>First item in your list</li>
+              <li>Second item with <a href="#" target="_blank">a link example</a></li>
+              <li>Third item in your list</li>
+              <li>Fourth item with more details that might wrap to multiple lines on smaller screens</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Two Column Layout Example -->
+        <div class="flex-row">
+          <div class="flex-item flex-column" style="width: 48%;">
+            <h3>Left Column</h3>
+            <p class="text">
+              This is content in the left column. On mobile devices, these columns will stack 
+              vertically for better readability.
+            </p>
+          </div>
+          <div class="flex-item flex-column" style="width: 48%;">
+            <h3>Right Column</h3>
+            <p class="text">
+              This is content in the right column. You can add images, lists, or other content here.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Footer Section -->
+        <div class="flex-row">
+          <div class="flex-item flex-column">
+            <hr>
+            <p class="text text-small text-italic">
+              © 2024 Your Name. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
