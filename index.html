@@ -5,27 +5,33 @@
   <title>Overview</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
-  
+
   <!-- Resource hints for faster loading -->
   <link rel="preconnect" href="https://use.fontawesome.com">
   <link rel="preconnect" href="https://ajax.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
+
   <!-- Critical CSS first -->
   <link href="css/frame.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="css/custom.css" media="screen" rel="stylesheet" type="text/css" />
 
   <!-- Fonts with display=swap for better performance -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" rel="stylesheet" type="text/css">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    rel="stylesheet" type="text/css">
 
   <!-- Non-critical CSS loaded with lower priority -->
-  <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" media="print" onload="this.media='screen'" rel="stylesheet" type="text/css" />
+  <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" media="print" onload="this.media='screen'"
+    rel="stylesheet" type="text/css" />
   <link href="css/controls.css" media="print" onload="this.media='screen'" rel="stylesheet" type="text/css" />
   <link href="css/widgets.css" media="print" onload="this.media='screen'" rel="stylesheet" type="text/css" />
-  <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" media="print" onload="this.media='screen'" rel="stylesheet" type="text/css" />
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&display=swap" media="print" onload="this.media='screen'" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap" media="print" onload="this.media='screen'" rel="stylesheet" type="text/css">
+  <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" media="print"
+    onload="this.media='screen'" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&display=swap" media="print"
+    onload="this.media='screen'" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap" media="print"
+    onload="this.media='screen'" rel="stylesheet" type="text/css">
 
   <!-- JavaScript with defer to not block rendering -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
@@ -39,143 +45,195 @@
 </head>
 
 <body>
-<!--  <a class="skip-link" href="#maincontent">Skip to main content</a>-->
+  <!--  <a class="skip-link" href="#maincontent">Skip to main content</a>-->
   <div class="menu-container"></div>
   <main id="maincontent" class="content-container">
-<!--      <div class="flex-row">-->
-<!--        <div class="flex-item flex-column">-->
-<!--          <div class="logo-container">-->
-<!--            <img class="logo" src="img/RLogo.png" width="100" alt="MathPhysSim Logo">-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="flex-item flex-column">-->
-<!--          <p class="text text-small">-->
-<!--            <a target="_blank" href="javascript:void(0)">Simon Hirlaender(at) plus.ac.at</a><br>-->
+    <!--      <div class="flex-row">-->
+    <!--        <div class="flex-item flex-column">-->
+    <!--          <div class="logo-container">-->
+    <!--            <img class="logo" src="img/RLogo.png" width="100" alt="MathPhysSim Logo">-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--        <div class="flex-item flex-column">-->
+    <!--          <p class="text text-small">-->
+    <!--            <a target="_blank" href="javascript:void(0)">Simon Hirlaender(at) plus.ac.at</a><br>-->
 
-<!--            <a target="_blank" href="https://www.plus.ac.at/aihi/der-fachbereich/ida-lab/">IDA Lab</a><br>-->
-<!--            <a target="_blank" href="https://www.plus.ac.at/?lang=en&page_id=298879">Department of Artificial Intelligence and Human Interfaces</a><br>-->
-<!--            <a target="_blank" href="https://www.plus.ac.at/digital-and-analytical-sciences/the-faculty/?lang=en">Faculty of Digital and Analytical Sciences</a><br>-->
-<!--            <a target="_blank" href="https://www.plus.ac.at">PLUS University Salzburg, Austria</a><br>-->
-<!--          </p>-->
-<!--        </div>-->
-<!--      </div>-->
-          <div class="flex-row" style="align-items: center; margin-bottom: 20px;">
-        <div class="flex-item" style="margin-right: 20px; flex-shrink: 0;">
-          <img src="img/MyImage.jpg" alt="Simon Hirlaender" class="profile-image" style="max-width: 100%; height: auto;">
-        </div>
-        <div class="flex-item flex-column">
-<!--          <h2 style="margin-top: 0; margin-bottom: 10px; font-size: 1.8em;">Simon Hirlaender</h2>-->
-          <p class="text text-small" style="margin-bottom: 0;">
-            <a target="_blank" href="javascript:void(0)">Simon Hirlaender(at) plus.ac.at</a><br>
-            <a target="_blank" href="https://www.plus.ac.at/aihi/der-fachbereich/ida-lab/">IDA Lab</a><br>
-            <a target="_blank" href="https://www.plus.ac.at/?lang=en&page_id=298879">Department of Artificial Intelligence and Human Interfaces</a><br>
-            <a target="_blank" href="https://www.plus.ac.at/digital-and-analytical-sciences/the-faculty/?lang=en">Faculty of Digital and Analytical Sciences</a><br>
-            <a target="_blank" href="https://www.plus.ac.at">PLUS University Salzburg, Austria</a><br>
-          </p>
-        </div>
+    <!--            <a target="_blank" href="https://www.plus.ac.at/aihi/der-fachbereich/ida-lab/">IDA Lab</a><br>-->
+    <!--            <a target="_blank" href="https://www.plus.ac.at/?lang=en&page_id=298879">Department of Artificial Intelligence and Human Interfaces</a><br>-->
+    <!--            <a target="_blank" href="https://www.plus.ac.at/digital-and-analytical-sciences/the-faculty/?lang=en">Faculty of Digital and Analytical Sciences</a><br>-->
+    <!--            <a target="_blank" href="https://www.plus.ac.at">PLUS University Salzburg, Austria</a><br>-->
+    <!--          </p>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <div class="flex-row" style="align-items: center; margin-bottom: 20px;">
+      <div class="flex-item" style="margin-right: 20px; flex-shrink: 0;">
+        <img src="img/MyImage.jpg" alt="Simon Hirlaender" class="profile-image" style="max-width: 100%; height: auto;">
       </div>
+      <div class="flex-item flex-column">
+        <!--          <h2 style="margin-top: 0; margin-bottom: 10px; font-size: 1.8em;">Simon Hirlaender</h2>-->
+        <p class="text text-small" style="margin-bottom: 0;">
+          <a target="_blank" href="javascript:void(0)">Simon Hirlaender(at) plus.ac.at</a><br>
+          <a target="_blank" href="https://www.plus.ac.at/aihi/der-fachbereich/ida-lab/">IDA Lab</a><br>
+          <a target="_blank" href="https://www.plus.ac.at/?lang=en&page_id=298879">Department of Artificial Intelligence
+            and Human Interfaces</a><br>
+          <a target="_blank" href="https://www.plus.ac.at/digital-and-analytical-sciences/the-faculty/?lang=en">Faculty
+            of Digital and Analytical Sciences</a><br>
+          <a target="_blank" href="https://www.plus.ac.at">PLUS University Salzburg, Austria</a><br>
+        </p>
+      </div>
+    </div>
 
+    <div class="flex-row">
+      <div class="flex-item flex-column">
+        <p class="text add-top-margin">
+          Currently, I am <strong>Vice Director of the <a target="_blank"
+              href="https://www.plus.ac.at/aihi/der-fachbereich/ida-lab/">IDA Lab</a></strong> and leading a <a
+            target="_blank" href="https://www.plus.ac.at/aihi/der-fachbereich/ida-lab/teams/sarl/">Reinforcement
+            Learning Team</a> at PLUS University in Salzburg. Applications range from theoretical aspects - basic
+          research - to real-world applications in industry. If you have interest to collaborate please reach out to
+          me.<br>
+          In general, I am interested in the development and application of robust, modern AI systems that make good
+          decisions under uncertainty.<br>
+          I believe that human and artificial intelligence are complementary and that the combination of the two is of
+          great benefit in finding solutions to our current global problems.
+        </p>
+      </div>
+    </div>
+    <div class="flex-row">
+      <div class="flex-item flex-column">
+        <p class="text add-top-margin">
+          My team focuses besides of different flavours of reinforcement learning on multivariate time series and
+          analytics, Bayesian methods, control theory and physics.
+        </p>
+      </div>
+    </div>
+    <div class="flex-row">
+      <div class="flex-item flex-column">
+        <p class="text add-top-margin">
+          Before I was working at <a target="_blank" href="https://home.cern">CERN</a> in Geneva for several years,
+          where I also did my <a target="_blank" href="phd.html">PhD</a> (selected for a prestigious scholarship by the
+          Austrian PhD program). Currently, I am visiting scientist at CERN.<br>
+        </p>
+      </div>
+    </div>
+    <div class="flex-row">
+      <div class="flex-item flex-column">
+        <p class="text add-top-margin">
+          <span class="highlight-text">The study of artificial intelligence is currently one of the most interesting
+            topics in the world...</span>
+        </p>
+      </div>
       <div class="flex-row">
         <div class="flex-item flex-column">
-          <p class="text add-top-margin">
-            Currently, I am leading a <a target="_blank" href="https://www.plus.ac.at/aihi/der-fachbereich/ida-lab/teams/sarl/">Reinforcement Learning Team</a> at PLUS University in Salzburg. Applications range from theoretical aspects - basic research - to real-world applications in industry. If you have interest to collaborate please reach out to me.<br>
-              In general, I am interested in the development and application of robust, modern AI systems that make good decisions under uncertainty.<br>
-              I believe that human and artificial intelligence are complementary and that the combination of the two is of great benefit in finding solutions to our current global problems.
-            </p>
-          </div>
-        </div>
-        <div class="flex-row">
-          <div class="flex-item flex-column">
-            <p class="text add-top-margin">
-              My team focuses besides of different flavours of reinforcement learning on multivariate time series and analytics, Bayesian methods, control theory and physics.
-            </p>
-          </div>
-        </div>
-        <div class="flex-row">
-          <div class="flex-item flex-column">
-            <p class="text add-top-margin">
-              Before I was working at <a target="_blank" href="https://home.cern">CERN</a> in Geneva for several years, where I also did my <a target="_blank" href="phd.html">PhD</a> (selected for a prestigious scholarship by the Austrian PhD program). Currently, I am visiting scientist at CERN.<br>
-            </p>
-          </div>
-        </div>
-        <div class="flex-row">
-          <div class="flex-item flex-column">
-            <p class="text add-top-margin">
-              <span class="highlight-text">The study of artificial intelligence is currently one of the most interesting topics in the world...</span>
-            </p>
-          </div>
-          <div class="flex-row">
-            <div class="flex-item flex-column">
-              <p class="text">
-                Recent activities:
-              </p>
-              <ul>
-                <li>I organise the "RL Coffee" - a free monthly meetup held on the first Friday of each month, providing a platform for reinforcement learning researchers and industry professionals to exchange ideas and collaborate. There are many interesting presentations and discussions. If you want to participate, do not hesitate to contact me.</li>
-                <li>I co-organise the <a target="_blank" rel="noopener noreferrer" href="https://sarl-plus.github.io/RL-Bootcamp2025/">2nd RL Bootcamp</a>: 17-19 September 2025</li>
-                <li>I gave a keynote "From Theory to Practice: Reinforcement Learning as the 21st-Century ML Paradigm" at the <a target="_blank" rel="noopener noreferrer" href="https://idsc.at/program2025/">6th Interdisciplinary Data Science Conference (iDSC'25)</a>, 26 - 28 May 2025</li>
-                <li>I co-organised the <a target="_blank" rel="noopener noreferrer" href="https://rl4aa.github.io/posts/announcements/rl4aa25_announcement/">RL4 Autonomous Accelerators workshop in Hamburg 2025</a>, 02 - 04 April 2025</li>
-                <li>I co-organised a <a target="_blank" rel="noopener noreferrer" href="https://sarl-plus.github.io/RL-Bootcamp/">RL Bootcamp</a>: 25-27 September 2024</li>
-                <li>I had the opportunity to give a <a target="_blank" rel="noopener noreferrer" href="https://www.tedxsalzburg.com">TEDx talk</a>: AI is what we make it.</li>
-                <li>I organised the <a target="_blank" rel="noopener noreferrer" href="https://rl4aa.github.io/posts/announcements/rl4aa24_announcement/">RL4 Autonomous Accelerators workshop in Salzburg 2024</a>, 05 - 07 February 2024</li>
-                <li>I am and have been involved in multiple contract research projects with industry partners such as <a target="_blank" rel="noopener noreferrer" href="https://www.palfinger.com/">Palfinger</a>, <a target="_blank" rel="noopener noreferrer" href="https://www.copadata.com/">Copa Data</a>, <a target="_blank" rel="noopener noreferrer" href="https://www.redlink.at/">Redlink</a>, <a target="_blank" rel="noopener noreferrer" href="https.danieli.com">Danieli</a>, and <a target="_blank" rel="noopener noreferrer" href="https://www.wh.com/">W&H</a>, both in the past and ongoing.</li>
-                <li>In the realm of fundamental research focusing on control systems and reinforcement learning, I am engaged in collaborative efforts with several esteemed institutions, including <a target="_blank" rel="noopener noreferrer" href="https://www.dlr.de/">DLR</a>, <a target="_blank" rel="noopener noreferrer" href="https://home.cern/">CERN</a>, <a target="_blank" rel="noopener noreferrer" href="https://www.desy.de/">DESY</a>, <a target="_blank" rel="noopener noreferrer" href="https://www.kit.edu/">KIT</a>, <a target="_blank" rel="noopener noreferrer" href="https://www6.slac.stanford.edu/">SLAC</a>, and <a target="_blank" rel="noopener noreferrer" href="https://www.gsi.de/">GSI</a>, among others.</li>
-              </ul>
-            </p>
-          </div>
-        </div>
-        <div class="flex-item flex-column">
           <p class="text">
-            Teachings at the University of Salzburg (PLUS):
+            Recent activities:
           </p>
           <ul>
-            <li>Special topics in Data Science.</li>
-            <li>Introduction into Deep Reinforcement Learning.</li>
-            <li>Introduction to Reinforcement Learning.</li>
-            <li>Advanced topics in Reinforcement Learning.</li>
-            <li>Mathematical foundations in Precision Medicine.</li>
-            <li>AI Bachelor Seminar.</li>
+            <li>I organise the "RL Coffee" - a free monthly meetup held on the first Friday of each month, providing a
+              platform for reinforcement learning researchers and industry professionals to exchange ideas and
+              collaborate. There are many interesting presentations and discussions. If you want to participate, do not
+              hesitate to contact me.</li>
+            <li>I co-organise the <a target="_blank" rel="noopener noreferrer"
+                href="https://sarl-plus.github.io/RL-Bootcamp2025/">2nd RL Bootcamp</a>: 17-19 September 2025</li>
+            <li>I gave a keynote "From Theory to Practice: Reinforcement Learning as the 21st-Century ML Paradigm" at
+              the <a target="_blank" rel="noopener noreferrer" href="https://idsc.at/program2025/">6th Interdisciplinary
+                Data Science Conference (iDSC'25)</a>, 26 - 28 May 2025</li>
+            <li>I co-organised the <a target="_blank" rel="noopener noreferrer"
+                href="https://rl4aa.github.io/posts/announcements/rl4aa25_announcement/">RL4 Autonomous Accelerators
+                workshop in Hamburg 2025</a>, 02 - 04 April 2025</li>
+            <li>I co-organised a <a target="_blank" rel="noopener noreferrer"
+                href="https://sarl-plus.github.io/RL-Bootcamp/">RL Bootcamp</a>: 25-27 September 2024</li>
+            <li>I had the opportunity to give a <a target="_blank" rel="noopener noreferrer"
+                href="https://www.tedxsalzburg.com">TEDx talk</a>: AI is what we make it.</li>
+            <li>I organised the <a target="_blank" rel="noopener noreferrer"
+                href="https://rl4aa.github.io/posts/announcements/rl4aa24_announcement/">RL4 Autonomous Accelerators
+                workshop in Salzburg 2024</a>, 05 - 07 February 2024</li>
+            <li>I am and have been involved in multiple contract research projects with industry partners such as <a
+                target="_blank" rel="noopener noreferrer" href="https://www.palfinger.com/">Palfinger</a>, <a
+                target="_blank" rel="noopener noreferrer" href="https://www.copadata.com/">Copa Data</a>, <a
+                target="_blank" rel="noopener noreferrer" href="https://www.redlink.at/">Redlink</a>, <a target="_blank"
+                rel="noopener noreferrer" href="https.danieli.com">Danieli</a>, and <a target="_blank"
+                rel="noopener noreferrer" href="https://www.wh.com/">W&H</a>, both in the past and ongoing.</li>
+            <li>In the realm of fundamental research focusing on control systems and reinforcement learning, I am
+              engaged in collaborative efforts with several esteemed institutions, including <a target="_blank"
+                rel="noopener noreferrer" href="https://www.dlr.de/">DLR</a>, <a target="_blank"
+                rel="noopener noreferrer" href="https://home.cern/">CERN</a>, <a target="_blank"
+                rel="noopener noreferrer" href="https://www.desy.de/">DESY</a>, <a target="_blank"
+                rel="noopener noreferrer" href="https://www.kit.edu/">KIT</a>, <a target="_blank"
+                rel="noopener noreferrer" href="https://www6.slac.stanford.edu/">SLAC</a>, and <a target="_blank"
+                rel="noopener noreferrer" href="https://www.gsi.de/">GSI</a>, among others.</li>
           </ul>
           </p>
         </div>
-        <div class="flex-row">
-          <div class="flex-item flex-column">
-            <p class="text">
-              Current students:
-            </p>
-            <ul>
-              <li>Sabrina Pochaba - Data Science PhD: Multi-agent reinforcement learning in D2D communication</li>
-              <li>Christoph Schranz - PhD: Contactless Monitoring Beyond Ballistocardiography</li>
-              <li>Reuf Kozlica -  Data Science PhD: Hierarchical reinforcement learning in assembly line optimization</li>
-              <li>Sahan Warnakulasooriya Dabarera Data Science Master: - Adaptive Navigation for UGVs and USVs: Enhancing Nav2 for Wind-Disturbed Environments</li>
-              <li>Olga Mironova - Data Science Master: Do you really think about consequences? Bridging Classical Control and Reinforcement Learning for Delayed Outcome Optimisation</li>
-              <li>Benjamin Halilovic - Data Science Master: Robust Multi-Turn Injection at SIS18 via Gaussian Process Model Predictive Control</li>
-              <li>Julian Langschwert - Master: Online Parameter Identification via Reinforcement Learning Integrated with Model Predictive Control</li>
-              <li>Maximilian Tengler - Artificial Intelligence Bachelor: Reinforcement Learning benchmarking on AWAKE </li>
-              <li>Kevin Gajic - Artificial Intelligence Bachelor: Agentic AI </li>
-              <li>Stefan Reiter - Artificial Intelligence Bachelor: Contracts and AI – Risk, Regulation, and Strategic Impact</li>
-              <li>Fabio Matanza - Artificial Intelligence Bachelor: Control of a Liquid-Propellant Rocket Engine using Reinforcement Learning</li>
-              <li>Armin Brückl - Computer Science Bachelor: TBD topic in Reinforcement Learning</li>
-              <li>Maria Pape - Bachelor: Welche Methoden ermöglichen die Einbettung domänenspezifischen Unternehmenswissens in KI-Systeme, um in spezifischen Business-Use-Cases sowohl Effektivität der Entscheidungsfindung als auch hohe Leistungsfähigkeit und Effizienz sicherzustellen?</li>
-              <li>Kajsa Bjoerkbom - Bachelor: RL for accelerators with delayed consequences</li>
+      </div>
+      <div class="flex-item flex-column">
+        <p class="text">
+          Teachings at the University of Salzburg (PLUS):
+        </p>
+        <ul>
+          <li>Advanced Reinforcement Learning and Agentic AI Systems.</li>
+          <li>Special topics in Data Science.</li>
+          <li>Introduction into Deep Reinforcement Learning.</li>
+          <li>Introduction to Reinforcement Learning.</li>
+          <li>Advanced topics in Reinforcement Learning.</li>
+          <li>Mathematical foundations in Precision Medicine.</li>
+          <li>AI Bachelor Seminar.</li>
+        </ul>
+        </p>
+      </div>
+      <div class="flex-row">
+        <div class="flex-item flex-column">
+          <p class="text">
+            Current students:
+          </p>
+          <ul>
+            <li>Sabrina Pochaba - Data Science PhD: Multi-agent reinforcement learning in D2D communication</li>
+            <li>Sarah Trausner - PhD: FOCUS: Forecasting and optimization under constraints and uncertainty for
+              sustainable industrial energy systems</li>
+            <li>Christoph Schranz - PhD: Contactless Monitoring Beyond Ballistocardiography</li>
+            <li>Reuf Kozlica - Data Science PhD: Hierarchical reinforcement learning in assembly line optimization</li>
+            <li>Sahan Warnakulasooriya Dabarera Data Science Master: - Adaptive Navigation for UGVs and USVs: Enhancing
+              Nav2 for Wind-Disturbed Environments</li>
+            <li>Olga Mironova - Data Science Master: Do you really think about consequences? Bridging Classical Control
+              and Reinforcement Learning for Delayed Outcome Optimisation</li>
+            <li>Benjamin Halilovic - Data Science Master: Robust Multi-Turn Injection at SIS18 via Gaussian Process
+              Model Predictive Control</li>
+            <li>Julian Langschwert - Master: Online Parameter Identification via Reinforcement Learning Integrated with
+              Model Predictive Control</li>
+            <li>Maximilian Tengler - Artificial Intelligence Bachelor: Reinforcement Learning benchmarking on AWAKE
+            </li>
+            <li>Kevin Gajic - Artificial Intelligence Bachelor: Agentic AI </li>
+            <li>Stefan Reiter - Artificial Intelligence Bachelor: Contracts and AI – Risk, Regulation, and Strategic
+              Impact</li>
+            <li>Fabio Matanza - Artificial Intelligence Bachelor: Control of a Liquid-Propellant Rocket Engine using
+              Reinforcement Learning</li>
+            <li>Armin Brückl - Computer Science Bachelor: TBD topic in Reinforcement Learning</li>
+            <li>Maria Pape - Bachelor: Welche Methoden ermöglichen die Einbettung domänenspezifischen
+              Unternehmenswissens in KI-Systeme, um in spezifischen Business-Use-Cases sowohl Effektivität der
+              Entscheidungsfindung als auch hohe Leistungsfähigkeit und Effizienz sicherzustellen?</li>
+            <li>Kajsa Bjoerkbom - Bachelor: RL for accelerators with delayed consequences</li>
 
-            </ul>
-            <ul>
-              Secondary supervision:
-              <li>Raoul Kutil - Data Science PhD: Knowledge Graphs in medicine</li>
-              <li>Juan Manuel Montoya Bayardo - Data Science PhD: Reinforcement learning in nautical robotics</li>
-              <li>Georg Schaefer-  Reinforcement learning in cyber-physical systems</li>
-              <li>Olivia Zechner: Towards AI-Driven Adaptive Virtual Environments, based on Biosignals: XR training to improve decision-making and acting in stressful situations</li>
-              <li>Jakob Uhl: Tangible XR for Training of Challenging Occupations: Increasing Presence and Sensory</li>
-            </ul>
-            <p class="text">
-              Former students:
-            </p>
-            <ul>
-              <li>Lukas Lamminger (finished May 2023) - Data Science Master: Model based and Meta reinforcement learning in accelerator physics</li>
-              <li>Sascha Schuster (finished March 2023) - Data Science Master: Reinforcement learning in medicine (DTR of insulin dosing)</li>
-            </ul>
-          </div>
+          </ul>
+          <ul>
+            Secondary supervision:
+            <li>Raoul Kutil - Data Science PhD: Knowledge Graphs in medicine</li>
+            <li>Juan Manuel Montoya Bayardo - Data Science PhD: Reinforcement learning in nautical robotics</li>
+            <li>Georg Schaefer- Reinforcement learning in cyber-physical systems</li>
+            <li>Olivia Zechner: Towards AI-Driven Adaptive Virtual Environments, based on Biosignals: XR training to
+              improve decision-making and acting in stressful situations</li>
+            <li>Jakob Uhl: Tangible XR for Training of Challenging Occupations: Increasing Presence and Sensory</li>
+          </ul>
+          <p class="text">
+            Former students:
+          </p>
+          <ul>
+            <li>Lukas Lamminger (finished May 2023) - Data Science Master: Model based and Meta reinforcement learning
+              in accelerator physics</li>
+            <li>Sascha Schuster (finished March 2023) - Data Science Master: Reinforcement learning in medicine (DTR of
+              insulin dosing)</li>
+          </ul>
         </div>
+      </div>
 
 
   </main>
