@@ -1,117 +1,169 @@
 /* General body styling for better visual comfort */
 body {
-  background-color: #f4f7f6; /* A soft, light gray background */
-  color: #333; /* Darker text for better contrast against the light background */
-  line-height: 1.5; /* Slightly tighter line spacing */
-  font-family: 'Open Sans', sans-serif; /* Ensuring consistent font usage */
-  font-size: calc(10px + 0.15vw); /* Reduced responsive base font size */
-  transition: font-size 0.3s ease; /* Smooth transition for font size changes */
+  background-color: #f8f9fa;
+  /* Cleaner, brighter background */
+  color: #2d3436;
+  /* Darker, sharper text */
+  line-height: 1.6;
+  /* Improved readability */
+  font-family: 'Inter', 'Open Sans', sans-serif;
+  /* Modern font stack */
+  font-size: calc(10px + 0.15vw);
+  transition: font-size 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  /* Smoother fonts */
 }
 
-/* Set responsive root font size for rem units to work properly */
+/* Import Inter font if possible, otherwise fallback to Open Sans */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+/* Set responsive root font size */
 :root {
-  font-size: calc(10px + 0.15vw); /* Reduced responsive root font size */
-  transition: font-size 0.3s ease; /* Smooth transition for font size changes */
+  font-size: calc(10px + 0.15vw);
+  transition: font-size 0.3s ease;
+  --primary-color: #2980b9;
+  --secondary-color: #2c3e50;
+  --accent-color: #0984e3;
+  --bg-card: #ffffff;
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
-/* Styling for the main content area with responsive padding */
+/* Styling for the main content area */
 .content {
-  background-color: #ffffff; /* White background for the content itself */
-  padding: calc(1rem + 2vw); /* Responsive padding that grows with viewport width */
-  border-radius: 8px; /* Softly rounded corners for a modern look */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* A more subtle shadow for depth */
-  margin-top: calc(1.5rem + 0.5vw); /* Responsive space between the menu and the content */
-  margin-bottom: calc(1.5rem + 0.5vw); /* Responsive space at the bottom of the content */
+  background-color: var(--bg-card);
+  padding: calc(2rem + 2vw);
+  /* More spacious padding */
+  border-radius: 16px;
+  /* Larger border radius for modern feel */
+  box-shadow: var(--shadow-soft);
+  margin-top: calc(2rem + 1vw);
+  margin-bottom: calc(2rem + 1vw);
   width: 100%;
-  max-width: 1200px; /* Limit maximum width for very large screens */
+  max-width: 1100px;
+  /* Slightly narrower for better reading line length */
   margin-left: auto;
   margin-right: auto;
+  border: 1px solid rgba(0, 0, 0, 0.02);
+  /* Subtle border */
 }
 
-/* Make content more responsive to browser size */
+/* Make content more responsive */
 .content-container {
   padding: calc(0.5rem + 1vw);
   width: 100%;
 }
 
-/* Standardize heading styling across pages with responsive sizing */
-h1, h2, h3, h4, h5, h6 {
-  color: #2c3e50; /* A deep, professional blue/gray for headings */
-  margin-bottom: calc(0.4rem + 0.3vw);
-  font-family: 'Source Sans Pro', sans-serif; /* Consistent font for headings */
-  line-height: 1.2;
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--secondary-color);
+  margin-bottom: calc(0.6rem + 0.3vw);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  /* Tighter tracking for headings */
 }
 
-h1.add-top-margin, h2.add-top-margin {
-  font-size: clamp(1.2rem, 1rem + 1vw, 1.7rem); /* Reduced responsive font size with min/max limits */
+h1.add-top-margin,
+h2.add-top-margin {
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.2rem);
   font-weight: 700;
-  border-bottom: 1px solid #e0e0e0; /* A subtle line under H1/H2 for separation */
-  padding-bottom: calc(0.4rem + 0.2vw); /* Space between text and the underline */
+  border-bottom: 2px solid #f1f2f6;
+  /* Thicker, lighter underline */
+  padding-bottom: calc(0.6rem + 0.2vw);
+  margin-top: calc(2rem + 1vw);
 }
 
 h3 {
-  font-size: clamp(1rem, 0.9rem + 0.6vw, 1.4rem); /* Reduced responsive font size with min/max limits */
-  margin-top: calc(1.2rem + 0.3vw); /* More top margin to separate sections */
-  color: #34495e; /* Slightly lighter than H1/H2 but still strong */
+  font-size: clamp(1.1rem, 1rem + 0.6vw, 1.5rem);
+  margin-top: calc(1.5rem + 0.3vw);
+  color: #34495e;
+  font-weight: 600;
 }
 
-h4 {
-  font-size: clamp(0.9rem, 0.8rem + 0.4vw, 1.1rem); /* Reduced responsive font size */
-  margin-top: calc(0.8rem + 0.2vw);
-}
-
-/* Improve paragraph readability with responsive sizing */
+/* Paragraphs */
 p.text {
-  margin-bottom: calc(0.8rem + 0.5vw);
-  font-size: clamp(0.85rem, 0.8rem + 0.4vw, 1.05rem); /* Reduced responsive font size with min/max limits */
-  color: #555; /* Slightly softer text color than pure black for paragraphs */
-  max-width: 70ch; /* Limit line length for improved readability */
+  margin-bottom: calc(1rem + 0.5vw);
+  font-size: clamp(0.95rem, 0.9rem + 0.4vw, 1.1rem);
+  color: #4a5568;
+  /* Softer gray */
+  max-width: 75ch;
 }
 
-/* Styling for links to make them clear and accessible */
+/* Links */
 a {
-  color: #2980b9;
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color 0.2s ease, border-bottom 0.2s ease;
+  border-bottom: 1px solid transparent;
+}
+
+a:hover,
+a:focus {
+  color: #074e85;
+  border-bottom: 1px solid #074e85;
   text-decoration: none;
 }
 
-a:hover, a:focus {
-  text-decoration: underline;
-  color: #1c6087;
-}
-
-/* Styling for lists to improve clarity with responsive spacing */
+/* Lists */
 ul {
-  padding-left: calc(1rem + 1vw); /* Responsive indentation for lists */
-  margin-bottom: calc(0.8rem + 0.5vw);
+  padding-left: calc(1.2rem + 1vw);
+  margin-bottom: calc(1rem + 0.5vw);
 }
 
 ul li {
-  margin-bottom: calc(0.4rem + 0.3vw); /* Responsive space between list items */
-  color: #555;
-  font-size: clamp(0.8rem, 0.75rem + 0.35vw, 0.95rem); /* Reduced responsive font size */
+  margin-bottom: calc(0.6rem + 0.3vw);
+  color: #4a5568;
+  font-size: clamp(0.9rem, 0.85rem + 0.35vw, 1.05rem);
+  position: relative;
 }
 
-/* Active menu items styling - used by all pages consistently */
-.menu-index, .menu-rl, .menu-phd, .menu-publications, .menu-embedding {
+/* Custom bullet points for lists (optional, but looks premium) */
+/* ul li::marker {
+  color: var(--accent-color);
+} */
+
+/* Menu items */
+.menu-index,
+.menu-rl,
+.menu-phd,
+.menu-publications,
+.menu-embedding,
+.menu-dossier {
   color: rgb(255, 255, 255) !important;
   opacity: 1 !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
 }
 
 .menu-items li {
-  margin: 0 calc(0.5rem + 0.5vw); /* Responsive margin between menu items */
+  margin: 0 calc(0.5rem + 0.5vw);
 }
 
-/* Make menu text size responsive */
 .menu-items a {
-  font-size: clamp(0.85rem, 0.8rem + 0.3vw, 1rem); /* Smaller responsive menu text */
+  font-size: clamp(0.9rem, 0.85rem + 0.3vw, 1.05rem);
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.menu-items a:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .logo a {
-  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.4rem); /* Smaller responsive logo text */
+  font-size: clamp(1.2rem, 1rem + 0.5vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
-/* Responsive menu button styling */
+/* Menu Button */
 .menu-button {
   background: transparent;
   border: none;
@@ -119,37 +171,15 @@ ul li {
   padding: calc(0.5rem + 0.3vw);
   display: none;
   z-index: 1002;
-  touch-action: manipulation; /* Improves touch handling on mobile */
-  -webkit-appearance: none; /* Prevents default iOS styling */
-  -webkit-tap-highlight-color: transparent; /* Removes tap highlight on iOS */
-  user-select: none; /* Prevents text selection */
+  touch-action: manipulation;
 }
 
-.menu-button img {
-  width: 30px;
-  height: 30px;
-  display: block; /* Ensures proper rendering */
-}
-
-/* Vertical menu layout for small screens */
+/* Mobile Menu */
 @media screen and (max-width: 768px) {
   .menu-button {
     display: block;
-    position: relative; /* Establish positioning context */
-    margin-right: 10px; /* Add some space for tap area */
   }
-  
-  /* Create larger tap target area for iOS */
-  .menu-button::after {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    z-index: -1;
-  }
-  
+
   .menu-items {
     display: none;
     position: absolute;
@@ -158,166 +188,98 @@ ul li {
     right: 0;
     width: 100%;
     flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.95); /* Darker background for better visibility */
+    background-color: rgba(33, 33, 33, 0.98);
+    /* Slightly more opaque */
+    backdrop-filter: blur(10px);
+    /* Glassmorphism effect */
     z-index: 1001;
-    padding: 15px 0; /* Increased padding for better tap targets */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    padding: 15px 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
-  
+
   .menu-items li {
-    margin: 10px 0; /* Increased margin for better spacing */
-    width: 100%;
+    margin: 5px 0;
     text-align: center;
   }
-  
+
   .menu-items a {
     display: block;
-    padding: 12px 0; /* Larger padding for better tap targets */
-    font-size: 16px;
+    padding: 15px 0;
+    font-size: 1.1rem;
     width: 100%;
   }
-  
+
   .menu-items.menu-items-visible {
     display: flex !important;
   }
-  
-  /* Make logo text smaller on mobile */
-  .logo a {
-    font-size: 18px;
-  }
 }
 
-/* iOS-specific adjustments */
-@supports (-webkit-touch-callout: none) {
-  .menu-button {
-    padding: 15px; /* Larger padding for iOS devices */
-  }
-  
-  .menu-items li {
-    padding: 5px 0; /* Additional padding on iOS */
-  }
-  
-  .menu-items a {
-    font-weight: 600; /* Make text slightly bolder for iOS */
-  }
-}
-
-/* Ensure menu text is not too large on smaller screens */
-@media screen and (max-width: 480px) {
-  .menu-items a {
-    font-size: 14px;
-  }
-  
-  .logo a {
-    font-size: 16px;
-  }
-}
-
-ul ul {
-  margin-top: 8px; /* Space above nested lists */
-  margin-bottom: 8px; /* Space below nested lists */
-}
-
-/* Enhanced styling for the highlighted text with responsive sizing */
+/* Highlight Text */
 .highlight-text {
-  background-color: #eaf2f8; /* A very light, subtle blue highlight */
-  padding: calc(0.15rem + 0.15vw) calc(0.3rem + 0.3vw);
+  background: linear-gradient(120deg, #e0f7fa 0%, #e1f5fe 100%);
+  padding: 2px 6px;
   border-radius: 4px;
-  font-weight: bold;
-  color: #2980b9; /* A clear blue color for the highlighted text */
+  font-weight: 600;
+  color: #0277bd;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
-/* Styling for the credits text with responsive sizing */
+/* Credits */
 .text.text-small.text-italic {
-  margin-top: calc(1.5rem + 0.5vw); /* Responsive space above the credits */
-  color: #7f8c8d; /* A muted color for less emphasis */
+  margin-top: calc(2rem + 0.5vw);
+  color: #95a5a6;
   font-size: clamp(0.8rem, 0.75rem + 0.2vw, 0.95rem);
 }
 
-/* Responsive styling for .big-name */
-.big-name {
-  font-size: clamp(0.9rem, 0.8rem + 0.4vw, 1.1rem); /* Reduced font size */
-  font-weight: bold;
-  color: #2ea887;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  text-align: left;
-  padding: calc(0.3rem + 0.2vw);
-  background: linear-gradient(135deg, rgba(46, 168, 135, 0.4), rgba(44, 14, 135, 0.37));
-  border-radius: 2px;
-  margin: calc(0.3rem + 0.2vw) auto;
-  width: fit-content;
-}
-
-hr {
-  border: 0;
-  height: 1px;
-  background: #e0e0e0;
-  margin-top: calc(1rem + 0.5vw);
-  margin-bottom: calc(1rem + 0.5vw);
-}
-
-/* Style for the profile image with responsive sizing */
+/* Profile Image */
 .profile-image {
-  width: clamp(100px, 15vw, 180px); /* Responsive width that scales with viewport */
-  height: clamp(100px, 15vw, 180px); /* Match width for circular shape */
-  border-radius: 50%; /* Makes the image circular */
-  object-fit: cover; /* Ensures the image covers the area, cropping if necessary, without distortion */
+  width: clamp(120px, 18vw, 200px);
+  height: clamp(120px, 18vw, 200px);
+  border-radius: 50%;
+  object-fit: cover;
   display: block;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* A nice shadow effect */
-  transition: width 0.3s ease, height 0.3s ease; /* Smooth transition when resizing */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 4px solid #ffffff;
+  /* White border for pop */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Ensure all images are responsive by default */
+.profile-image:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Images */
 img {
   max-width: 100%;
   height: auto;
-  transition: transform 0.3s ease; /* Smooth transition when resizing */
+  border-radius: 8px;
+  /* Rounded corners for all images */
 }
 
-/* Responsive treatment for specific image types */
-.content img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+/* HR */
+hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+  /* Fading line */
+  margin-top: calc(1.5rem + 0.5vw);
+  margin-bottom: calc(1.5rem + 0.5vw);
 }
 
-/* Comprehensive responsive breakpoints */
-@media screen and (max-width: 1200px) {
-  .content {
-    max-width: 90%; /* Allow more width on medium-large screens */
-  }
-}
-
+/* Responsive adjustments */
 @media screen and (max-width: 768px) {
-  body {
-    font-size: calc(9px + 0.15vw); /* Smaller base font on medium screens */
-  }
-  
   .content {
-    padding: calc(0.8rem + 1.2vw); /* Less padding on smaller screens */
+    padding: calc(1rem + 1.5vw);
+    border-radius: 0;
+    /* Full width on mobile looks better without radius sometimes, or keep it small */
+    margin-top: 0;
+    box-shadow: none;
   }
-  
-  /* Adjust spacing for better mobile reading */
-  .flex-item {
-    margin-bottom: calc(0.8rem + 0.8vw);
-  }
-}
 
-@media screen and (max-width: 480px) {
   body {
-    font-size: calc(9px + 0.1vw); /* Even smaller base font on very small screens */
-  }
-  
-  h1.add-top-margin, h2.add-top-margin {
-    font-size: clamp(1.1rem, 1rem + 0.8vw, 1.4rem); /* Smaller headings on mobile */
-  }
-  
-  .content {
-    padding: calc(0.6rem + 0.8vw); /* Minimal padding on very small screens */
-  }
-  
-  ul {
-    padding-left: calc(0.6rem + 0.4vw); /* Less list indentation on mobile */
+    background-color: #ffffff;
+    /* White bg on mobile for simplicity */
   }
 }
