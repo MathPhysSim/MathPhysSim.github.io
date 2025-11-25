@@ -1,119 +1,230 @@
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
-  <title>Research - Simon Hirländer</title>
-  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" media="screen" rel="stylesheet"
-    type="text/css" />
-  <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" media="screen"
-    rel="stylesheet" type="text/css" />
-  <link href="css/frame.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href="css/controls.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href="css/widgets.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href="css/custom.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script src="js/menu.js"></script>
-  <script src="js/widgets.js"></script>
-  <!--  <script src="js/custom.js"></script>-->
-  <style>
-    .menu-research {
-      color: rgb(255, 255, 255) !important;
-      opacity: 1 !important;
-      font-weight: 700 !important;
-    }
+  <title>Research - Dr. Simon Hirländer</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+  <meta name="description"
+    content="Research projects and areas of Dr. Simon Hirländer: Reinforcement Learning, AI Safety, and Industrial Applications.">
 
-    .menu-items li {
-      margin: 0 15px;
-    }
-  </style>
+  <!-- Resource hints -->
+  <link rel="preconnect" href="https://use.fontawesome.com">
+  <link rel="preconnect" href="https://ajax.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- CSS -->
+  <link href="css/frame.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="css/custom.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" rel="stylesheet" type="text/css" />
+
+  <!-- JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" defer></script>
+  <script src="js/menu.js" defer></script>
 </head>
 
 <body>
   <div class="menu-container"></div>
-  <div class="content-container">
-    <div class="content">
-      <div class="content-table flex-column">
-        <div class="flex-row">
-          <div class="flex-item flex-column">
-            <h2 class="add-top-margin">Advancing Reinforcement Learning</h2>
-            <hr>
-            <p class="text add-top-margin">
-              Reinforcement Learning (RL) stands at the forefront of artificial intelligence, tackling the fundamental
-              challenge of: <br>
-              <span class="highlight-text">Learning to make optimal sequences of decisions in complex and uncertain
-                environments.</span><br>
-            </p>
-            <p class="text">
-              My work in RL, leading the <a target="_blank"
-                href="https://www.plus.ac.at/aihi/der-fachbereich/ida-lab/teams/sarl/">Reinforcement Learning Team</a>
-              at the University of Salzburg, is driven by a passion for developing robust and adaptable AI systems. We
-              bridge the gap between theoretical advancements and impactful real-world applications, from enhancing
-              industrial processes with local partners to pioneering new techniques in fundamental research. With a
-              background in physics and control systems, including extensive work at <a target="_blank"
-                href="https://home.cern">CERN</a>, I bring an interdisciplinary approach to tackling some of the most
-              challenging problems in RL.
-            </p>
+  <main id="maincontent" class="content-container">
+    <div class="content fade-in">
+      <div class="flex-column">
 
-            <h3>Core Research Thrusts &amp; Applications</h3>
-            <p class="text">
-              Our research activities are diverse, yet interconnected by the common goal of creating more intelligent,
-              reliable, and efficient learning agents. Key areas of focus include:
-            </p>
-            <ul>
-              <li>
-                <strong>Sample-Efficient Reinforcement Learning for Continuous Control:</strong>
-                Developing methods that can learn effective control policies with minimal data, crucial for physical
-                systems where data collection is expensive or time-consuming. This has direct applications in robotics
-                and automated control systems, such as those found in particle accelerators.
-              </li>
-              <li>
-                <strong>Safe Reinforcement Learning:</strong>
-                This is a critical area, ensuring that RL agents operate within specified safety constraints during
-                learning and execution. Our interests here are twofold:
-                <ul>
-                  <li>Developing sample-efficient methods that inherently respect safety boundaries.</li>
-                  <li>Addressing high-stake problems where failures can have significant consequences, including
-                    applications in medical treatment planning, critical infrastructure control, and autonomous
-                    robotics.</li>
-                  <li>Exploring the theoretical underpinnings of safe exploration and exploitation.</li>
-                </ul>
-              </li>
-              <li>
-                <strong>Hard Discrete Optimization Problems:</strong>
-                Applying RL techniques to find solutions for complex optimization tasks that are computationally
-                challenging for traditional methods, such as logistics, scheduling, and resource allocation.
-              </li>
-              <li>
-                <strong>RL in Physics and Control Systems:</strong>
-                Leveraging my background to apply RL for optimizing and controlling complex physical systems. This
-                includes ongoing collaborations with leading research institutions like CERN (e.g., for projects like
-                AWAKE [[9]](https://inspirehep.net/authors/1651538)), DESY, KIT, and GSI, focusing on areas like
-                particle accelerator operations and experiment control.
-              </li>
-            </ul>
-            <p class="text">
-              The ultimate aim is to contribute to the development of AI systems that can learn, adapt, and make sound
-              decisions in the face of real-world complexities, thereby augmenting human capabilities and driving
-              innovation across various scientific and industrial domains.
-            </p>
+        <h1 class="add-top-margin">Research</h1>
+        <p class="text">
+          My research focuses on <strong>Reinforcement Learning (RL)</strong> and its application to complex, real-world
+          systems. I lead the <a href="https://www.plus.ac.at/aihi/der-fachbereich/ida-lab/teams/sarl/"
+            target="_blank">Smart Analytics & Reinforcement Learning (SARL)</a> team, bridging the gap between
+          theoretical advancements and industrial applications.
+        </p>
+        <hr>
+
+        <!-- Research Areas -->
+        <h2 class="add-top-margin">Core Research Areas</h2>
+        <div class="icon-grid">
+          <div class="icon-card">
+            <i class="fas fa-robot"></i>
+            <div>
+              <strong>Sample-Efficient RL</strong><br>
+              <span style="font-size: 0.9rem; color: var(--text-muted);">Learning from limited data for physical
+                systems</span>
+            </div>
+          </div>
+          <div class="icon-card">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+              <strong>Safe RL</strong><br>
+              <span style="font-size: 0.9rem; color: var(--text-muted);">Constrained optimization for critical
+                infrastructure</span>
+            </div>
+          </div>
+          <div class="icon-card">
+            <i class="fas fa-cogs"></i>
+            <div>
+              <strong>Industrial Control</strong><br>
+              <span style="font-size: 0.9rem; color: var(--text-muted);">Optimization of manufacturing & energy
+                systems</span>
+            </div>
+          </div>
+          <div class="icon-card">
+            <i class="fas fa-atom"></i>
+            <div>
+              <strong>Accelerator Physics</strong><br>
+              <span style="font-size: 0.9rem; color: var(--text-muted);">AI for particle accelerators (CERN, DESY,
+                etc.)</span>
+            </div>
           </div>
         </div>
 
-        <!--        <div class="flex-row">-->
-        <!--          <div class="flex-item flex-item-stretch flex-column">-->
-        <!--            <p class="text text-small text-italic">-->
-        <!--              Credits: <span class="highlight-text">IDA Lab</span>: Simon Hirlaender-->
-        <!--            </p>-->
-        <!--          </div>-->
-        <!--        </div>-->
+        <div class="section-divider"></div>
+
+        <!-- Current Projects -->
+        <h2 class="add-top-margin">Current Projects</h2>
+
+        <div class="card">
+          <div class="card-title">
+            <i class="fas fa-project-diagram"></i> FOCUS
+            <span class="badge badge-success" style="float: right; font-size: 0.8rem;">2025 - 2028</span>
+          </div>
+          <div class="card-content">
+            <p class="text"><strong>Forecasting and optimization under constraints and uncertainty for sustainable
+                industrial energy systems</strong></p>
+            <p class="text">
+              Principal Investigator. Contract research project in collaboration with <strong>Ing. Punzenberger
+                COPA-DATA GmbH</strong>. Developing advanced RL and optimization methods for managing industrial energy
+              systems under uncertainty.
+            </p>
+            <span class="badge badge-primary">Principal Investigator</span>
+            <span class="badge">Energy</span>
+            <span class="badge">Industrial AI</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <i class="fas fa-graduation-cap"></i> INSPIRE
+            <span class="badge badge-info" style="float: right; font-size: 0.8rem;">2026 - 2029</span>
+          </div>
+          <div class="card-content">
+            <p class="text"><strong>Intelligent Novel Support for Personalized Instruction and Robust Evaluation in STEM
+                Lessons</strong></p>
+            <p class="text">
+              Principal Investigator (PLUS partner). Application-oriented basic research project funded by <strong>Land
+                Salzburg (WISS2030)</strong> in collaboration with PH Salzburg. Focusing on AI-driven personalized
+              learning and evaluation in primary education.
+            </p>
+            <span class="badge badge-primary">Principal Investigator</span>
+            <span class="badge">Education</span>
+            <span class="badge">AI for Good</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <i class="fas fa-atom"></i> DeepREL
+            <span class="badge badge-success" style="float: right; font-size: 0.8rem;">Ongoing</span>
+          </div>
+          <div class="card-content">
+            <p class="text"><strong>Deep Reinforcement Learning for Large and Complex Systems</strong></p>
+            <p class="text">
+              International collaboration with <strong>University of Malta</strong> and <strong>CERN</strong>. Focusing
+              on solving complex control problems for the Large Hadron Collider (LHC). Methodologies are transferable to
+              autonomous driving and manufacturing.
+            </p>
+            <span class="badge">CERN</span>
+            <span class="badge">LHC</span>
+            <span class="badge">Control Theory</span>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Completed Projects -->
+        <h2 class="add-top-margin">Completed Projects</h2>
+
+        <div class="news-grid">
+          <div class="news-card">
+            <h3 class="news-title">Danieli X – PLUS</h3>
+            <div class="news-date">Mar 2025 - Aug 2025</div>
+            <p class="news-description">
+              Research collaboration with <strong>Danieli Automation</strong> focusing on applied research in steel
+              automation.
+            </p>
+            <span class="badge">Steel Industry</span>
+          </div>
+
+          <div class="news-card">
+            <h3 class="news-title">DEOP 2.5</h3>
+            <div class="news-date">Feb 2025 - Aug 2025</div>
+            <p class="news-description">
+              <strong>Dynamische Energieoptimierung</strong>. Applied research project with <strong>COPA-DATA
+                GmbH</strong> focusing on dynamic energy optimization.
+            </p>
+            <span class="badge">Energy</span>
+          </div>
+
+          <div class="news-card">
+            <h3 class="news-title">UNSAD</h3>
+            <div class="news-date">Sep 2023 - May 2024</div>
+            <p class="news-description">
+              <strong>Unsupervised Anomaly Detection in Sterilisation Devices</strong>. Research collaboration with
+              <strong>W&H Dentalwerk Bürmoos GmbH</strong>.
+            </p>
+            <span class="badge">Medical</span>
+            <span class="badge">Anomaly Detection</span>
+          </div>
+
+          <div class="news-card">
+            <h3 class="news-title">AREP</h3>
+            <div class="news-date">Sep 2022 - May 2023</div>
+            <p class="news-description">
+              <strong>Automatische Rechnungsprüfung</strong>. Applied research project with <strong>JUIX GmbH</strong>
+              focusing on automated invoice auditing.
+            </p>
+            <span class="badge">FinTech</span>
+          </div>
+
+          <div class="news-card">
+            <h3 class="news-title">MuMa II & III</h3>
+            <div class="news-date">Mar 2022 - May 2022</div>
+            <p class="news-description">
+              <strong>Mustererkennung Maschinendaten</strong>. Research collaborations with <strong>Palfinger
+                AG</strong> on pattern recognition in machine data.
+            </p>
+            <span class="badge">Manufacturing</span>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Collaborations -->
+        <h2 class="add-top-margin">Collaborations</h2>
+        <p class="text">I actively collaborate with leading research institutions and industry partners:</p>
+
+        <div class="card">
+          <div class="flex-row flex-wrap" style="gap: 20px; justify-content: center; align-items: center;">
+            <!-- Text-based list for now, could be logos in future -->
+            <span class="badge badge-info" style="font-size: 1rem; padding: 10px 15px;">CERN</span>
+            <span class="badge badge-info" style="font-size: 1rem; padding: 10px 15px;">DESY</span>
+            <span class="badge badge-info" style="font-size: 1rem; padding: 10px 15px;">KIT</span>
+            <span class="badge badge-info" style="font-size: 1rem; padding: 10px 15px;">SLAC</span>
+            <span class="badge badge-info" style="font-size: 1rem; padding: 10px 15px;">GSI</span>
+            <span class="badge badge-info" style="font-size: 1rem; padding: 10px 15px;">DLR</span>
+            <span class="badge badge-primary" style="font-size: 1rem; padding: 10px 15px;">COPA-DATA</span>
+            <span class="badge badge-primary" style="font-size: 1rem; padding: 10px 15px;">Palfinger</span>
+            <span class="badge badge-primary" style="font-size: 1rem; padding: 10px 15px;">Danieli</span>
+            <span class="badge badge-primary" style="font-size: 1rem; padding: 10px 15px;">W&H</span>
+          </div>
+        </div>
+
       </div>
     </div>
-  </div>
+  </main>
 </body>
 
 </html>
