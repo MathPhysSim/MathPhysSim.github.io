@@ -48,6 +48,20 @@ def fetch_and_generate_html(author_id):
             if 'venue' in bib:
                  html_output += f'        <span class="publication-venue">{bib["venue"]}</span>\n'
             html_output += f'      </div>\n'
+            
+            # Add details section
+            num_citations = pub.get('num_citations', 0)
+            html_output += f'      <details class="publication-details">\n'
+            html_output += f'        <summary class="publication-summary">Show Details (Citations: {num_citations})</summary>\n'
+            html_output += f'        <div class="publication-abstract">\n'
+            html_output += f'          <p><strong>Citations:</strong> {num_citations}</p>\n'
+            if 'abstract' in bib:
+                html_output += f'          <p><strong>Abstract:</strong> {bib["abstract"]}</p>\n'
+            else:
+                html_output += f'          <p><em>Abstract not available in this view.</em></p>\n'
+            html_output += f'        </div>\n'
+            html_output += f'      </details>\n'
+
             html_output += '    </li>\n'
             
         html_output += '  </ul>\n'
