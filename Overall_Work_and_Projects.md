@@ -21,7 +21,7 @@
   * *Authors:* Simon Hirlaender, Olga Mironova, Andrea Santamaria Garcia, et al.
   * *Abstract Summary:* Offline RL using Koopman-stabilised world models on historical logs.
 
-### Workshop Contributions (RL4AA 2025)
+### Workshop Contributions (RL4AA 2026)
 
 * **[Poster] Robust Real-Time Optimization of SIS18 Injection using Gaussian Process MPC (#16)**
   * *Authors:* Sabrina Appel, Benjamin Halilovic, Simon Hirlaender.
@@ -100,6 +100,12 @@
 * **Reinforcement Learning at particle accelerators:** (29 Apr 2022 & 6 Oct 2022). *Role: Talk.*
 * **Deep Reinforcement Learning:** (28 Feb 2022). *Role: Talk.*
 * **Towards Artificial Intelligence in Accelerator Operation:** (5 Nov 2020). *Role: Talk.*
+
+### Academic Boards & Doctorate Schools
+
+* **DSP-Kolleg: Human-Centered AI: From Data & Algorithms to Interfaces:** (University of Salzburg). *Role: Member of Supervision Team (Betreuungsteam).*
+  * *Description:* Interdisciplinary research on harmonizing AI with human values, governance, and user needs. Combines Data Science, RL, Geoinformatics, and HCI.
+  * *Key Colleagues:* A. Bathke, A. Meschtscherjakov, F. Pallas, M. Tscheligi, W. Trutschnig.
 
 ### Public Outreach & Science Communication
 
