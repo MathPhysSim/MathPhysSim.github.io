@@ -44,7 +44,7 @@
 
 * **INSPIRE:** Intelligent novel support for personalized instruction and robust evaluation in STEM lessons (01/2026 - 12/2028). *Role: Project Lead.*
 * **FOCUS:** Forecasting and optimization under constraints and uncertainty for sustainable industrial energy systems (10/2025 - 09/2028). *Role: Project Lead.*
-* **RL-PD:** Reinforcement Learning in Piezo Drivers (12/2025 - 12/2026). *Role: Project Lead.*
+* **RL-PD:** Regelungsoptimierung von Piezoantrieben (12/2025 - 12/2026). *Role: Project Lead.*
 * **SCOPE:** Smart Component Process Evaluation (11/2025 - 04/2026). *Role: Co-Lead.*
 * **DS STIWA II:** Data Science STIWA II (11/2025 - 04/2026). *Role: Project Lead.*
 
@@ -157,7 +157,7 @@
 
 ### Master Students
 
-* **Laya Shibu Xavior**: *Reinforcement Learning for Intelligent Control of Piezoelectric Dental Devices (RL-PD).*
+* **Laya Shibu Xavior**: *Regelungsoptimierung von Piezoantrieben.*
 * **Sahan Warnakulasooriya Dabarera** (Data Science): *Adaptive Navigation for UGVs and USVs: Enhancing Nav2 for Wind-Disturbed Environments.*
 * **Olga Mironova** (Data Science): *Do you really think about consequences? Bridging Classical Control and Reinforcement Learning for Delayed Outcome Optimisation.*
 * **Benjamin Halilovic** (Data Science): *Robust Multi-Turn Injection at SIS18 via Gaussian Process Model Predictive Control.*
