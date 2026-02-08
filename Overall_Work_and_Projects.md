@@ -109,7 +109,7 @@
 
 ### Public Outreach & Science Communication
 
-* **[Podcast] Wie Reinforcement Learning Unternehmen verändert:** (DIH West S2 #17, 2026).
+* **[Podcast] S2 #17 | Wie Reinforcement Learning Unternehmen verändert:** (DIH West / EASY cheesy DIGITAL, 2026).
 * **KI am Strategietag vom Flughafen Salzburg:** (13 Nov 2025).
 * **Rethinking Economy:** (14 Oct 2025).
 * **The future of AI-supported automation...:** (2 Oct 2025).
