@@ -2,9 +2,12 @@
 <html lang="en">
 
 <head>
-  <title>Publications</title>
+  <title>Publications — Dr. Simon Hirländer</title>
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Publications by Dr. Simon Hirländer — peer-reviewed journals, conference papers, and invited talks on Reinforcement Learning, accelerator physics, and AI-driven control.">
 
   <!-- Resource hints for faster loading -->
   <link rel="preconnect" href="https://use.fontawesome.com">
@@ -218,6 +221,63 @@
               </ul>
             </div>
             <hr>
+
+            <!-- Search Filter -->
+            <div style="margin-bottom: 1.5rem;">
+              <div style="position: relative;">
+                <i class="fas fa-search"
+                  style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                <input type="text" id="pub-search" placeholder="Filter publications by title, author, or venue…"
+                  style="width: 100%; padding: 10px 12px 10px 36px; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.95rem; font-family: var(--font-base); outline: none; transition: border-color 0.2s; box-sizing: border-box;"
+                  onfocus="this.style.borderColor='var(--primary-color)'"
+                  onblur="this.style.borderColor='var(--border-color)'" />
+              </div>
+              <div id="pub-search-count"
+                style="margin-top: 6px; font-size: 0.85rem; color: var(--text-muted); display: none;"></div>
+            </div>
+
+            <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                const searchInput = document.getElementById('pub-search');
+                const countDisplay = document.getElementById('pub-search-count');
+                if (!searchInput) return;
+
+                searchInput.addEventListener('input', function () {
+                  const query = this.value.toLowerCase().trim();
+                  const items = document.querySelectorAll('.publication-item');
+                  const yearHeaders = document.querySelectorAll('.year-header');
+                  let shown = 0;
+
+                  items.forEach(function (item) {
+                    const text = item.textContent.toLowerCase();
+                    const match = !query || text.includes(query);
+                    item.style.display = match ? '' : 'none';
+                    if (match) shown++;
+                  });
+
+                  // Hide year headers that have no visible items
+                  yearHeaders.forEach(function (header) {
+                    const list = header.nextElementSibling;
+                    if (list && list.classList.contains('publication-year-list')) {
+                      const visibleItems = list.querySelectorAll('.publication-item[style=""], .publication-item:not([style])');
+                      const hasVisible = Array.from(list.querySelectorAll('.publication-item')).some(function (li) {
+                        return li.style.display !== 'none';
+                      });
+                      header.style.display = hasVisible ? '' : 'none';
+                      list.style.display = hasVisible ? '' : 'none';
+                    }
+                  });
+
+                  if (query) {
+                    countDisplay.style.display = '';
+                    countDisplay.textContent = shown + ' publication' + (shown !== 1 ? 's' : '') + ' found';
+                  } else {
+                    countDisplay.style.display = 'none';
+                  }
+                });
+              });
+            </script>
+
             <div class="publications-list">
               <h3 class="year-header">2026</h3>
               <ul class="publication-year-list">
@@ -1215,6 +1275,7 @@
     });
   </script>
   -->
+  <div class="footer-container"></div>
 </body>
 
 </html>

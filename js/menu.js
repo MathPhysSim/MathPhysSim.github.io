@@ -3,10 +3,10 @@
 
   // Check if device is iOS to apply special handling
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-  
+
   $(function () {
     // Load the menu content
-    $(".menu-container").load("menu.html", function() {
+    $(".menu-container").load("menu.html", function () {
       // After menu is loaded, set up the mobile menu toggle
       const menuButton = document.getElementById('mobile-menu-toggle');
       const menuItems = document.getElementById('menu-items');
@@ -35,16 +35,16 @@
         if (isIOS) {
           menuButton.style.cursor = 'pointer';
           menuButton.style.touchAction = 'manipulation';
-          menuButton.addEventListener('touchstart', function(e) {
+          menuButton.addEventListener('touchstart', function (e) {
             e.preventDefault(); // Prevent double-tap zoom on iOS
           });
         }
 
         // Toggle menu visibility with improved iOS handling
-        menuButton.addEventListener('click', function(e) {
+        menuButton.addEventListener('click', function (e) {
           e.stopPropagation();
           e.preventDefault();
-          
+
           if (menuItems.classList.contains('menu-items-visible')) {
             menuItems.classList.remove('menu-items-visible');
             menuItems.style.display = 'none';
@@ -56,10 +56,10 @@
 
         // For iOS specifically, add touchend event
         if (isIOS) {
-          menuButton.addEventListener('touchend', function(e) {
+          menuButton.addEventListener('touchend', function (e) {
             e.stopPropagation();
             e.preventDefault();
-            
+
             if (menuItems.classList.contains('menu-items-visible')) {
               menuItems.classList.remove('menu-items-visible');
               menuItems.style.display = 'none';
@@ -71,11 +71,11 @@
         }
 
         // Close menu when clicking elsewhere
-        document.addEventListener('click', function(e) {
-          if (isMobileSize() && 
-              menuItems.classList.contains('menu-items-visible') &&
-              !menuButton.contains(e.target) &&
-              !menuItems.contains(e.target)) {
+        document.addEventListener('click', function (e) {
+          if (isMobileSize() &&
+            menuItems.classList.contains('menu-items-visible') &&
+            !menuButton.contains(e.target) &&
+            !menuItems.contains(e.target)) {
             menuItems.classList.remove('menu-items-visible');
             menuItems.style.display = 'none';
           }
@@ -84,7 +84,7 @@
         // Close menu when a menu item is clicked
         const menuLinks = menuItems.querySelectorAll('a');
         menuLinks.forEach(link => {
-          link.addEventListener('click', function() {
+          link.addEventListener('click', function () {
             if (isMobileSize()) {
               menuItems.classList.remove('menu-items-visible');
               menuItems.style.display = 'none';
@@ -93,14 +93,14 @@
         });
 
         // Handle window resize
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
           setInitialMenuState();
         });
       }
 
       // Highlight current page in menu
       const current = location.pathname.split('/').pop() || 'index.html';
-      
+
       $('.menu-items a').each(function () {
         const $link = $(this);
         if ($link.attr('href') === current) {
@@ -112,6 +112,24 @@
           return false;
         }
       });
+    });
+
+    // Load footer
+    $(".footer-container").load("footer.html", function () {
+      // Back to top button behavior
+      const backToTop = document.getElementById('back-to-top');
+      if (backToTop) {
+        window.addEventListener('scroll', function () {
+          if (window.scrollY > 400) {
+            backToTop.classList.add('visible');
+          } else {
+            backToTop.classList.remove('visible');
+          }
+        });
+        backToTop.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
     });
   });
 })();

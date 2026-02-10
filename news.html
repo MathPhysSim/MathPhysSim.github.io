@@ -2,7 +2,8 @@
 <html lang="en">
 
 <head>
-    <title>News & Highlights - Dr. Simon Hirländer</title>
+    <title>News & Highlights — Dr. Simon Hirländer</title>
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
     <meta name="description"
@@ -40,8 +41,16 @@
                 <p class="text">Recent activities, talks, workshops, and achievements.</p>
                 <hr>
 
+                <!-- Year Navigation -->
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 1rem 0;">
+                    <span style="color: var(--text-muted); font-size: 0.9rem; align-self: center;">Jump to:</span>
+                    <a href="#year-2026" class="badge">2026</a>
+                    <a href="#year-2025" class="badge">2025</a>
+                    <a href="#year-2024" class="badge">2024</a>
+                </div>
+
                 <!-- 2026 News -->
-                <h2 class="add-top-margin">2026</h2>
+                <h2 class="add-top-margin" id="year-2026">2026</h2>
 
                 <div class="news-grid">
                     <div class="news-card">
@@ -111,7 +120,7 @@
                 <div class="section-divider"></div>
 
                 <!-- 2025 News -->
-                <h2 class="add-top-margin">2025</h2>
+                <h2 class="add-top-margin" id="year-2025">2025</h2>
 
                 <div class="news-grid">
                     <div class="news-card">
@@ -195,7 +204,7 @@
                 <div class="section-divider"></div>
 
                 <!-- 2024 News -->
-                <h2 class="add-top-margin">2024</h2>
+                <h2 class="add-top-margin" id="year-2024">2024</h2>
 
                 <div class="news-grid">
                     <div class="news-card">
@@ -314,6 +323,7 @@
             </div>
         </div>
     </main>
+    <div class="footer-container"></div>
 </body>
 
 </html>
