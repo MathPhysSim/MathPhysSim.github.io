@@ -158,7 +158,7 @@
 ### Master Students
 
 * **Laya Shibu Xavior**: *Regelungsoptimierung von Piezoantrieben.*
-* **Sahan Warnakulasooriya Dabarera** (Data Science): *Adaptive Navigation for UGVs and USVs: Enhancing Nav2 for Wind-Disturbed Environments.*
+* **Sahan Warnakulasooriya Dabarera** (Data Science): *Adaptive PID Tuning via Meta-Reinforcement Learning.*
 * **Olga Mironova** (Data Science): *Do you really think about consequences? Bridging Classical Control and Reinforcement Learning for Delayed Outcome Optimisation.*
 * **Benjamin Halilovic** (Data Science): *Robust Multi-Turn Injection at SIS18 via Gaussian Process Model Predictive Control.*
 * **Julian Langschwert**: *Online Parameter Identification via Reinforcement Learning Integrated with Model Predictive Control.*
