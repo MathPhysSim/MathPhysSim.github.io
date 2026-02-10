@@ -52,7 +52,7 @@
 
 * **Danieli X - PLUS** (03/2025 - 10/2025). *Role: Project Lead.*
 * **DEOP 2.5** (Dynamische Energieoptimierung) (02/2025 - 08/2025). *Role: Project Lead.*
-* **NauROM:** Nautic Robotics Occupation Maps (10/2024 - 03/2025). *Role: Project Lead.*
+* **NauROM:** Nautic Robotics Occupation Maps (10/2024 - 03/2025). Research cooperation with EvoLogics GmbH. Funded by EvoLogics GmbH (contract research). *Role: Project Lead.* Team: S. Hirländer (PI), C. Borgelt, S. Dabarera (MSc student).
 * **DEOP 2.0** (10/2024 - 01/2025). *Role: Project Lead.*
 * **DS STIWA** (09/2024 - 02/2025). *Role: Project Researcher (Lead: Trutschnig).*
 * **LLMs for Enterprise** (05/2024 - 07/2024). *Role: Project Lead.*
