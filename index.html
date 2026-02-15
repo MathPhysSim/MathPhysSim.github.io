@@ -11,25 +11,23 @@
   <meta name="keywords"
     content="Simon Hirländer, Reinforcement Learning, AI, CERN, Machine Learning, Particle Accelerators">
 
-  <!-- Resource hints for faster loading -->
-  <link rel="preconnect" href="https://use.fontawesome.com">
-  <link rel="preconnect" href="https://ajax.googleapis.com" crossorigin>
+  <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://use.fontawesome.com">
 
-  <!-- Critical CSS first -->
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
   <link href="css/frame.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="css/custom.css" media="screen" rel="stylesheet" type="text/css" />
 
-  <!-- Fonts with display=swap for better performance -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Non-critical CSS loaded with lower priority -->
+  <!-- Font Awesome -->
   <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" media="print" onload="this.media='screen'"
     rel="stylesheet" type="text/css" />
 
-  <!-- JavaScript with defer to not block rendering -->
+  <!-- JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" defer></script>
   <script src="js/menu.js" defer></script>
@@ -39,49 +37,49 @@
 <body>
   <div class="menu-container"></div>
   <main id="maincontent" class="content-container">
-    <div class="content fade-in">
+    <div class="content">
 
-      <!-- Hero Section -->
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- HERO SECTION                                -->
+      <!-- ═══════════════════════════════════════════ -->
       <section class="hero-section">
         <div class="hero-image">
-          <img src="img/MyImage.jpg" alt="Dr. Simon Hirländer" class="profile-image" loading="lazy">
+          <img src="img/MyImage.jpg" alt="Dr. Simon Hirländer" class="profile-image" loading="eager">
         </div>
         <div class="hero-content">
           <h1 class="hero-title">Simon Hirländer</h1>
           <p class="hero-subtitle">
-            Vice Director, IDA Lab | Team Lead, Smart Analytics & Reinforcement Learning<br>
-            Paris Lodron University Salzburg | Visiting Scientist, CERN
+            Vice Director, IDA Lab · Team Lead, Smart Analytics & Reinforcement Learning<br>
+            Paris Lodron University Salzburg · Visiting Scientist, CERN
           </p>
-
-          <!-- Social Media Links -->
           <div class="social-links">
             <a href="mailto:simon.hirlaender@plus.ac.at" class="social-link" title="Email" aria-label="Email">
               <i class="fas fa-envelope"></i>
             </a>
             <a href="https://github.com/MathPhysSim" target="_blank" rel="noopener noreferrer" class="social-link"
-              title="GitHub">
+              title="GitHub" aria-label="GitHub">
               <i class="fab fa-github"></i>
             </a>
             <a href="https://scholar.google.com/citations?hl=en&user=sE8Q0TIAAAAJ" target="_blank"
-              rel="noopener noreferrer" class="social-link" title="Google Scholar">
+              rel="noopener noreferrer" class="social-link" title="Google Scholar" aria-label="Google Scholar">
               <i class="fas fa-graduation-cap"></i>
             </a>
             <a href="https://www.linkedin.com/in/simon-hirlaender/" target="_blank" rel="noopener noreferrer"
-              class="social-link" title="LinkedIn">
+              class="social-link" title="LinkedIn" aria-label="LinkedIn">
               <i class="fab fa-linkedin"></i>
             </a>
             <a href="https://orcid.org/0000-0002-1284-3338" target="_blank" rel="noopener noreferrer"
-              class="social-link" title="ORCID">
+              class="social-link" title="ORCID" aria-label="ORCID">
               <i class="fas fa-id-badge"></i>
             </a>
           </div>
         </div>
       </section>
 
-      <div class="section-divider"></div>
-
-      <!-- About Section -->
-      <section>
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- ABOUT                                       -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section class="animate-on-scroll">
         <h2 class="add-top-margin">About</h2>
         <p class="text">
           I am <strong>Vice Director of the <a href="https://www.plus.ac.at/aihi/der-fachbereich/ida-lab/"
@@ -97,15 +95,16 @@
         </p>
         <p class="text">
           <strong>Pioneering AI in Control:</strong> In 2018, I led the <strong>first Deep Reinforcement Learning
-            experiment at the CERN accelerator complex</strong>, establishing the foundational baseline for autonomous
-          particle accelerator control. Today, I continue this mission as a <strong>Visiting Scientist at <a
-              href="https://home.cern" target="_blank">CERN</a></strong>, developing safe, uncertainty-aware RL agents
-          for the world's most critical machines.
+            experiment at the <a href="https://home.cern" target="_blank">CERN</a> accelerator complex</strong>,
+          establishing the foundational baseline for autonomous particle accelerator control. Today, I continue this
+          mission as a <strong>Visiting Scientist at CERN</strong>, developing safe, uncertainty-aware RL agents for the
+          world's most critical machines.
         </p>
         <p class="text">
           Beyond foundational research, I aggressively pursue <strong>technology transfer</strong>, applying
-          high-precision control methods to industrial challenges in steel interaction, medical robotics, and smart
-          energy grids.
+          high-precision control methods to industrial challenges in steel production, medical robotics, and smart
+          energy
+          grids.
         </p>
 
         <div class="highlight-box">
@@ -118,15 +117,17 @@
 
       <div class="section-divider"></div>
 
-      <!-- Quick Links / Highlights -->
-      <section>
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- RESEARCH HIGHLIGHTS                         -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section class="animate-on-scroll">
         <h2 class="add-top-margin">Research Highlights</h2>
-        <div class="icon-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div class="icon-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
           <a href="research.html" class="icon-card" style="text-decoration: none;">
             <i class="fas fa-brain"></i>
             <div>
               <strong>Reinforcement Learning</strong><br>
-              <span style="font-size: 0.9rem; color: var(--text-muted);">Theory & Applications</span>
+              <span style="font-size: 0.9rem; color: var(--text-lighter);">Theory & Applications</span>
             </div>
           </a>
 
@@ -134,7 +135,7 @@
             <i class="fas fa-atom"></i>
             <div>
               <strong>Autonomous Accelerators</strong><br>
-              <span style="font-size: 0.9rem; color: var(--text-muted);">CERN, DESY, KIT, SLAC</span>
+              <span style="font-size: 0.9rem; color: var(--text-lighter);">CERN, DESY, KIT, SLAC</span>
             </div>
           </a>
 
@@ -142,7 +143,7 @@
             <i class="fas fa-industry"></i>
             <div>
               <strong>Industrial AI</strong><br>
-              <span style="font-size: 0.9rem; color: var(--text-muted);">Energy, Manufacturing, Medical</span>
+              <span style="font-size: 0.9rem; color: var(--text-lighter);">Energy, Manufacturing, Medical</span>
             </div>
           </a>
 
@@ -150,7 +151,7 @@
             <i class="fas fa-file-alt"></i>
             <div>
               <strong>Publications</strong><br>
-              <span style="font-size: 0.9rem; color: var(--text-muted);">Papers & Research</span>
+              <span style="font-size: 0.9rem; color: var(--text-lighter);">Papers & Research</span>
             </div>
           </a>
         </div>
@@ -158,8 +159,10 @@
 
       <div class="section-divider"></div>
 
-      <!-- Recent News -->
-      <section>
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- RECENT NEWS                                 -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section class="animate-on-scroll">
         <h2 class="add-top-margin">Recent News</h2>
         <div class="news-grid">
           <div class="news-card">
@@ -169,12 +172,12 @@
               Listen to the new DIH West podcast episode discussing how Reinforcement Learning is transforming
               businesses.
             </p>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
               <a href="https://open.spotify.com/episode/0lAfWYKkjCYIHUcqjeOdNO" target="_blank"
                 style="color: #1DB954; font-weight: 600; text-decoration: none;">
                 <i class="fab fa-spotify"></i> Spotify
               </a>
-              <span style="color: #ccc;">|</span>
+              <span style="color: var(--text-lighter);">|</span>
               <a href="https://dih-west.at/s2-17-wie-reinforcement-learning-unternehmen-veraendert-universitaet-salzburg/"
                 target="_blank" style="color: var(--primary-color); font-weight: 600; text-decoration: none;">
                 Listen Now →
@@ -188,7 +191,9 @@
             <p class="news-description">
               Presenting 4 posters at IPAC 2026, including RL beyond greedy optimization and Causal GP-MPC.
             </p>
-            <a href="news.html" style="color: var(--primary-color); font-weight: 600;">Read more →</a>
+            <a href="news.html"
+              style="color: var(--primary-color); font-weight: 600; margin-top: 12px; display: inline-block;">Read more
+              →</a>
           </div>
 
           <div class="news-card">
@@ -197,7 +202,9 @@
             <p class="news-description">
               Launch of the INSPIRE project: AI prediction and personalized instruction for STEM education.
             </p>
-            <a href="research.html" style="color: var(--primary-color); font-weight: 600;">Read more →</a>
+            <a href="research.html"
+              style="color: var(--primary-color); font-weight: 600; margin-top: 12px; display: inline-block;">Read more
+              →</a>
           </div>
 
           <div class="news-card">
@@ -206,25 +213,28 @@
             <p class="news-description">
               Markus Dygruber joins the team as a PhD student.
             </p>
-            <a href="team.html" style="color: var(--primary-color); font-weight: 600;">Read more →</a>
+            <a href="team.html"
+              style="color: var(--primary-color); font-weight: 600; margin-top: 12px; display: inline-block;">Read more
+              →</a>
           </div>
         </div>
-        <p class="text text-center" style="margin-top: var(--spacing-md);">
+        <p class="text text-center" style="margin-top: 2rem;">
           <a href="news.html" style="font-weight: 600;">View all news →</a>
         </p>
       </section>
 
       <div class="section-divider"></div>
 
-      <!-- Background -->
-      <section>
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- BACKGROUND                                  -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section class="animate-on-scroll">
         <h2 class="add-top-margin">Background</h2>
         <p class="text">
           The <strong>Smart Analytics & Reinforcement Learning (SARL)</strong> research group operates as an
           interdisciplinary powerhouse, fusing concepts from <strong>Theoretical Physics, Control Theory, and Advanced
-            Artificial Intelligence</strong>. Our research is not limited to a single domain but focuses on the
-          underlying mathematical structures that govern complex systems—whether they are particle beams, industrial
-          assembly lines, or autonomous robots.
+            Artificial Intelligence</strong>. Our research focuses on the underlying mathematical structures that govern
+          complex systems—whether they are particle beams, industrial assembly lines, or autonomous robots.
         </p>
         <p class="text">
           <strong>Methodological Expertise:</strong>
@@ -232,11 +242,10 @@
             Hierarchical Reinforcement Learning</strong> for high-dimensional control, <strong>Gaussian Process
             MPC</strong> for safe, uncertainty-aware operations, and <strong>Causal Inference</strong> to disentangle
           structure from noise. Our toolkit extends to <strong>Unsupervised Anomaly Detection</strong>, <strong>Fractal
-            Time-Series Analysis</strong>, and <strong>Neuro-Symbolic AI</strong>, allowing us to tailor the
-          mathematical architecture to the specific physics of the problem—whether for the LHC, a smart factory, or
-          autonomous maritime vessels.
+            Time-Series Analysis</strong>, and <strong>Neuro-Symbolic AI</strong>.
         </p>
 
+        <!-- PhD Thesis Card -->
         <div class="card">
           <h3 style="margin-top: 0;">PhD Thesis: Exact Solutions for Accelerator Physics</h3>
           <p class="text" style="font-weight: 600; color: var(--primary-color);">Solving the "Factor of Two" Discrepancy
@@ -252,17 +261,17 @@
             <strong>The Novel Framework:</strong> Resolving this discrepancy required a fundamental paradigm shift. I
             introduced a <strong>novel mathematical framework</strong> by reformulating the problem on the
             Riemann-sphere. This approach represents a synthesis of highly abstract potential theory and practical
-            machine engineering, demonstrating high mathematical originality to
-            solve otherwise intractable physical problems with exact precision.
+            machine engineering, demonstrating high mathematical originality to solve otherwise intractable physical
+            problems with exact precision.
           </p>
 
-          <h4 style="margin-top: 15px; margin-bottom: 5px;">Key Contributions</h4>
+          <h4 style="margin-top: 15px; margin-bottom: 8px;">Key Contributions</h4>
           <ul style="margin-top: 5px;">
             <li><strong>Conceptual Breakthrough:</strong> Pioneered the "Riemann-Sphere Framework" for accelerator
               physics, handling both open and closed boundary conditions.</li>
             <li><strong>Mathematical Discovery:</strong> Derivation of a <strong>novel integral representation of the
                 Neumann function</strong> on the Riemann-sphere, enabling the first exact solutions to complex
-              <strong>magnetostatic boundary problems</strong> (including unbounded star-like domains).
+              <strong>magnetostatic boundary problems</strong>.
             </li>
             <li><strong>The "Rect-Ellipse" Solution:</strong> A closed-form analytical model using Jacobian elliptic
               functions that exactly maps the LHC beam screen.</li>
@@ -281,61 +290,106 @@
               (CERN-THESIS-2020-009) →</a>
           </p>
         </div>
-
-        <h3>Community Leadership</h3>
-        <ul>
-          <li>Organize the <strong><a href="https://sarl-plus.github.io/reinforcement_learning_coffee/"
-                target="_blank">"RL Coffee"</a></strong> - monthly meetup (first Friday of each month) for RL
-            researchers
-            and practitioners</li>
-          <li>Co-organize the <strong>RL Bootcamp</strong> - annual intensive training program</li>
-          <li>Lead the <strong>RL4AA</strong> (Reinforcement Learning for Autonomous Accelerators) international
-            collaboration</li>
-          <li>Member of the Supervision Team for the <strong>Doctorate School PLUS (DSP) "Human-Centered AI"</strong>,
-            advancing interdisciplinary AI research</li>
-          <li>Delivered a <a href="https://www.tedxsalzburg.com" target="_blank">TEDx talk</a>: "AI is what we make it"
-          </li>
-        </ul>
-
-        <h3>Collaborations</h3>
-        <p class="text"><strong>Research Institutions:</strong> CERN, DESY, KIT, SLAC, GSI, DLR, University of Oxford,
-          University of Malta, Stanford University, LANL, AI Austria</p>
-        <p class="text"><strong>Industry Partners:</strong></p>
-        <ul>
-          <li><strong>Medical Technology:</strong> W&H Dentalwerk (Precision control for piezo drivers)</li>
-          <li><strong>Steel & Heavy Industry:</strong> Danieli Automation (Rolling mill optimization), Palfinger
-            (Hydraulics)</li>
-          <li><strong>Energy & Sustainability:</strong> Copa-Data (Smart grid optimization)</li>
-          <li><strong>Manufacturing:</strong> STIWA Group (Assembly line automation)</li>
-          <li><strong>Knowledge Systems:</strong> Redlink (Neuro-symbolic AI)</li>
-          <li><strong>FinTech:</strong> JUIX (Automated auditing)</li>
-        </ul>
       </section>
 
       <div class="section-divider"></div>
 
-      <!-- Teaching -->
-      <section>
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- COMMUNITY & COLLABORATIONS                  -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section class="animate-on-scroll">
+        <h2 class="add-top-margin">Community & Collaborations</h2>
+
+        <h3>Community Leadership</h3>
+        <ul>
+          <li>Organize the <strong><a href="https://sarl-plus.github.io/reinforcement_learning_coffee/"
+                target="_blank">"RL Coffee"</a></strong> — monthly meetup (first Friday of each month) for RL
+            researchers and practitioners</li>
+          <li>Co-organize the <strong>RL Bootcamp</strong> — annual intensive training program</li>
+          <li>Lead the <strong>RL4AA</strong> (Reinforcement Learning for Autonomous Accelerators) international
+            collaboration</li>
+          <li>Member of the Supervision Team for the <strong>Doctorate School PLUS (DSP) "Human-Centered AI"</strong>,
+            advancing interdisciplinary AI research</li>
+          <li>Delivered a <a href="https://www.tedxsalzburg.com" target="_blank">TEDx talk</a>: "AI is what we make
+            it"</li>
+        </ul>
+
+        <h3>Research Institutions</h3>
+        <div class="collab-tags">
+          <span class="collab-tag">CERN</span>
+          <span class="collab-tag">DESY</span>
+          <span class="collab-tag">KIT</span>
+          <span class="collab-tag">SLAC</span>
+          <span class="collab-tag">GSI</span>
+          <span class="collab-tag">DLR</span>
+          <span class="collab-tag">University of Oxford</span>
+          <span class="collab-tag">University of Malta</span>
+          <span class="collab-tag">Stanford University</span>
+          <span class="collab-tag">LANL</span>
+          <span class="collab-tag">AI Austria</span>
+        </div>
+
+        <h3>Industry Partners</h3>
+        <div class="collab-tags">
+          <span class="collab-tag">🏥 W&H Dentalwerk</span>
+          <span class="collab-tag">🏗️ Danieli Automation</span>
+          <span class="collab-tag">🏗️ Palfinger</span>
+          <span class="collab-tag">⚡ Copa-Data</span>
+          <span class="collab-tag">🏭 STIWA Group</span>
+          <span class="collab-tag">🧠 Redlink</span>
+          <span class="collab-tag">💼 JUIX</span>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- TEACHING                                    -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section class="animate-on-scroll">
         <h2 class="add-top-margin">Teaching</h2>
         <p class="text">Courses at Paris Lodron University Salzburg (PLUS):</p>
-        <ul>
-          <li>Advanced Reinforcement Learning and Agentic AI Systems</li>
-          <li>Introduction into Deep Reinforcement Learning</li>
-          <li>Introduction to Reinforcement Learning</li>
-          <li>Advanced Topics in Reinforcement Learning</li>
-          <li>Special Topics in Data Science</li>
-          <li>Mathematical Foundations in Precision Medicine</li>
-          <li>AI Bachelor Seminar</li>
-        </ul>
-        <p class="text">
+        <div class="icon-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+          <div class="icon-card" style="cursor: default;">
+            <i class="fas fa-robot"></i>
+            <div>
+              <strong>Advanced RL & Agentic AI Systems</strong><br>
+              <span style="font-size: 0.85rem; color: var(--text-lighter);">Graduate Course</span>
+            </div>
+          </div>
+          <div class="icon-card" style="cursor: default;">
+            <i class="fas fa-network-wired"></i>
+            <div>
+              <strong>Intro to Deep RL</strong><br>
+              <span style="font-size: 0.85rem; color: var(--text-lighter);">Graduate Course</span>
+            </div>
+          </div>
+          <div class="icon-card" style="cursor: default;">
+            <i class="fas fa-gamepad"></i>
+            <div>
+              <strong>Introduction to RL</strong><br>
+              <span style="font-size: 0.85rem; color: var(--text-lighter);">Undergraduate Course</span>
+            </div>
+          </div>
+          <div class="icon-card" style="cursor: default;">
+            <i class="fas fa-flask"></i>
+            <div>
+              <strong>Special Topics in Data Science</strong><br>
+              <span style="font-size: 0.85rem; color: var(--text-lighter);">Seminar</span>
+            </div>
+          </div>
+        </div>
+        <p class="text" style="margin-top: 1.5rem;">
           <a href="teaching.html" style="font-weight: 600;">Learn more about my teaching →</a>
         </p>
       </section>
 
       <div class="section-divider"></div>
 
-      <!-- Students -->
-      <section>
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- STUDENTS                                    -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section class="animate-on-scroll">
         <h2 class="add-top-margin">Current Students</h2>
         <p class="text">
           I am privileged to work with talented students on exciting research topics. Our team includes PhD students,
@@ -352,8 +406,10 @@
 
       <div class="section-divider"></div>
 
-      <!-- Contact -->
-      <section>
+      <!-- ═══════════════════════════════════════════ -->
+      <!-- CONTACT                                     -->
+      <!-- ═══════════════════════════════════════════ -->
+      <section class="animate-on-scroll">
         <h2 class="add-top-margin">Contact</h2>
         <div class="card">
           <p class="text">
@@ -376,6 +432,28 @@
     </div>
   </main>
   <div class="footer-container"></div>
+
+  <!-- Scroll Animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // IntersectionObserver for scroll animations
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      document.querySelectorAll('.animate-on-scroll').forEach(function (el) {
+        observer.observe(el);
+      });
+    });
+  </script>
 </body>
 
 </html>
