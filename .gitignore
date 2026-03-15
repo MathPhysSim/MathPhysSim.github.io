@@ -2,3 +2,10 @@
 .DS_Store
 .idea/
 
+
+# Sensitive/private files
+Career_Report_March_2026.md
+Email_Archive_Findings_March_2026.md
+emails.csv
+emails.pkl
+*.pdf
