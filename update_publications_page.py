@@ -1,10 +1,10 @@
 def update_page():
     try:
         print("Reading files...")
-        with open('publications.html', 'r') as f:
+        with open('publications.html', 'r', encoding='utf-8') as f:
             full_html = f.read()
             
-        with open('publications_content.html', 'r') as f:
+        with open('publications_content.html', 'r', encoding='utf-8') as f:
             new_list_content = f.read()
             
         # Hard Reset Strategy
@@ -58,7 +58,7 @@ def update_page():
 
         new_full_html = header + new_list_content + "\n" + closing_divs + footer_scripts
         
-        with open('publications.html', 'w') as f:
+        with open('publications.html', 'w', encoding='utf-8') as f:
             f.write(new_full_html)
             
         print("Successfully performed hard reset of publications.html")
