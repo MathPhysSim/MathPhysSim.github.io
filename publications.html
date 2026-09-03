@@ -5,216 +5,76 @@
   <title>Publications - Simon Hirländer</title>
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
   <meta name="description"
-    content="Publications by Simon Hirländer — peer-reviewed journals, conference papers, and invited talks on Reinforcement Learning, accelerator physics, and AI-driven control.">
+    content="Publications by Simon Hirländer: peer-reviewed journals, conference papers, and invited talks on Reinforcement Learning, accelerator physics, and AI-driven control.">
+  <meta name="keywords"
+    content="Simon Hirländer publications, Reinforcement Learning, CERN, Accelerator Physics, Hamiltonian Neural Networks, Koopman Operator">
 
-  <link rel="preconnect" href="https://use.fontawesome.com">
-  <link rel="preconnect" href="https://ajax.googleapis.com" crossorigin>
+  <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://use.fontawesome.com">
 
-  <!-- Critical CSS first -->
-  <link href="css/frame.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href="css/custom.css" media="screen" rel="stylesheet" type="text/css" />
+  <!-- Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Fonts with display=swap for better performance -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-    rel="stylesheet" type="text/css">
+  <!-- SOTA CSS Design System -->
+  <link href="css/sota.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" rel="stylesheet" type="text/css" />
 
-  <!-- FontAwesome is needed for the scholar icons -->
-  <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" media="screen" rel="stylesheet"
-    type="text/css" />
-
-  <!-- Non-critical CSS loaded with lower priority -->
-  <link href="css/controls.css" media="print" onload="this.media='screen'" rel="stylesheet" type="text/css" />
-  <link href="css/widgets.css" media="print" onload="this.media='screen'" rel="stylesheet" type="text/css" />
-  <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" media="print"
-    onload="this.media='screen'" rel="stylesheet" type="text/css" />
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&display=swap" media="print"
-    onload="this.media='screen'" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap" media="print"
-    onload="this.media='screen'" rel="stylesheet" type="text/css">
-
-  <!-- JavaScript with defer to not block rendering -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" defer></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" defer></script>
-  <script src="js/menu.js" defer></script>
-  <script src="js/widgets.js" defer></script>
-
-  <!-- MathJax loaded conditionally -->
-  <script>
-    // Only load MathJax if we actually need math rendering on this page
-    function loadMathJax() {
-      const script2 = document.createElement('script');
-      script2.id = 'MathJax-script';
-      script2.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script2.async = true;
-
-      document.head.appendChild(script2);
-    }
-
-    // Check if the page has math content and load MathJax if needed
-    // You can modify this condition based on your actual need for MathJax
-    if (document.querySelector('.math')) {
-      loadMathJax();
-    }
-  </script>
-
-  <style>
-    /* Enhanced styles for publication links with responsive sizing */
-    .scholar-links {
-      margin-top: calc(0.8rem + 0.3vw);
-    }
-
-    .scholar-link-list {
-      list-style: none;
-      padding: 0;
-    }
-
-    .scholar-link-list li {
-      margin: calc(0.4rem + 0.2vw) 0;
-    }
-
-    .scholar-link-list a {
-      display: inline-block;
-      padding: calc(0.3rem + 0.2vw) calc(0.5rem + 0.3vw);
-      background-color: #f5f5f5;
-      border-radius: 4px;
-      text-decoration: none;
-      color: #333;
-      transition: background-color 0.2s ease;
-      font-size: clamp(0.7rem, 0.65rem + 0.2vw, 0.85rem);
-    }
-
-    .scholar-link-list a:hover {
-      background-color: #e0e0e0;
-    }
-
-    /* Responsive adjustments for different screen sizes */
-    @media screen and (max-width: 768px) {
-      .scholar-link-list a {
-        display: block;
-        width: 100%;
-        text-align: center;
-        box-sizing: border-box;
-        font-size: 13px;
-      }
-    }
-
-    /* Styles for the static publication list */
-    .publications-list {
-      margin-top: 20px;
-    }
-
-    .year-header {
-      color: var(--primary-color, #0056b3);
-      /* Fallback to blue if var not defined */
-      border-bottom: 2px solid #eee;
-      padding-bottom: 5px;
-      margin-top: 30px;
-      margin-bottom: 15px;
-    }
-
-    .publication-year-list {
-      list-style: none;
-      padding: 0;
-    }
-
-    .publication-item {
-      margin-bottom: 15px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid #f9f9f9;
-    }
-
-    .publication-title {
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: #333;
-      text-decoration: none;
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .publication-title:hover {
-      color: var(--primary-color, #0056b3);
-    }
-
-    .publication-meta {
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    .publication-authors {
-      font-style: italic;
-    }
-
-    .publication-venue {
-      color: #888;
-    }
-
-    .publication-details {
-      margin-top: 5px;
-    }
-
-    .publication-summary {
-      cursor: pointer;
-      color: var(--primary-color, #0056b3);
-      font-size: 0.85rem;
-      user-select: none;
-    }
-
-    .publication-summary:hover {
-      text-decoration: underline;
-    }
-
-    .publication-abstract {
-      margin-top: 5px;
-      padding: 10px;
-      background-color: #f9f9f9;
-      border-radius: 4px;
-      font-size: 0.9rem;
-    }
-  </style>
+  <!-- SOTA Vanilla JS -->
+  <script src="js/nav.js" defer></script>
 </head>
 
 <body>
   <div class="menu-container"></div>
-  <div class="content-container">
-    <div class="content">
-      <div class="content-table flex-column">
-        <div class="flex-row">
-          <div class="flex-item flex-column">
-            <h1 class="add-top-margin">Publications</h1>
-            <div class="scholar-links">
-              <p class="text">It is likely that my Google Scholar or Semantic Scholar profile is more accurate and
-                up-to-date:</p>
-              <ul class="scholar-link-list">
-                <li>
-                  <a href="https://scholar.google.com/citations?hl=de&user=sE8Q0TIAAAAJ" target="_blank"
-                    rel="noopener noreferrer">
-                    <i class="fas fa-book"></i> Google Scholar Profile
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.semanticscholar.org/author/Simon-Hirlaender/107672013" target="_blank"
-                    rel="noopener noreferrer">
-                    <i class="fas fa-graduation-cap"></i> Semantic Scholar Profile
-                  </a>
-                </li>
-                <li>
-                  <a href="https://orcid.org/0000-0002-2634-3437" target="_blank" rel="noopener noreferrer">
-                    <img alt="ORCID logo" src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png"
-                      width="16" height="16" style="vertical-align: middle; margin-right: 5px;" />
-                    ORCID Profile (0000-0002-2634-3437)
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <hr>
-<div class="publications-list">
+
+  <main id="maincontent" class="page-container">
+    <section style="padding: 3rem 0 1.5rem;">
+      <div class="status-pill">
+        <span class="status-indicator"></span>
+        <span>100+ Publications &middot; Peer-Reviewed &middot; Preprints</span>
+      </div>
+      <h1 style="font-size: 2.8rem; margin-bottom: 0.5rem;">Publications &amp; Dissemination</h1>
+      <p class="text" style="font-size: 1.1rem; max-width: 820px;">
+        Peer-reviewed journal articles, conference proceedings, and invited talks spanning Theoretical Physics, Reinforcement Learning, Autonomous Particle Accelerators, and Industrial AI.
+      </p>
+
+      <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 1.25rem;">
+        <a href="https://scholar.google.com/citations?hl=en&user=sE8Q0TIAAAAJ" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size: 0.88rem; padding: 8px 16px;">
+          <i class="fas fa-graduation-cap"></i> Google Scholar Profile
+        </a>
+        <a href="https://orcid.org/0000-0002-1284-3338" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size: 0.88rem; padding: 8px 16px;">
+          <i class="fas fa-id-badge"></i> ORCID: 0002-1284-3338
+        </a>
+        <a href="https://arxiv.org/search/?query=Hirlaender%2C+Simon&searchtype=author" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size: 0.88rem; padding: 8px 16px;">
+          <i class="fas fa-archive"></i> arXiv Author Index
+        </a>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- INTERACTIVE SEARCH & FILTER TOOLBAR         -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="filter-container">
+      <div class="search-input-wrapper">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="pub-search-input" class="search-input" placeholder="Search publications by title, author, venue, or keyword..." aria-label="Search publications">
+      </div>
+      <div class="filter-pills">
+        <button class="filter-pill active" data-filter="all">All Disciplines</button>
+        <button class="filter-pill" data-filter="rl">Reinforcement Learning &amp; Control</button>
+        <button class="filter-pill" data-filter="accelerators">Particle Accelerators &amp; CERN</button>
+        <button class="filter-pill" data-filter="industrial">Industrial AI &amp; Systems</button>
+        <button class="filter-pill" data-filter="medical">Medical &amp; Healthcare</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PUBLICATIONS CONTENT LIST                   -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="publications-list">
   <h3 class="year-header">2026</h3>
   <ul class="publication-year-list">
     <li class="publication-item">
@@ -1365,26 +1225,10 @@
   </ul>
 </div>
 
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
 
-  <!--
-  The script below, which loaded publicationlist.html, is now commented out
-  as we are trying to use an iframe instead.
-  <script defer>
-    $(function(){
-      // Consider adding error handling for the load function
-      $("#includedContent").load("publicationlist.html", function(response, status, xhr) {
-        if (status == "error") {
-          $("#includedContent").html("<p class='text error-message'>Sorry, couldn't load publications at this time. Please try again later or check the scholar profiles linked above.</p>");
-        }
-      });
-    });
-  </script>
-  -->
+  </main>
+
+  <div class="footer-container"></div>
 </body>
 
 </html>
